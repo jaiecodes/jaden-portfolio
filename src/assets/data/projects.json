@@ -1,0 +1,114 @@
+[
+  {
+    "id": "ces-2026-simulator",
+    "name": "CES 2026 Simulator",
+    "year": 2026,
+    "category": "Software Engineering",
+    "role": "Lead Software Engineering Intern",
+    "tags": ["C++", "Python", "Unreal Engine 5", "Networking"],
+    "description": "A high-fidelity maritime simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",
+    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
+    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
+    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
+    "externalLinks": [
+      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
+      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+    ],
+    "media": [
+      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
+      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
+    ],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
+        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
+      },
+      {
+        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
+        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
+      },
+      {
+        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
+        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
+      }
+    ]
+  },
+  {
+    "id": "echoes-elements",
+    "name": "Echoes of the Elements",
+    "year": 2025,
+    "category": "Game Development",
+    "role": "Gameplay Programmer",
+    "tags": ["Unreal Engine", "C++", "Blueprints", "UI/UX"],
+    "description": "A third-person action-adventure game featuring Kael the vole, focused on elemental puzzles and fluid movement.",
+    "contributions": "Designed the core movement system and the 'Earth' element ability set using a hybrid C++/Blueprint approach.",
+    "challenges": "Optimizing mesh calculations for elemental destruction without dropping below 60fps.",
+    "impact": "Achieved a stable 60fps on mid-range hardware while maintaining high-fidelity physics interactions.",
+    "externalLinks": [
+      { "type": "github", "url": "https://github.com/jaden/echoes" }
+    ],
+    "media": [
+      "https://placehold.co/600x400/222/white?text=Echoes+Cover",
+      "https://placehold.co/600x400/333/white?text=Problem+Visual"
+    ],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Kael+Model",
+        "caption": "High-poly character sculpt for Kael, optimized for Unreal Engine 5's Nanite system."
+      },
+      {
+        "url": "https://placehold.co/1920x1080/444/white?text=Ability+Blueprints",
+        "caption": "Visual scripting logic for the Earth-bending ability interaction system."
+      }
+    ]
+  },
+  {
+    "id": "cad-simplifier",
+    "name": "CAD Simplifier",
+    "year": 2025,
+    "category": "Software Engineering",
+    "role": "Tooling Engineer",
+    "tags": ["Python", "Blender API", "C++", "Desktop"],
+    "description": "An automated desktop tool for optimizing high-poly CAD models for real-time applications.",
+    "contributions": "Built the Python-based Blender bridge and the C++ UI framework for the desktop app.",
+    "challenges": "Handling non-manifold geometry during the automated decimation process.",
+    "impact": "Reduced average model polygon count by 85% while preserving critical visual silhouettes for AR/VR.",
+    "externalLinks": [
+      { "type": "github", "url": "https://github.com/jaden/cad-simple" }
+    ],
+    "media": ["https://placehold.co/600x400/222/white?text=CAD+Tool+Cover"],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Decimation+Log",
+        "caption": "Visualizing the automated decimation process on a complex engine block model."
+      }
+    ]
+  },
+  {
+    "id": "cake-inventory-app",
+    "name": "Cottage Bakery Manager",
+    "year": 2026,
+    "category": "Web/Mobile",
+    "role": "Full Stack Developer",
+    "tags": ["React", "TypeScript", "Tailwind", "Firebase"],
+    "description": "A custom management tool for a home-based bakery to track orders, inventory, and automated customer messaging.",
+    "contributions": "Developed the order tracking dashboard and the inventory logic to deduct ingredients automatically.",
+    "challenges": "Integrating a flexible calendar system that accounts for bakery lead times.",
+    "impact": "Saved the business owner an average of 10 hours per week in administrative overhead.",
+    "externalLinks": [
+      { "type": "figma", "url": "https://figma.com/jaden/bakery-app-ux" },
+      {
+        "type": "external",
+        "url": "https://jadenbakes.com",
+        "label": "Live Site"
+      }
+    ],
+    "media": ["https://placehold.co/600x400/222/white?text=Bakery+App+Cover"],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Inventory+Dashboard",
+        "caption": "The main inventory view showing low-stock alerts for critical baking ingredients."
+      }
+    ]
+  }
+]

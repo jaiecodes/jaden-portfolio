@@ -1,68 +1,119 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+@import "tailwindcss";
+
+/* --- 1. Font Definitions --- */
+
+@font-face {
+  font-family: "Borel";
+  src: url("./assets/fonts/Borel-Regular.ttf") format("truetype");
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-display: swap;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@font-face {
+  font-family: "Chillax";
+  /* Using your variable file to support ExtraLight through Bold */
+  src: url("./assets/fonts/Chillax-Variable.ttf") format("truetype");
+  font-weight: 100 700;
+  font-display: swap;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/* --- 2. The Flexible Design System --- */
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  body,
+  .body-primary {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 400;
+    /* Scales from 18px to 24px */
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    @apply text-white antialiased leading-relaxed;
   }
-  a:hover {
-    color: #747bff;
+
+  /* Body Secondary - Satoshi Regular (18px) */
+  /* Perfect for lists, small paragraphs, or technical details */
+  .body-secondary {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 400;
+    /* Scales from 16px to 18px */
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    @apply text-zinc-400 leading-normal;
   }
+
+  /* H1 - Chillax Semi Bold (96px) - Page/Project Titles */
+  h1 {
+    font-family: "Chillax", sans-serif;
+    font-weight: 600;
+    font-size: clamp(3rem, 8vw, 6rem);
+    @apply leading-tight;
+  }
+
+  /* H2 - Chillax Semi Bold (60px) - CTA / Next Project */
+  h2 {
+    font-family: "Chillax", sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    @apply leading-snug;
+  }
+
+  /* H3 - Borel Regular UpperCase (48px) - Section Titles */
+  h3 {
+    font-family: "Borel", cursive;
+    font-weight: 900;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    @apply uppercase tracking-tighter;
+  }
+
+  /* H4 - Borel Regular UpperCase (30px) - Section SubTitles */
+  h4 {
+    font-family: "Borel", cursive;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+    @apply uppercase tracking-wider;
+  }
+
+  /* H5 - Satoshi Bold (20px) - Subsection titles / Buttons */
+  h5 {
+    font-family: "Satoshi", serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    @apply uppercase tracking-wider;
+  }
+
+  /* H6 - Satoshi Bold (14px) - Captions / Buttons */
+  h6,
+  .caption-btn,
   button {
-    background-color: #f9f9f9;
+    font-family: "Satoshi", sans-serif;
+    font-weight: 700;
+    font-size: 0.875rem;
+    @apply uppercase tracking-widest;
+  }
+  .caption-btn-sm,
+  button {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    @apply uppercase tracking-widest;
+  }
+}
+
+/* --- 3. Utilities --- */
+
+@layer utilities {
+  .font-borel {
+    font-family: "Borel", cursive;
+  }
+  .font-satoshi {
+    font-family: "Satoshi", sans-serif;
+  }
+  .font-chillax {
+    font-family: "Chillax", sans-serif;
   }
 }
