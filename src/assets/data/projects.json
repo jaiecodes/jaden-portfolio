@@ -1,7 +1,7 @@
 [
   {
-    "id": "ces-2026-simulator",
-    "name": "CES 2026 Simulator",
+    "id": "ces-helm-sim",
+    "name": "CES Helm Simulator",
     "year": 2026,
     "category": "Software Engineering",
     "role": "Lead Software Engineering Intern",
@@ -108,6 +108,40 @@
       {
         "url": "https://placehold.co/1920x1080/222/white?text=Inventory+Dashboard",
         "caption": "The main inventory view showing low-stock alerts for critical baking ingredients."
+      }
+    ]
+  },
+  {
+    "id": "flite-sim",
+    "name": "Fliteboard Simulator",
+    "year": 2026,
+    "category": "Software Engineering",
+    "role": "Lead Software Engineering Intern",
+    "tags": ["C++", "Python", "Unreal Engine 5", "Networking"],
+    "description": "A high-fidelity maritime simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",
+    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
+    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
+    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
+    "externalLinks": [
+      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
+      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+    ],
+    "media": [
+      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
+      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
+    ],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
+        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
+      },
+      {
+        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
+        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
+      },
+      {
+        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
+        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
       }
     ]
   }

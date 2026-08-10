@@ -1,5 +1,4 @@
 // src/features/projects/components/ProjectContributions.tsx
-import { motion } from "motion/react";
 
 export const ProjectContributions = ({
   content,

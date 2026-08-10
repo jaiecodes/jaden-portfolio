@@ -27,7 +27,7 @@ export const Header = () => {
       className="fixed top-0 inset-x-0 z-[200] flex justify-center items-center h-[100px] overflow-hidden backdrop-blur-md"
       style={{
         background:
-          "linear-gradient(180deg, #030A11 0%, rgba(3, 10, 17, 0) 100%)",
+          "linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%)",
       }}
     >
       <nav className="flex items-center gap-[40px] h-[80px]">
