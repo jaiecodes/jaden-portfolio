@@ -1,0 +1,185 @@
+{
+  "ces-helm-sim": {
+    "background": "#A7E8FF",
+    "textColor": "#026AFD",
+    "titleZIndex": 20,
+    "titleLines": ["CES Helm", "Simulator"],
+    "layers": [
+      {
+        "src": "/svg/ces-2026-simulator/boat-helm.svg",
+        "zIndex": 50,
+        "position": { "width": "1959px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["-80px", "-80px"] },
+          { "property": "y", "input": [0, 1], "output": ["776px", "402px"] }
+        ]
+      },
+      {
+        "src": "/svg/ces-2026-simulator/wave-1.svg",
+        "zIndex": 40,
+        "position": { "width": "2050px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["-163px", "-40px"] },
+          { "property": "y", "input": [0, 1], "output": ["205px", "188px"] }
+        ]
+      },
+      {
+        "src": "/svg/ces-2026-simulator/wave-2.svg",
+        "zIndex": 30,
+        "position": { "left": "-13px", "top": "49px", "width": "1995px" },
+        "transforms": [
+          { "property": "rotate", "input": [0, 1], "output": [0, -14.2] }
+        ]
+      },
+      {
+        "src": "/svg/ces-2026-simulator/wave-4.svg",
+        "zIndex": 10,
+        "position": { "width": "2123px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["-141px", "487px"] },
+          { "property": "y", "input": [0, 1], "output": ["591px", "273px"] }
+        ]
+      },
+      {
+        "src": "/svg/ces-2026-simulator/wave-5.svg",
+        "zIndex": 5,
+        "position": { "left": "-342px", "top": "-262px", "width": "2524px" },
+        "transforms": [
+          { "property": "rotate", "input": [0, 1], "output": [0, -19.8] }
+        ]
+      }
+    ]
+  },
+  "echoes-elements": {
+    "background": "#D7CABB",
+    "textColor": "#161721",
+    "titleZIndex": 5,
+    "titleLines": ["Echoes of the", "Elements"],
+    "layers": [
+      {
+        "src": "/svg/echoes-elements/cave-0.svg",
+        "zIndex": 60,
+        "position": { "width": "1841px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["-42px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["-90px", "-211px"] }
+        ]
+      },
+      {
+        "src": "/svg/echoes-elements/cave-1.svg",
+        "zIndex": 50,
+        "position": { "width": "1813px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["28px", "28px"] },
+          { "property": "y", "input": [0, 1], "output": ["-73px", "-139px"] }
+        ]
+      },
+      {
+        "src": "/svg/echoes-elements/waterfall.svg",
+        "zIndex": 40,
+        "position": { "width": "1072px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["66px", "35px"] },
+          { "property": "y", "input": [0, 1], "output": ["344px", "280px"] }
+        ]
+      },
+      {
+        "src": "/svg/echoes-elements/trees.svg",
+        "zIndex": 30,
+        "position": { "width": "482px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["163px", "89px"] },
+          { "property": "y", "input": [0, 1], "output": ["224px", "165px"] }
+        ]
+      },
+      {
+        "src": "/svg/echoes-elements/ground.svg",
+        "zIndex": 20,
+        "position": { "width": "1747px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["44px", "26px"] },
+          { "property": "y", "input": [0, 1], "output": ["300px", "238px"] }
+        ]
+      },
+      {
+        "src": "/svg/echoes-elements/volcano.svg",
+        "zIndex": 10,
+        "position": { "width": "596px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["346px", "586px"] },
+          { "property": "y", "input": [0, 1], "output": ["225px", "183px"] }
+        ]
+      }
+    ]
+  },
+  "flite-sim": {
+    "background": "#B6B4A5",
+    "textColor": "#362B00",
+    "titleZIndex": 20,
+    "titleLines": ["Fliteboard", "Simulator"],
+    "layers": [
+      {
+        "src": "/svg/flite-sim/flite-board.svg",
+        "zIndex": 60,
+        "position": { "width": "194.59px" },
+        "transforms": [
+          {
+            "property": "x",
+            "input": [0, 1],
+            "output": ["548px", "695px"]
+          },
+          {
+            "property": "y",
+            "input": [0, 1],
+            "output": ["945px", "495px"]
+          }
+        ]
+      },
+      {
+        "src": "/svg/flite-sim/water-1.svg",
+        "zIndex": 50,
+        "position": { "width": "1800px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["1061px", "593px"] }
+        ]
+      },
+      {
+        "src": "/svg/flite-sim/water-2.svg",
+        "zIndex": 40,
+        "position": { "width": "1800px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["825px", "357px"] }
+        ]
+      },
+      {
+        "src": "/svg/flite-sim/wet-sand-3.svg",
+        "zIndex": 30,
+        "position": { "width": "1800px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["727px", "259px"] }
+        ]
+      },
+      {
+        "src": "/svg/flite-sim/sand-5.svg",
+        "zIndex": 10,
+        "position": { "width": "1800px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["521px", "53px"] }
+        ]
+      },
+      {
+        "src": "/svg/flite-sim/sand-6.svg",
+        "zIndex": 5,
+        "position": { "width": "1800px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
+          { "property": "y", "input": [0, 1], "output": ["418px", "-50px"] }
+        ]
+      }
+    ]
+  }
+}

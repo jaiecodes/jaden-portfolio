@@ -1,4 +1,6 @@
 // src/domain/models/Project.ts
+import defaultIcon from "../../assets/icons/boat.svg";
+
 export type LinkType = "github" | "figma" | "external" | "linkedin";
 
 export interface ExternalLink {
@@ -26,6 +28,7 @@ export interface ProjectData {
   challenges: string;
   impact: string;
   images: ProjectImage[];
+  icon?: string; // URL of a single-colour SVG, used as the gradient mask on the card
 }
 
 export class Project {
@@ -42,6 +45,7 @@ export class Project {
   readonly challenges: string;
   readonly impact: string;
   readonly images: ProjectImage[];
+  readonly icon?: string;
 
   constructor(data: ProjectData) {
     this.id = data.id;
@@ -57,6 +61,12 @@ export class Project {
     this.challenges = data.challenges;
     this.impact = data.impact;
     this.images = data.images;
+    this.icon = data.icon;
+  }
+
+  /** SVG URL used as the card's gradient mask, falling back to the bundled glyph. */
+  get iconUrl(): string {
+    return this.icon ?? defaultIcon;
   }
 
   matchesSearch(query: string): boolean {

@@ -1,5 +1,4 @@
 // src/features/about/AboutLearning.tsx
-import { motion } from "motion/react";
 
 const CURRENT_TOPICS = [
   {

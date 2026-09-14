@@ -1,6 +1,6 @@
 // src/features/about/AboutHero.tsx
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { motion } from "motion/react";
 
 export const AboutHero = () => {

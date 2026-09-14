@@ -9,10 +9,35 @@
   font-display: swap;
 }
 
+/* Satoshi-Variable.ttf, as shipped:
+     internal family name  "Satoshi Variable"
+     wght axis             min 300, max 900, DEFAULT 900
+     named instances       Light 300, Regular 400, Medium 500, Bold 700, Black 900
+     OS/2 usWeightClass    900, with the BOLD bit set in fsSelection
+
+   Two consequences worth knowing. The axis bottoms out at 300, so anything
+   lighter clamps rather than rendering. And the default instance is Black,
+   not Regular, so any element that ends up without an explicit weight, or
+   any context where the axis is not applied, renders at 900. Declaring the
+   real range below keeps the browser's weight matching honest. */
 @font-face {
   font-family: "Satoshi";
-  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
-  font-weight: 100 900;
+  /* truetype-variations first: older Safari ignores the weight axis on a
+     variable TTF declared only as truetype, and silently synthesises bold. */
+  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
+    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+/* The file's own family name is "Satoshi Variable", which is what the Figma
+   export refers to. Registering it too means that name resolves to this file
+   instead of silently falling back to the system sans. */
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
+    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
+  font-weight: 300 900;
   font-display: swap;
 }
 
@@ -24,12 +49,71 @@
   font-display: swap;
 }
 
-/* --- 2. The Flexible Design System --- */
+/* --- 2. Theme Tokens --- */
+/* Registered with @theme so Tailwind generates bg-accent, text-ink,
+   bg-secondary/50 etc. Alpha lives in the modifier, not the token. */
+
+@theme {
+  --font-satoshi: "Satoshi Variable", "Satoshi", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-borel: "Borel", cursive;
+  --font-chillax: "Chillax", ui-sans-serif, system-ui, sans-serif;
+
+  --color-accent: #efc139; /* Accent */
+  --color-secondary: #dd8b2d; /* Secondary */
+  --color-ember: #a14d45; /* angular gradient terminus */
+  --color-ink: #030a11; /* Card Info background */
+  --color-body: #c8c8c5; /* Description text */
+}
+
+/* Paints. Any of these can be handed to a stroke, an icon, or a fill. */
+:root {
+  /* Angular fill. Figma's 35deg rotation reads as 215deg in CSS, since CSS
+     measures from 12 o'clock and Figma's 0deg sits at CSS 180deg.
+     The 0% stop is what stops the sweep from ending on a hard seam: without
+     it, #EFC139 extends back from 4% to 0% and meets #A14D45 at 100% with no
+     interpolation. Repeating the terminus at 0% gives the ember a 4% (14.4deg)
+     ramp back into the accent. Widen that 4% to soften the blend further. */
+  --paint-angular: conic-gradient(
+    from 215deg at 50% 50%,
+    var(--color-ember) 0%,
+    var(--color-accent) 4%,
+    var(--color-accent) 47%,
+    var(--color-secondary) 62%,
+    var(--color-ember) 100%
+  );
+  --paint-accent-soft: rgb(239 193 57 / 0.5); /* Accent_Border */
+  --paint-secondary-soft: rgb(221 139 45 / 0.5); /* Secondary_Border */
+  /* Description block: Secondary 15% -> Accent 15%, left to right */
+  --paint-warm-wash: linear-gradient(
+    90deg,
+    rgb(221 139 45 / 0.15) 0%,
+    rgb(239 193 57 / 0.15) 100%
+  );
+  --shadow-card-glow: 0 1px 12px rgb(239 193 57 / 0.5);
+  --shadow-tile: 0 4px 4px rgb(0 0 0 / 0.25);
+  --shadow-inset-lip: inset 0 4px 4px rgb(0 0 0 / 0.25);
+
+  /* Solid accent -> secondary sweep for gradient text (the PROJECTS title). */
+  --paint-title: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-secondary) 100%
+  );
+  /* Search field: Accent 15% -> Secondary 15%, left to right. */
+  --paint-search: linear-gradient(
+    90deg,
+    rgb(239 193 57 / 0.15) 0%,
+    rgb(221 139 45 / 0.15) 100%
+  );
+}
+
+/* --- 3. The Flexible Design System --- */
 
 @layer base {
   body,
   .body-primary {
-    font-family: "Satoshi", sans-serif;
+    font-family: var(--font-satoshi);
     font-weight: 400;
     /* Scales from 18px to 24px */
     font-size: clamp(1.125rem, 2vw, 1.5rem);
@@ -39,7 +123,7 @@
   /* Body Secondary - Satoshi Regular (18px) */
   /* Perfect for lists, small paragraphs, or technical details */
   .body-secondary {
-    font-family: "Satoshi", sans-serif;
+    font-family: var(--font-satoshi);
     font-weight: 400;
     /* Scales from 16px to 18px */
     font-size: clamp(1rem, 1.5vw, 1.125rem);
@@ -48,7 +132,7 @@
 
   /* H1 - Chillax Semi Bold (96px) - Page/Project Titles */
   h1 {
-    font-family: "Chillax", sans-serif;
+    font-family: var(--font-chillax);
     font-weight: 600;
     font-size: clamp(3rem, 8vw, 6rem);
     @apply leading-tight;
@@ -56,7 +140,7 @@
 
   /* H2 - Chillax Semi Bold (60px) - CTA / Next Project */
   h2 {
-    font-family: "Chillax", sans-serif;
+    font-family: var(--font-chillax);
     font-weight: 600;
     font-size: clamp(2.25rem, 5vw, 3.75rem);
     @apply leading-snug;
@@ -64,7 +148,7 @@
 
   /* H3 - Borel Regular UpperCase (48px) - Section Titles */
   h3 {
-    font-family: "Borel", cursive;
+    font-family: var(--font-borel);
     font-weight: 900;
     font-size: clamp(1.75rem, 4vw, 3rem);
     @apply uppercase tracking-tighter;
@@ -72,7 +156,7 @@
 
   /* H4 - Borel Regular UpperCase (30px) - Section SubTitles */
   h4 {
-    font-family: "Borel", cursive;
+    font-family: var(--font-borel);
     font-weight: 400;
     font-size: clamp(1.25rem, 3vw, 1.875rem);
     @apply uppercase tracking-wider;
@@ -80,7 +164,7 @@
 
   /* H5 - Satoshi Bold (20px) - Subsection titles / Buttons */
   h5 {
-    font-family: "Satoshi", serif;
+    font-family: var(--font-satoshi);
     font-weight: 700;
     font-size: 1.25rem;
     @apply uppercase tracking-wider;
@@ -90,30 +174,239 @@
   h6,
   .caption-btn,
   button {
-    font-family: "Satoshi", sans-serif;
+    font-family: var(--font-satoshi);
     font-weight: 700;
     font-size: 0.875rem;
     @apply uppercase tracking-widest;
   }
   .caption-btn-sm,
   button {
-    font-family: "Satoshi", sans-serif;
+    font-family: var(--font-satoshi);
     font-weight: 700;
     font-size: 0.75rem;
     @apply uppercase tracking-widest;
   }
+
+  /* ---- Project card type ramp ----
+     Satoshi Variable throughout, fixed sizes because the card is a fixed
+     360px. Each rule restates family, weight, transform and tracking so it
+     wins cleanly over the element defaults above rather than being patched
+     with utilities.
+
+     Weights are 500 / 700 / 400 / 700. Each is pinned twice: font-weight for
+     normal CSS matching, and font-variation-settings so the wght axis is set
+     outright. That second line matters for this file specifically, whose
+     default instance is 900 rather than 400. font-synthesis-weight is off, so
+     a failure shows as the true weight rather than a browser-faked bold.
+
+     font-variation-settings inherits, so a descendant that sets only
+     font-weight will keep its ancestor's wght. Every card style below sets
+     both; keep doing that on anything nested inside them. */
+
+  /* Title Text - Satoshi Bold 32px, uppercase, no extra tracking */
+  .card-title {
+    font-family: var(--font-satoshi);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+    font-synthesis-weight: none;
+    font-size: 2rem;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    @apply text-center text-white;
+  }
+
+  /* Year Text - Satoshi Medium 20px, Accent */
+  .card-year {
+    font-family: var(--font-satoshi);
+    font-weight: 500;
+    font-variation-settings: "wght" 500;
+    font-synthesis-weight: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: 0;
+    @apply text-accent;
+  }
+
+  /* Description Text - Satoshi Regular 16px */
+  .card-description {
+    font-family: var(--font-satoshi);
+    font-weight: 400;
+    font-variation-settings: "wght" 400;
+    font-synthesis-weight: none;
+    font-size: 1rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    @apply text-center text-body;
+  }
+
+  /* Filter tile label - Satoshi Bold 20px, uppercase, no extra tracking */
+  .card-tile-label {
+    font-family: var(--font-satoshi);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+    font-synthesis-weight: none;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    @apply text-center text-white;
+  }
 }
 
-/* --- 3. Utilities --- */
+/* --- 4. Utilities --- */
 
 @layer utilities {
-  .font-borel {
-    font-family: "Borel", cursive;
+  /* Paints the element's background gradient onto its glyphs and makes the
+     text fill transparent, so any --paint-* token shows through the letters.
+     Pair with a bg-[image:var(--paint-*)] utility (or set background-image).
+     -webkit-text-fill-color wins where supported; color:transparent is the
+     fallback for engines that ignore it. */
+  .text-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
-  .font-satoshi {
-    font-family: "Satoshi", sans-serif;
+
+  /* Hide the scrollbar on horizontally-scrolled strips (the mobile category
+     rail) while keeping the element scrollable by touch/trackpad. */
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* old Edge */
   }
-  .font-chillax {
-    font-family: "Chillax", sans-serif;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Softly clip a horizontally scrolling strip: content fades to transparent
+     within 17px of each edge instead of hitting a hard cut, so a full-bleed
+     rail keeps the page's 17px side padding as a gradient fade. The -webkit-
+     prefix is required for iOS Safari. */
+  .fade-edges-x {
+    /* Left: opaque by 17px so the first button stays crisp against the gutter.
+       Right: content fades out and is fully clear by 17px BEFORE the edge, so
+       the last 17px is a clean empty gutter (true right padding), not faded
+       content bleeding to the screen edge. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 17px,
+      #000 calc(100% - 34px),
+      transparent calc(100% - 17px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 17px,
+      #000 calc(100% - 34px),
+      transparent calc(100% - 17px)
+    );
+  }
+  /* At lg the rail sits inline (padding, no bleed), so the fade would clip the
+     first/last button's letters — turn it off. */
+  @media (width >= 1024px) {
+    .fade-edges-x {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     STROKE
+     A border replacement that (a) accepts any paint, including conic
+     gradients, (b) exists only on the sides you ask for, and (c) is
+     drawn inside the box so it never changes layout size.
+
+     Custom properties, set from JS via strokeStyle():
+       --s-top / --s-right / --s-bottom / --s-left   rim thickness per side
+       --p-top / --p-right / --p-bottom / --p-left   padding, EXCLUSIVE of the rim
+       --stroke-paint      any background value
+       --stroke-fallback   solid colour for the no-mask fallback
+
+     PER-SIDE MECHANIC: the rim is the ring between ::after's border box
+     and its content box, and ::after's padding is the per-side thickness.
+     A side left at 0 has no ring there, so it renders no rim. One utility
+     therefore covers 1, 2, 3 or 4 sides with no extra classes.
+
+     Padding is exclusive of the rim: --p-* is the gap measured from the
+     INSIDE edge of the stroke, matching Figma, where an inside stroke and
+     the frame's padding stack rather than overlap.
+     Do not put Tailwind p-* utilities on a .stroke element; use --p-*.
+  ---------------------------------------------------------------- */
+  .stroke {
+    position: relative;
+    /* Declared, not just defaulted in var(). Custom properties inherit, so a
+       nested .stroke inside a stroked ancestor would otherwise pick up that
+       ancestor's --s-* values and grow rims on sides it never asked for.
+       A declaration here beats inheritance; inline strokeStyle() beats this. */
+    --s-top: 0px;
+    --s-right: 0px;
+    --s-bottom: 0px;
+    --s-left: 0px;
+    --p-top: 0px;
+    --p-right: 0px;
+    --p-bottom: 0px;
+    --p-left: 0px;
+    /* paint inherits as well; the named .stroke-* classes below and any
+       inline paint both override this, since they come later or are inline. */
+    --stroke-paint: var(--color-accent);
+    --stroke-fallback: var(--color-accent);
+    padding: calc(var(--s-top, 0px) + var(--p-top, 0px))
+      calc(var(--s-right, 0px) + var(--p-right, 0px))
+      calc(var(--s-bottom, 0px) + var(--p-bottom, 0px))
+      calc(var(--s-left, 0px) + var(--p-left, 0px));
+  }
+
+  .stroke::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    /* the padded sides are the sides that get a rim */
+    padding: var(--s-top, 0px) var(--s-right, 0px) var(--s-bottom, 0px)
+      var(--s-left, 0px);
+    background: var(--stroke-paint, var(--color-accent));
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; /* Safari keyword */
+    mask-composite: exclude; /* standard keyword */
+    pointer-events: none;
+  }
+
+  /* Named paints, so components stay declarative.
+     --stroke-fallback carries the flat colour for the @supports branch. */
+  .stroke-angular {
+    --stroke-paint: var(--paint-angular);
+    --stroke-fallback: var(--color-accent);
+  }
+  .stroke-accent-soft {
+    --stroke-paint: var(--paint-accent-soft);
+    --stroke-fallback: var(--paint-accent-soft);
+  }
+  .stroke-secondary-soft {
+    --stroke-paint: var(--paint-secondary-soft);
+    --stroke-fallback: var(--paint-secondary-soft);
+  }
+
+  /* Fallback where mask-composite is unavailable. Inset box-shadows are
+     also per-side and also layout-neutral, so single-sided strokes survive;
+     only the gradient degrades to a flat colour. */
+  @supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+    .stroke::after {
+      padding: 0;
+      background: none;
+      box-shadow: inset 0 var(--s-top, 0px) 0 0
+          var(--stroke-fallback, var(--color-accent)),
+        inset calc(-1 * var(--s-right, 0px)) 0 0 0
+          var(--stroke-fallback, var(--color-accent)),
+        inset 0 calc(-1 * var(--s-bottom, 0px)) 0 0
+          var(--stroke-fallback, var(--color-accent)),
+        inset var(--s-left, 0px) 0 0 0
+          var(--stroke-fallback, var(--color-accent));
+    }
   }
 }

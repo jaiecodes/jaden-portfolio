@@ -1,7 +1,0 @@
-<svg width="1000" height="300" viewBox="0 0 1000 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g transform="scale(-1, 1) translate(-1000, 0)">
-    <path d="M0 150C200 100 400 200 600 150C800 100 1000 200 1000 200V300H0V150Z" fill="#38BDF8" fill-opacity="0.3"/>
-    <path d="M0 200C150 150 350 250 500 200C650 150 850 250 1000 200V300H0V200Z" fill="#0EA5E9" fill-opacity="0.5"/>
-    <path d="M0 250C100 220 200 280 300 250C400 220 500 280 600 250C700 220 800 280 900 250C1000 220 1100 280 1200 250V300H0V250Z" fill="#0284C7"/>
-  </g>
-</svg>

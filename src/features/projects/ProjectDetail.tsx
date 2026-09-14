@@ -1,5 +1,6 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { ProjectService } from "../../domain/services/ProjectService";
+import { HeroThemeService } from "../../domain/services/HeroThemeService";
 import { ProjectHero } from "./components/ProjectHero";
 import { ProjectOverview } from "./components/ProjectOverview";
 import { ProjectContributions } from "./components/ProjectContributions";
@@ -60,7 +61,7 @@ export const ProjectDetail = () => {
       </button>
 
       <ExternalLinksBar links={project.externalLinks} />
-      <ProjectHero title={project.name} />
+      <ProjectHero title={project.name} theme={HeroThemeService.getByProjectId(project.id)} />
       <ProjectOverview project={project} />
       <ProjectContributions
         content={project.contributions}
