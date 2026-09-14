@@ -1,61 +1,72 @@
 // src/features/projects/components/ProjectCard.tsx
 import { motion } from "motion/react";
-import { Link, useLocation } from "react-router-dom"; // Add useLocation
+import { Link, useLocation } from "react-router-dom";
 import { Project } from "../../../domain/models/Project";
-import { Badge } from "../../../components/ui/Badge";
+import { GradientIcon } from "../../../components/ui/GradientIcon";
+import { strokeStyle } from "../../../components/ui/stroke";
+import { ProjectTagGrid } from "./ProjectTagGrid";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   const location = useLocation(); // Captures the current filter state from the URL
 
   return (
-    <motion.div
+    <motion.article
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       whileHover={{ y: -8 }}
-      className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden flex flex-col h-full group"
+      /* Angular rim on all four sides, then 6px of clear padding.
+         360 - 2 * (3 + 6) = 342, the content width the design is drawn to. */
+      style={strokeStyle({ stroke: 3, pad: 6 })}
+      className="stroke stroke-angular group flex h-[510px] w-full max-w-[360px] rounded-[10px] shadow-[0_1px_12px_rgba(239,193,57,0.5)]"
     >
-      {/* Updated Link to include 'search' */}
       <Link
         to={{
           pathname: `/project/${project.id}`,
           search: location.search, // Persists your active filters to the detail page
         }}
-        className="flex flex-col h-full"
+        className="flex flex-1 flex-col rounded-[1px] bg-secondary/5"
       >
-        <div className="aspect-video overflow-hidden bg-zinc-800 relative">
-          <img
-            src={project.media[0]}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            alt={project.name}
+        {/* Dark panel */}
+        <div className="flex min-h-0 flex-1 flex-col items-center overflow-hidden rounded-t-[1px] rounded-b-[5px] bg-ink">
+          <span
+            aria-hidden
+            className="h-2.5 w-full shrink-0 rounded-t-[1px] bg-accent"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <h6 className="tracking-widest bg-black/60 px-4 py-2 rounded-full backdrop-blur-md">
-              View Project
-            </h6>
+
+          <div className="flex w-full min-h-0 flex-1 flex-col items-center justify-between overflow-hidden p-2">
+            <p className="card-year w-full text-right">
+              {project.year.toString()}
+            </p>
+
+            <GradientIcon
+              src={project.iconUrl}
+              label={`${project.name} icon`}
+              size={90}
+              className="transition-transform duration-500 group-hover:scale-105"
+            />
+
+            <h5 className="card-title">{project.name}</h5>
+
+            <p
+              className="w-full px-5 py-[11px] shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]"
+              style={{ background: "var(--paint-warm-wash)" }}
+            >
+              <span className="card-description mx-auto block max-h-[90px] max-w-[290px] overflow-hidden line-clamp-4">
+                {project.description}
+              </span>
+            </p>
           </div>
+
+          <span
+            aria-hidden
+            className="h-[5px] w-full shrink-0 rounded-b-[5px] bg-accent/50"
+          />
         </div>
 
-        <div className="p-5 flex flex-col flex-1">
-          <div className="flex justify-between items-start mb-2">
-            <h5 className="text-white">{project.name}</h5>
-            <h6 className="text-zinc-600 ">{project.year.toString()}</h6>
-          </div>
-
-          <p className="body-secondary text-zinc-500 mb-4 line-clamp-2 leading-relaxed">
-            {project.description}
-          </p>
-
-          <div className="mt-auto flex flex-wrap gap-1.5">
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        </div>
+        <ProjectTagGrid tags={project.tags} />
       </Link>
-    </motion.div>
+    </motion.article>
   );
 };

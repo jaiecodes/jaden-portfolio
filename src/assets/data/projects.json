@@ -1,35 +1,23 @@
 [
   {
-    "id": "ces-helm-sim",
-    "name": "CES Helm Simulator",
-    "year": 2026,
-    "category": "Software Engineering",
-    "role": "Lead Software Engineering Intern",
-    "tags": ["C++", "Python", "Unreal Engine 5", "Networking"],
-    "description": "A high-fidelity maritime simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",
-    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
-    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
-    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
+    "id": "cad-simplifier",
+    "name": "CAD Simplifier",
+    "year": 2025,
+    "category": "Tools Engineering",
+    "role": "Tooling Engineer",
+    "tags": ["Python", "Blender API", "C++", "Desktop"],
+    "description": "An automated desktop tool for optimizing high-poly CAD models for real-time applications.",
+    "contributions": "Built the Python-based Blender bridge and the C++ UI framework for the desktop app.",
+    "challenges": "Handling non-manifold geometry during the automated decimation process.",
+    "impact": "Reduced average model polygon count by 85% while preserving critical visual silhouettes for AR/VR.",
     "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
-      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+      { "type": "github", "url": "https://github.com/jaden/cad-simple" }
     ],
-    "media": [
-      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
-      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
-    ],
+    "media": ["https://placehold.co/600x400/222/white?text=CAD+Tool+Cover"],
     "images": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
-        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
-      },
-      {
-        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
-        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
-      },
-      {
-        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
-        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
+        "url": "https://placehold.co/1920x1080/222/white?text=Decimation+Log",
+        "caption": "Visualizing the automated decimation process on a complex engine block model."
       }
     ]
   },
@@ -63,32 +51,10 @@
     ]
   },
   {
-    "id": "cad-simplifier",
-    "name": "CAD Simplifier",
-    "year": 2025,
-    "category": "Software Engineering",
-    "role": "Tooling Engineer",
-    "tags": ["Python", "Blender API", "C++", "Desktop"],
-    "description": "An automated desktop tool for optimizing high-poly CAD models for real-time applications.",
-    "contributions": "Built the Python-based Blender bridge and the C++ UI framework for the desktop app.",
-    "challenges": "Handling non-manifold geometry during the automated decimation process.",
-    "impact": "Reduced average model polygon count by 85% while preserving critical visual silhouettes for AR/VR.",
-    "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/cad-simple" }
-    ],
-    "media": ["https://placehold.co/600x400/222/white?text=CAD+Tool+Cover"],
-    "images": [
-      {
-        "url": "https://placehold.co/1920x1080/222/white?text=Decimation+Log",
-        "caption": "Visualizing the automated decimation process on a complex engine block model."
-      }
-    ]
-  },
-  {
     "id": "cake-inventory-app",
     "name": "Cottage Bakery Manager",
     "year": 2026,
-    "category": "Web/Mobile",
+    "category": "Web Platforms",
     "role": "Full Stack Developer",
     "tags": ["React", "TypeScript", "Tailwind", "Firebase"],
     "description": "A custom management tool for a home-based bakery to track orders, inventory, and automated customer messaging.",
@@ -112,10 +78,44 @@
     ]
   },
   {
+    "id": "ces-helm-sim",
+    "name": "CES Helm Simulator",
+    "year": 2026,
+    "category": "Spatial Sensing",
+    "role": "Lead Software Engineering Intern",
+    "tags": ["C++", "Python", "Unreal Engine 5", "Networking"],
+    "description": "A high-fidelity maritime simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",
+    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
+    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
+    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
+    "externalLinks": [
+      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
+      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+    ],
+    "media": [
+      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
+      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
+    ],
+    "images": [
+      {
+        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
+        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
+      },
+      {
+        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
+        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
+      },
+      {
+        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
+        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
+      }
+    ]
+  },
+  {
     "id": "flite-sim",
     "name": "Fliteboard Simulator",
     "year": 2026,
-    "category": "Software Engineering",
+    "category": "Spatial Sensing",
     "role": "Lead Software Engineering Intern",
     "tags": ["C++", "Python", "Unreal Engine 5", "Networking"],
     "description": "A high-fidelity maritime simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",

@@ -18,18 +18,24 @@ export const ProjectCarousel = ({
 }: CarouselProps) => {
   const [index, setIndex] = useState(initialIndex);
 
-  // Lock Scroll and Sync Index
+  // Reset to the clicked image whenever the carousel opens (or the target
+  // index changes while open). Adjusting state during render rather than in an
+  // effect: React re-renders immediately without committing the stale frame,
+  // so there is no cascading-render round-trip. See "You Might Not Need an
+  // Effect" — storing information from previous renders.
+  const [sync, setSync] = useState({ isOpen, initialIndex });
+  if (sync.isOpen !== isOpen || sync.initialIndex !== initialIndex) {
+    setSync({ isOpen, initialIndex });
+    if (isOpen) setIndex(initialIndex);
+  }
+
+  // Lock body scroll while the overlay is open (external-system sync).
   useEffect(() => {
-    if (isOpen) {
-      setIndex(initialIndex);
-      document.body.style.overflow = "hidden"; // LOCK
-    } else {
-      document.body.style.overflow = "unset"; // UNLOCK
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, initialIndex]);
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
