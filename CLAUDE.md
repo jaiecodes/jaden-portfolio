@@ -100,4 +100,4 @@ Tailwind is loaded via the `@tailwindcss/vite` Vite plugin — there is no `tail
 
 Deployed to Vercel. `vercel.json` rewrites every path to `index.html` so `BrowserRouter` deep links (`/about`, `/project/:id`) load instead of 404ing; static files in `public/` are still served first.
 
-Two feedback builds are deployed from the CLI as separate Vercel projects (production URLs are public, unlike preview URLs): `jaden-portfolio-a` (branch `claude/project-review-status-713df8`) and `jaden-portfolio-b` (branch `design-b`). Redeploy from the matching checkout with `npx vercel deploy --prod`.
+Two feedback builds are deployed from the CLI as separate Vercel projects (production URLs are public, unlike preview URLs): `jaden-portfolio-a` (branch `version-a`) and `jaden-portfolio-b` (branch `version-b`); `main` holds the latest shared code. Redeploy from the matching checkout with `npx vercel deploy --prod`.
