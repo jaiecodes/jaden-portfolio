@@ -1,502 +1,1649 @@
 {
-  "ces-helm-sim": {
-    "background": "#A7E8FF",
-    "textColor": "#026AFD",
-    "foreground": "#101A34",
-    "mobile": {
-      "scale": 0.87165,
-      "start": { "x": -790, "y": -40 },
-      "end": { "x": -790, "y": -40 }
-    },
-    "titleZIndex": 20,
-    "titleLines": ["CES Helm", "Simulator"],
-    "layers": [
-      {
-        "src": "/svg/ces-2026-simulator/boat-helm.svg",
-        "zIndex": 50,
-        "position": { "width": "1959px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["-80px", "-80px"] },
-          { "property": "y", "input": [0, 1], "output": ["776px", "402px"] }
-        ]
-      },
-      {
-        "src": "/svg/ces-2026-simulator/wave-1.svg",
-        "zIndex": 40,
-        "position": { "width": "2050px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["-163px", "-40px"] },
-          { "property": "y", "input": [0, 1], "output": ["205px", "188px"] }
-        ]
-      },
-      {
-        "src": "/svg/ces-2026-simulator/wave-2.svg",
-        "zIndex": 30,
-        "position": { "left": "-13px", "top": "49px", "width": "1995px" },
-        "transforms": [
-          { "property": "rotate", "input": [0, 1], "output": [0, -14.2] }
-        ]
-      },
-      {
-        "src": "/svg/ces-2026-simulator/wave-4.svg",
-        "zIndex": 10,
-        "position": { "width": "2123px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["-141px", "487px"] },
-          { "property": "y", "input": [0, 1], "output": ["591px", "273px"] }
-        ]
-      },
-      {
-        "src": "/svg/ces-2026-simulator/wave-5.svg",
-        "zIndex": 5,
-        "position": { "left": "-342px", "top": "-262px", "width": "2524px" },
-        "transforms": [
-          { "property": "rotate", "input": [0, 1], "output": [0, -19.8] }
-        ]
-      }
-    ]
+ "ces-helm-sim": {
+  "heroBackground": "#a7e8ff",
+  "seam": "#101a34",
+  "heroLabel": "primary",
+  "palette": {
+   "bg": "#101a34",
+   "raised": "#18264a",
+   "line": "#283c70",
+   "sunken": "#0a1126",
+   "text": "#eaf4ff",
+   "muted": "#a9bcd8",
+   "faint": "#7c8eb3",
+   "primary": "#a7e8ff",
+   "highlight": "#7fd4ff",
+   "accent": "#e6f4ff"
   },
-  "echoes-elements": {
-    "background": "#D7CABB",
-    "textColor": "#161721",
-    "foreground": "#161721",
-    "mobile": {
-      "scale": 0.77778,
-      "start": { "x": -262, "y": 0 },
-      "end": { "x": -262, "y": 0 }
-    },
-    "titleZIndex": 5,
-    "titleLines": ["Echoes of the", "Elements"],
-    "layers": [
-      {
-        "src": "/svg/echoes-elements/cave-0.svg",
-        "zIndex": 60,
-        "position": { "width": "1841px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["-42px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["-90px", "-211px"] }
-        ]
-      },
-      {
-        "src": "/svg/echoes-elements/cave-1.svg",
-        "zIndex": 50,
-        "position": { "width": "1813px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["28px", "28px"] },
-          { "property": "y", "input": [0, 1], "output": ["-73px", "-139px"] }
-        ]
-      },
-      {
-        "src": "/svg/echoes-elements/waterfall.svg",
-        "zIndex": 40,
-        "position": { "width": "1072px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["66px", "35px"] },
-          { "property": "y", "input": [0, 1], "output": ["344px", "280px"] }
-        ]
-      },
-      {
-        "src": "/svg/echoes-elements/trees.svg",
-        "zIndex": 30,
-        "position": { "width": "482px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["163px", "89px"] },
-          { "property": "y", "input": [0, 1], "output": ["224px", "165px"] }
-        ]
-      },
-      {
-        "src": "/svg/echoes-elements/ground.svg",
-        "zIndex": 20,
-        "position": { "width": "1747px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["44px", "26px"] },
-          { "property": "y", "input": [0, 1], "output": ["300px", "238px"] }
-        ]
-      },
-      {
-        "src": "/svg/echoes-elements/volcano.svg",
-        "zIndex": 10,
-        "position": { "width": "596px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["346px", "586px"] },
-          { "property": "y", "input": [0, 1], "output": ["225px", "183px"] }
-        ]
-      }
-    ]
+  "mobile": {
+   "scale": 0.56,
+   "x": -349
   },
-  "flite-sim": {
-    "background": "#B6B4A5",
-    "textColor": "#362B00",
-    "foreground": "#524F98",
-    "mobile": {
-      "scale": 0.77778,
-      "start": { "x": -512, "y": 0 },
-      "end": { "x": -512, "y": 0 }
+  "layers": [
+   {
+    "src": "/svg/ces-2026-simulator/boat-helm.svg",
+    "zIndex": 50,
+    "position": {
+     "width": "1959px"
     },
-    "titleZIndex": 20,
-    "titleLines": ["Fliteboard", "Simulator"],
-    "layers": [
-      {
-        "src": "/svg/flite-sim/flite-board.svg",
-        "zIndex": 60,
-        "position": { "width": "194.59px" },
-        "transforms": [
-          {
-            "property": "x",
-            "input": [0, 1],
-            "output": ["548px", "695px"]
-          },
-          {
-            "property": "y",
-            "input": [0, 1],
-            "output": ["945px", "495px"]
-          }
-        ]
-      },
-      {
-        "src": "/svg/flite-sim/water-1.svg",
-        "zIndex": 50,
-        "position": { "width": "1800px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["1061px", "593px"] }
-        ]
-      },
-      {
-        "src": "/svg/flite-sim/water-2.svg",
-        "zIndex": 40,
-        "position": { "width": "1800px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["825px", "357px"] }
-        ]
-      },
-      {
-        "src": "/svg/flite-sim/wet-sand-3.svg",
-        "zIndex": 30,
-        "position": { "width": "1800px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["727px", "259px"] }
-        ]
-      },
-      {
-        "src": "/svg/flite-sim/sand-5.svg",
-        "zIndex": 10,
-        "position": { "width": "1800px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["521px", "53px"] }
-        ]
-      },
-      {
-        "src": "/svg/flite-sim/sand-6.svg",
-        "zIndex": 5,
-        "position": { "width": "1800px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
-          { "property": "y", "input": [0, 1], "output": ["418px", "-50px"] }
-        ]
-      }
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-80px",
+       "-80px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "776px",
+       "402px"
+      ]
+     }
     ]
+   },
+   {
+    "src": "/svg/ces-2026-simulator/wave-1.svg",
+    "zIndex": 40,
+    "position": {
+     "width": "2050px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-163px",
+       "-40px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "205px",
+       "188px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ces-2026-simulator/wave-2.svg",
+    "zIndex": 30,
+    "position": {
+     "left": "-13px",
+     "top": "49px",
+     "width": "1995px"
+    },
+    "transforms": [
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       0,
+       -14.2
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ces-2026-simulator/wave-4.svg",
+    "zIndex": 10,
+    "position": {
+     "width": "2123px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-141px",
+       "487px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "591px",
+       "273px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ces-2026-simulator/wave-5.svg",
+    "zIndex": 5,
+    "position": {
+     "left": "-342px",
+     "top": "-262px",
+     "width": "2524px"
+    },
+    "transforms": [
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       0,
+       -19.8
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "flite-sim": {
+  "heroBackground": "#b6b4a5",
+  "seam": "#524f98",
+  "heroLabel": "primary",
+  "palette": {
+   "bg": "#26244f",
+   "raised": "#33306a",
+   "line": "#4a4790",
+   "sunken": "#1c1a3d",
+   "text": "#f4f1e4",
+   "muted": "#cfcbea",
+   "faint": "#a39fcb",
+   "primary": "#e0d8b0",
+   "highlight": "#e0d8b0",
+   "accent": "#a6a17f"
   },
-  "ajo": {
-    "background": "#C2D7D0",
-    "textColor": "#023941",
-    "foreground": "#379664",
-    "mobile": {
-      "scale": 0.85632,
-      "start": { "x": -266, "y": -82 },
-      "end": { "x": -736, "y": -82 }
-    },
-    "titleZIndex": 5,
-    "titleLines": ["Ajo"],
-    "layers": [
-      {
-        "src": "/svg/ajo/rock.svg",
-        "zIndex": 10,
-        "position": { "left": "810.0px", "top": "658.0px", "width": "817.42px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "122.62px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-250.5px"] },
-          { "property": "rotate", "input": [0, 1], "output": [0, 11.06] }
-        ]
-      },
-      {
-        "src": "/svg/ajo/water-sprout.svg",
-        "zIndex": 20,
-        "position": {
-          "left": "445.3px",
-          "top": "564.57px",
-          "width": "485.08px"
-        },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "106.97px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-260.96px"] },
-          { "property": "rotate", "input": [0, 1], "output": [24.31, 7.23] }
-        ]
-      },
-      {
-        "src": "/svg/ajo/grass.svg",
-        "zIndex": 30,
-        "position": { "left": "-7px", "top": "804px", "width": "1821px" },
-        "transforms": []
-      },
-      {
-        "src": "/svg/ajo/ajo-character.svg",
-        "zIndex": 40,
-        "position": { "left": "502.0px", "top": "366.0px", "width": "203.07px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "553.51px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-208.34px"] },
-          { "property": "rotate", "input": [0, 1], "output": [0, -2.78] }
-        ]
-      },
-      {
-        "src": "/svg/ajo/wind.svg",
-        "zIndex": 50,
-        "position": {
-          "left": "-218.0px",
-          "top": "465.5px",
-          "width": "619.88px"
-        },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "382.83px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-251.71px"] },
-          { "property": "rotate", "input": [0, 1], "output": [17.82, 21.87] }
-        ],
-        "scaleY": -1
-      },
-      {
-        "src": "/svg/ajo/fire-ball.svg",
-        "zIndex": 60,
-        "position": {
-          "left": "130.53px",
-          "top": "148.99px",
-          "width": "293.61px"
-        },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "550.53px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-225.08px"] },
-          { "property": "rotate", "input": [0, 1], "output": [-88.73, -38.25] }
-        ]
-      }
-    ]
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
   },
-  "cake-inventory-app": {
-    "background": "#FFF8EA",
-    "textColor": "#005347",
-    "foreground": "#FFD035",
-    "mobile": {
-      "scale": 0.77778,
-      "start": { "x": -177, "y": 92 },
-      "end": { "x": -512, "y": 0 }
+  "layers": [
+   {
+    "src": "/svg/flite-sim/flite-board.svg",
+    "zIndex": 60,
+    "position": {
+     "left": "597.6px",
+     "top": "758.13px",
+     "width": "247px"
     },
-    "titleZIndex": 5,
-    "titleLines": ["Baking Web", "Platform"],
-    "layers": [
-      {
-        "src": "/svg/cake-inventory-app/webpage.svg",
-        "zIndex": 10,
-        "position": { "left": "199px", "top": "242px", "width": "537.978px" },
-        "transforms": []
-      },
-      {
-        "src": "/svg/cake-inventory-app/duck-logo.svg",
-        "zIndex": 20,
-        "position": { "left": "799.41px", "top": "270.26px", "width": "1205px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "-470.18px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-494.71px"] },
-          { "property": "rotate", "input": [0, 1], "output": [120.05, 109.33] }
-        ],
-        "scaleY": -1
-      }
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "99.44px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-415.62px"
+      ]
+     }
     ]
+   },
+   {
+    "src": "/svg/flite-sim/water-1.svg",
+    "zIndex": 50,
+    "position": {
+     "width": "1800px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "843.0px",
+       "528.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/flite-sim/water-2.svg",
+    "zIndex": 40,
+    "position": {
+     "width": "1800px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "607.0px",
+       "292.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/flite-sim/wet-sand-3.svg",
+    "zIndex": 30,
+    "position": {
+     "width": "1800px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "509.0px",
+       "194.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/flite-sim/sand-5.svg",
+    "zIndex": 10,
+    "position": {
+     "width": "1800px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "303.0px",
+       "-12.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/flite-sim/sand-6.svg",
+    "zIndex": 5,
+    "position": {
+     "width": "1800px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "200.0px",
+       "-115.0px"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "echoes-elements": {
+  "heroBackground": "#d7cabb",
+  "seam": "#161721",
+  "heroLabel": "text",
+  "palette": {
+   "bg": "#161721",
+   "raised": "#21222e",
+   "line": "#353849",
+   "sunken": "#101118",
+   "text": "#f1e9de",
+   "muted": "#c2b6a6",
+   "faint": "#94897d",
+   "primary": "#d7cabb",
+   "highlight": "#8fbf7a",
+   "accent": "#c57b5a"
   },
-  "cad-simplifier": {
-    "background": "#D8F2EF",
-    "textColor": "#CA1246",
-    "foreground": "#D8F2EF",
-    "mobile": {
-      "scale": 1.14943,
-      "start": { "x": -227, "y": -45 },
-      "end": { "x": -991, "y": -73 }
-    },
-    "titleZIndex": 5,
-    "titleLines": ["CAD", "Simplifier"],
-    "layers": [
-      {
-        "src": "/svg/cad-simplifier/heart-2.svg",
-        "zIndex": 10,
-        "position": { "left": "651.0px", "top": "35.0px", "width": "249px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "720.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "354.0px"] }
-        ]
-      },
-      {
-        "src": "/svg/cad-simplifier/heart-1.svg",
-        "zIndex": 20,
-        "position": { "left": "650.0px", "top": "670.0px", "width": "500px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "125.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-345.0px"] }
-        ]
-      },
-      {
-        "src": "/svg/cad-simplifier/heart-0.svg",
-        "zIndex": 30,
-        "position": { "left": "110.0px", "top": "280.0px", "width": "500px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "69.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-10.0px"] }
-        ]
-      }
-    ]
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
   },
-  "mix-space": {
-    "background": "#022532",
-    "textColor": "#FED5C7",
-    "foreground": "#022532",
-    "mobile": {
-      "scale": 0.77778,
-      "start": { "x": -306, "y": 120 },
-      "end": { "x": -512, "y": 0 }
+  "layers": [
+   {
+    "src": "/svg/echoes-elements/cave-0.svg",
+    "zIndex": 60,
+    "position": {
+     "width": "1841px"
     },
-    "titleZIndex": 20,
-    "titleLines": ["Mix", "Space"],
-    "layers": [
-      {
-        "src": "/svg/mix-space/bracket-top.svg",
-        "zIndex": 10,
-        "position": {
-          "left": "300.67px",
-          "top": "188.67px",
-          "width": "666.67px"
-        },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "265.5px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-133.67px"] },
-          { "property": "scale", "input": [0, 1], "output": [1, 1.9665] }
-        ]
-      },
-      {
-        "src": "/svg/mix-space/wave-2.svg",
-        "zIndex": 30,
-        "position": { "left": "334.0px", "top": "338.67px", "width": "600px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "533.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "0.33px"] }
-        ]
-      },
-      {
-        "src": "/svg/mix-space/wave-1.svg",
-        "zIndex": 40,
-        "position": { "left": "334.0px", "top": "338.67px", "width": "600px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "0.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "0.33px"] }
-        ]
-      },
-      {
-        "src": "/svg/mix-space/wave-3.svg",
-        "zIndex": 50,
-        "position": { "left": "467.0px", "top": "339.0px", "width": "333.33px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "267.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "0.0px"] },
-          {
-            "property": "opacity",
-            "input": [0, 0.15, 0.6],
-            "output": [0, 0, 1]
-          }
-        ]
-      },
-      {
-        "src": "/svg/mix-space/bracket-bottom.svg",
-        "zIndex": 60,
-        "position": {
-          "left": "300.67px",
-          "top": "655.33px",
-          "width": "666.67px"
-        },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "265.5px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "133.17px"] },
-          { "property": "scale", "input": [0, 1], "output": [1, 1.9665] }
-        ]
-      }
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-42px",
+       "0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-90px",
+       "-211px"
+      ]
+     }
     ]
+   },
+   {
+    "src": "/svg/echoes-elements/cave-1.svg",
+    "zIndex": 50,
+    "position": {
+     "width": "1813px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "28px",
+       "28px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "-73px",
+       "-139px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/echoes-elements/waterfall.svg",
+    "zIndex": 40,
+    "position": {
+     "width": "1072px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "66px",
+       "35px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "344px",
+       "280px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/echoes-elements/trees.svg",
+    "zIndex": 30,
+    "position": {
+     "width": "482px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "163px",
+       "89px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "224px",
+       "165px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/echoes-elements/ground.svg",
+    "zIndex": 20,
+    "position": {
+     "width": "1747px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "44px",
+       "26px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "300px",
+       "238px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/echoes-elements/volcano.svg",
+    "zIndex": 10,
+    "position": {
+     "width": "596px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "346px",
+       "586px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "225px",
+       "183px"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "cad-simplifier": {
+  "heroBackground": "#d8f2ef",
+  "seam": "#d8f2ef",
+  "heroLabel": "primary",
+  "palette": {
+   "bg": "#d8f2ef",
+   "raised": "#f2fbfa",
+   "line": "#a9d6d0",
+   "sunken": "#c6e7e3",
+   "text": "#14302d",
+   "muted": "#3f5f5b",
+   "faint": "#546d69",
+   "primary": "#cf1d51",
+   "highlight": "#cf1d51",
+   "accent": "#c2185b"
   },
-  "wireless-sensing": {
-    "background": "#1B0036",
-    "textColor": "#C5F8DB",
-    "foreground": "#1B0036",
-    "mobile": {
-      "scale": 0.93295,
-      "start": { "x": -256, "y": 30 },
-      "end": { "x": -560, "y": 0 }
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
+  },
+  "layers": [
+   {
+    "src": "/svg/cad-simplifier/heart-2.svg",
+    "zIndex": 30,
+    "position": {
+     "left": "775.0px",
+     "top": "528.0px",
+     "width": "249px"
     },
-    "titleZIndex": 5,
-    "titleLines": ["Wireless", "Sensing"],
-    "layers": [
-      {
-        "src": "/svg/wireless-sensing/rings.png",
-        "zIndex": 10,
-        "position": { "left": "-405.0px", "top": "932.0px", "width": "2736px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "-210.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "-400.0px"] }
-        ]
-      },
-      {
-        "src": "/svg/wireless-sensing/signal-node.svg",
-        "zIndex": 20,
-        "position": { "left": "1203.0px", "top": "702.0px", "width": "86px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] }
-        ]
-      },
-      {
-        "src": "/svg/wireless-sensing/signal-3.svg",
-        "zIndex": 30,
-        "position": { "left": "1159.0px", "top": "661.0px", "width": "174px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] },
-          { "property": "opacity", "input": [0, 0.4, 0.7], "output": [0, 0, 1] }
-        ]
-      },
-      {
-        "src": "/svg/wireless-sensing/signal-2.svg",
-        "zIndex": 40,
-        "position": { "left": "1125.0px", "top": "607.0px", "width": "242px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] },
-          { "property": "opacity", "input": [0, 0.6, 0.9], "output": [0, 0, 1] }
-        ]
-      },
-      {
-        "src": "/svg/wireless-sensing/p-node.svg",
-        "zIndex": 50,
-        "position": { "left": "522.0px", "top": "430.0px", "width": "86px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "302.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "28.0px"] }
-        ]
-      },
-      {
-        "src": "/svg/wireless-sensing/person.svg",
-        "zIndex": 60,
-        "position": { "left": "273.0px", "top": "274.0px", "width": "324px" },
-        "transforms": [
-          { "property": "x", "input": [0, 1], "output": ["0px", "302.0px"] },
-          { "property": "y", "input": [0, 1], "output": ["0px", "28.0px"] }
-        ]
-      }
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "596.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-139.0px"
+      ]
+     },
+     {
+      "property": "opacity",
+      "input": [
+       0,
+       0.35,
+       1
+      ],
+      "output": [
+       0,
+       1,
+       1
+      ]
+     }
     ]
-  }
+   },
+   {
+    "src": "/svg/cad-simplifier/heart-1.svg",
+    "zIndex": 20,
+    "position": {
+     "left": "650.0px",
+     "top": "399.0px",
+     "width": "500px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "125.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-74.0px"
+      ]
+     },
+     {
+      "property": "opacity",
+      "input": [
+       0,
+       0.35,
+       1
+      ],
+      "output": [
+       0,
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/cad-simplifier/heart-0.svg",
+    "zIndex": 10,
+    "position": {
+     "left": "650.0px",
+     "top": "270.0px",
+     "width": "500px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-471.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.0px"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "cake-inventory-app": {
+  "heroBackground": "#fff8ea",
+  "seam": "#145146",
+  "heroLabel": "primary",
+  "palette": {
+   "bg": "#145146",
+   "raised": "#1b5e52",
+   "line": "#2e7466",
+   "sunken": "#0e3f36",
+   "text": "#f7f6f2",
+   "muted": "#c1cdad",
+   "faint": "#bfcdb7",
+   "primary": "#ffcf33",
+   "highlight": "#ffcf33",
+   "accent": "#ffb6b7"
+  },
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
+  },
+  "layers": [
+   {
+    "src": "/svg/cake-inventory-app/webpage.svg",
+    "zIndex": 10,
+    "position": {
+     "left": "631.0px",
+     "top": "242.0px",
+     "width": "537.978px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-30.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/cake-inventory-app/duck-logo.svg",
+    "zIndex": 20,
+    "position": {
+     "left": "916.4px",
+     "top": "397.27px",
+     "width": "1205px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-619.18px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-459.69px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       120.05,
+       109.33
+      ]
+     }
+    ],
+    "scaleY": -1
+   }
+  ]
+ },
+ "mix-space": {
+  "heroBackground": "#022532",
+  "seam": "#022532",
+  "heroLabel": "text",
+  "palette": {
+   "bg": "#022532",
+   "raised": "#0b3442",
+   "line": "#164a5a",
+   "sunken": "#011b25",
+   "text": "#fdede4",
+   "muted": "#c9b5ae",
+   "faint": "#899ea4",
+   "primary": "#ff697d",
+   "highlight": "#fbd7c3",
+   "accent": "#fbd7c3"
+  },
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
+  },
+  "layers": [
+   {
+    "src": "/svg/mix-space/bracket-top.svg",
+    "zIndex": 50,
+    "position": {
+     "left": "567.0px",
+     "top": "189.0px",
+     "width": "666.666px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-0.34px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-39.0px"
+      ]
+     },
+     {
+      "property": "scaleX",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       1.503
+      ]
+     },
+     {
+      "property": "scaleY",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       1.46
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/mix-space/wave-2.svg",
+    "zIndex": 40,
+    "position": {
+     "left": "600.33px",
+     "top": "339.0px",
+     "width": "600px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "204.17px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.16px"
+      ]
+     },
+     {
+      "property": "scaleX",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.765
+      ]
+     },
+     {
+      "property": "scaleY",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.7445
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/mix-space/wave-1.svg",
+    "zIndex": 30,
+    "position": {
+     "left": "600.33px",
+     "top": "339.0px",
+     "width": "600px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-203.33px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.16px"
+      ]
+     },
+     {
+      "property": "scaleX",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.7633
+      ]
+     },
+     {
+      "property": "scaleY",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.7445
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/mix-space/wave-3.svg",
+    "zIndex": 20,
+    "position": {
+     "left": "733.33px",
+     "top": "339.33px",
+     "width": "333.333px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "1.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-0.16px"
+      ]
+     },
+     {
+      "property": "scaleX",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.768
+      ]
+     },
+     {
+      "property": "scaleY",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       0.7445
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/mix-space/bracket-bottom.svg",
+    "zIndex": 10,
+    "position": {
+     "left": "567.0px",
+     "top": "655.67px",
+     "width": "666.666px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-0.34px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "38.83px"
+      ]
+     },
+     {
+      "property": "scaleX",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       1.503
+      ]
+     },
+     {
+      "property": "scaleY",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       1,
+       1.455
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "wireless-sensing": {
+  "heroBackground": "#1b0036",
+  "seam": "#1b0036",
+  "heroLabel": "primary",
+  "palette": {
+   "bg": "#1b0036",
+   "raised": "#2a0f4d",
+   "line": "#3e1f66",
+   "sunken": "#12002a",
+   "text": "#f3e9ff",
+   "muted": "#cdb8e8",
+   "faint": "#917dae",
+   "primary": "#c575e7",
+   "highlight": "#2ac19c",
+   "accent": "#e8b3ff"
+  },
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
+  },
+  "layers": [
+   {
+    "src": "/svg/wireless-sensing/rings.png",
+    "zIndex": 10,
+    "position": {
+     "left": "-405.0px",
+     "top": "956.0px",
+     "width": "2736px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "-163.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "-542.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/wireless-sensing/signal-node.svg",
+    "zIndex": 20,
+    "position": {
+     "left": "1180.0px",
+     "top": "704.0px",
+     "width": "86px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "312.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "-80.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/wireless-sensing/signal-3.svg",
+    "zIndex": 30,
+    "position": {
+     "left": "1136.0px",
+     "top": "663.0px",
+     "width": "174px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "312.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "-80.0px"
+      ]
+     },
+     {
+      "property": "opacity",
+      "input": [
+       0.8,
+       1
+      ],
+      "output": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/wireless-sensing/signal-2.svg",
+    "zIndex": 40,
+    "position": {
+     "left": "1102.0px",
+     "top": "609.0px",
+     "width": "242px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "312.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0.45,
+       1
+      ],
+      "output": [
+       "0px",
+       "-80.0px"
+      ]
+     },
+     {
+      "property": "opacity",
+      "input": [
+       0.85,
+       1
+      ],
+      "output": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/wireless-sensing/p-node.svg",
+    "zIndex": 50,
+    "position": {
+     "left": "548.0px",
+     "top": "386.0px",
+     "width": "86px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "323.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "-46.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/wireless-sensing/person.svg",
+    "zIndex": 60,
+    "position": {
+     "left": "310.0px",
+     "top": "264.0px",
+     "width": "324px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "312.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "-80.0px"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "ajo": {
+  "heroBackground": "#c2d7d0",
+  "seam": "#174d36",
+  "heroLabel": "text",
+  "palette": {
+   "bg": "#123527",
+   "raised": "#1b4a37",
+   "line": "#2c6a50",
+   "sunken": "#0c291e",
+   "text": "#f4fbf2",
+   "muted": "#c2dcc9",
+   "faint": "#96b5a4",
+   "primary": "#ffa577",
+   "highlight": "#95d659",
+   "accent": "#00c0f2"
+  },
+  "mobile": {
+   "scale": 0.56,
+   "x": -309
+  },
+  "layers": [
+   {
+    "src": "/svg/ajo/rock.svg",
+    "zIndex": 10,
+    "position": {
+     "left": "810.0px",
+     "top": "658.0px",
+     "width": "817.424px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "122.6px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-250.49px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       0,
+       11.06
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ajo/water-sprout.svg",
+    "zIndex": 20,
+    "position": {
+     "left": "445.3px",
+     "top": "564.57px",
+     "width": "485.084px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "106.95px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-260.95px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       24.31,
+       7.23
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ajo/grass.svg",
+    "zIndex": 30,
+    "position": {
+     "left": "-7.0px",
+     "top": "804.0px",
+     "width": "1821px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.0px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "0.0px"
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ajo/ajo-character.svg",
+    "zIndex": 40,
+    "position": {
+     "left": "502.0px",
+     "top": "366.0px",
+     "width": "203.066px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "553.52px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-208.34px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       0,
+       -2.78
+      ]
+     }
+    ]
+   },
+   {
+    "src": "/svg/ajo/wind.svg",
+    "zIndex": 50,
+    "position": {
+     "left": "-219.54px",
+     "top": "461.7px",
+     "width": "619.88px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "382.58px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-251.57px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       17.82,
+       21.87
+      ]
+     }
+    ],
+    "scaleY": -1
+   },
+   {
+    "src": "/svg/ajo/fire-ball.svg",
+    "zIndex": 60,
+    "position": {
+     "left": "130.54px",
+     "top": "149.0px",
+     "width": "293.608px"
+    },
+    "transforms": [
+     {
+      "property": "x",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "550.53px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       "0px",
+       "-225.1px"
+      ]
+     },
+     {
+      "property": "rotate",
+      "input": [
+       0,
+       1
+      ],
+      "output": [
+       -88.73,
+       -38.25
+      ]
+     }
+    ]
+   }
+  ]
+ }
 }

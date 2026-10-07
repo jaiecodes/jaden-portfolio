@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
-/* --- 1. Font Definitions --- */
+/* ================================================================
+   Design kit 2.0 (Figma: "Designs 2.0" page, "Components 2.0" section)
+   ================================================================ */
+
+/* --- 1. Fonts --- */
 
 @font-face {
   font-family: "Borel";
@@ -9,33 +13,12 @@
   font-display: swap;
 }
 
-/* Satoshi-Variable.ttf, as shipped:
-     internal family name  "Satoshi Variable"
-     wght axis             min 300, max 900, DEFAULT 900
-     named instances       Light 300, Regular 400, Medium 500, Bold 700, Black 900
-     OS/2 usWeightClass    900, with the BOLD bit set in fsSelection
-
-   Two consequences worth knowing. The axis bottoms out at 300, so anything
-   lighter clamps rather than rendering. And the default instance is Black,
-   not Regular, so any element that ends up without an explicit weight, or
-   any context where the axis is not applied, renders at 900. Declaring the
-   real range below keeps the browser's weight matching honest. */
+/* Satoshi-Variable.ttf's default instance is Black (900), so every element
+   needs an explicit weight; the type utilities below always set one. The
+   truetype-variations source comes first so older Safari applies the axis
+   instead of synthesising bold. */
 @font-face {
   font-family: "Satoshi";
-  /* truetype-variations first: older Safari ignores the weight axis on a
-     variable TTF declared only as truetype, and silently synthesises bold. */
-  src:
-    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
-    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
-  font-weight: 300 900;
-  font-display: swap;
-}
-
-/* The file's own family name is "Satoshi Variable", which is what the Figma
-   export refers to. Registering it too means that name resolves to this file
-   instead of silently falling back to the system sans. */
-@font-face {
-  font-family: "Satoshi Variable";
   src:
     url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
     url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
@@ -45,53 +28,100 @@
 
 @font-face {
   font-family: "Chillax";
-  /* Using your variable file to support ExtraLight through Bold */
-  src: url("./assets/fonts/Chillax-Variable.ttf") format("truetype");
-  font-weight: 100 700;
+  src:
+    url("./assets/fonts/Chillax-Variable.ttf") format("truetype-variations"),
+    url("./assets/fonts/Chillax-Variable.ttf") format("truetype");
+  font-weight: 200 700;
   font-display: swap;
 }
 
-/* --- 2. Theme Tokens --- */
-/* Registered with @theme so Tailwind generates bg-accent, text-ink,
-   bg-secondary/50 etc. Alpha lives in the modifier, not the token. */
+/* --- 2. Tokens ---
+   Brand colours are fixed. Everything a page paints with comes from the
+   semantic tokens below (Figma variables night/*, text/*, theme/*), which
+   each page theme sets. Components only use the semantic names, so a page
+   or a project re-skins them by setting the variables. */
 
 @theme {
-  --font-satoshi:
-    "Satoshi Variable", "Satoshi", ui-sans-serif, system-ui, sans-serif;
-  /* Brand faces, header only: Borel for the "jaden" wordmark, Chillax for
-     the nav links. Everything else is Satoshi on the type scale below. */
-  --font-borel: "Borel", cursive;
-  --font-chillax: "Chillax", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Chillax", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Borel", cursive;
 
-  --color-accent: #efc139; /* Accent */
-  --color-secondary: #dd8b2d; /* Secondary */
-  --color-primary: #4db36f; /* Primary (green) */
-  --color-ember: #a14d45; /* angular gradient terminus */
-  --color-blush: #f0789a; /* angular primary gradient terminus */
-  --color-moss: #78b34d; /* Resume: work heading / title gradient end */
-  --color-citron: #d1c85a; /* Resume: education heading */
-  --color-wheat: #d1aa5a; /* Resume: skills heading */
-  --color-olive: #8e9c32; /* Card rim gradient midpoint */
-  --color-abyss: #082c36; /* Card rim gradient terminus */
-  --color-ink: #030a11; /* Card Info background */
-  --color-body: #c8c8c5; /* Description text */
+  --color-accent: #efc139;
+  --color-secondary: #dd8b2d;
+  --color-primary: #4db36f;
+  --color-ember: #a14d45;
+  --color-blush: #f0789a;
+  --color-moss: #78b34d;
+  --color-olive: #8e9c32;
+  --color-abyss: #082c36;
+  --color-ink: #030a11;
 }
 
-/* `theme` follows the page's [data-theme], so text-theme, bg-theme/5,
-   outline-theme/50 etc. pick up whichever page they render on. */
+/* Semantic colours as Tailwind colours: bg-night, bg-raised, border-line,
+   text-fg, text-muted, text-faint, text-t-primary, bg-t-primary/15 … */
 @theme inline {
-  --color-theme: var(--theme-dominant);
-  --color-theme-on-light: var(--theme-dominant-on-light);
+  --color-night: var(--night-bg);
+  --color-raised: var(--night-raised);
+  --color-line: var(--night-line);
+  --color-sunken: var(--night-sunken);
+  --color-fg: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-t-primary: var(--theme-primary);
+  --color-t-secondary: var(--theme-secondary);
+  --color-t-highlight: var(--theme-highlight);
+  --color-t-accent: var(--theme-accent);
+  --color-t-on-primary: var(--theme-on-primary);
 }
 
-/* Paints. Any of these can be handed to a stroke, an icon, or a fill. */
+/* --- 2b. Page themes ---
+   Home and Projects: gold / orange / reddish brown.
+   About: green primary, yellow secondary, pink accent.
+   Resume: orange → green, with two steps between.
+   Project pages set the same variables from heroThemes.json. */
+:root,
+[data-theme="projects"],
+[data-theme="home"] {
+  --night-bg: #040a0a;
+  --night-raised: #0c1b19;
+  --night-line: #1f3b33;
+  --night-sunken: #040a0a;
+  --text-primary: #eeebe2;
+  --text-muted: #9da8a0;
+  --text-faint: #778981;
+  --theme-primary: #efc139;
+  --theme-secondary: #dd8b2d;
+  --theme-highlight: #dd8b2d;
+  --theme-accent: #a14d45;
+  --theme-title: var(--paint-accent-secondary);
+  --theme-stroke: var(--paint-angular);
+}
+[data-theme="about"] {
+  --theme-primary: #4db36f;
+  --theme-secondary: #efc139;
+  --theme-highlight: #4db36f;
+  --theme-accent: #f0789a;
+  --theme-title: var(--paint-primary-accent);
+  --theme-stroke: var(--paint-primary-angular);
+}
+[data-theme="resume"] {
+  --theme-primary: #dd8b2d;
+  --theme-secondary: #c4c24a;
+  --theme-highlight: #4db36f;
+  --theme-accent: #4db36f;
+  --theme-title: var(--paint-secondary-moss);
+  --theme-stroke: var(--paint-card-angular);
+}
+/* Text on a filled primary control defaults to the page background. */
+:root,
+[data-theme] {
+  --theme-on-primary: var(--night-bg);
+}
+
+/* Paints: any background value, for fills, rims and gradient text. */
 :root {
-  /* Angular fill. Figma's 35deg rotation reads as 215deg in CSS, since CSS
-     measures from 12 o'clock and Figma's 0deg sits at CSS 180deg.
-     The 0% stop is what stops the sweep from ending on a hard seam: without
-     it, #EFC139 extends back from 4% to 0% and meets #A14D45 at 100% with no
-     interpolation. Repeating the terminus at 0% gives the ember a 4% (14.4deg)
-     ramp back into the accent. Widen that 4% to soften the blend further. */
+  /* Angular rims. Figma's 35deg reads as 215deg in CSS (CSS measures from
+     12 o'clock). The 0% stop repeats the terminus so the sweep has no seam. */
   --paint-angular: conic-gradient(
     from 215deg at 50% 50%,
     var(--color-ember) 0%,
@@ -108,341 +138,199 @@
     var(--color-accent) 62%,
     var(--color-blush) 100%
   );
-  /* Resume card rim: Secondary -> olive -> deep teal, angular. */
   --paint-card-angular: conic-gradient(
     from 215deg at 50% 50%,
+    #091c2f 0%,
     var(--color-secondary) 4%,
     var(--color-secondary) 20%,
     var(--color-olive) 52%,
-    var(--color-abyss) 100%
+    #091c2f 100%
   );
-  --paint-accent-soft: rgb(239 193 57 / 0.5); /* Accent_Border */
-  --paint-secondary-soft: rgb(221 139 45 / 0.5); /* Secondary_Border */
-  /* Description block: Secondary 15% -> Accent 15%, left to right */
-  --paint-warm-wash: linear-gradient(
+  --paint-accent-secondary: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+  --paint-primary-accent: linear-gradient(138.65deg, var(--color-primary) 0%, var(--color-accent) 90%);
+  --paint-secondary-moss: linear-gradient(90deg, var(--color-secondary), var(--color-moss));
+  /* The original nav underline. */
+  --paint-underline: linear-gradient(
     90deg,
-    rgb(221 139 45 / 0.15) 0%,
-    rgb(239 193 57 / 0.15) 100%
-  );
-  --shadow-card-glow: 0 1px 12px rgb(239 193 57 / 0.5);
-  --shadow-tile: 0 4px 4px rgb(0 0 0 / 0.25);
-  --shadow-inset-lip: inset 0 4px 4px rgb(0 0 0 / 0.25);
-
-  /* Solid accent -> secondary sweep for gradient text (the PROJECTS title). */
-  --paint-title: linear-gradient(
-    90deg,
-    var(--color-accent) 0%,
-    var(--color-secondary) 100%
-  );
-  /* Search field: Accent 15% -> Secondary 15%, left to right. */
-  --paint-search: linear-gradient(
-    90deg,
-    rgb(239 193 57 / 0.15) 0%,
-    rgb(221 139 45 / 0.15) 100%
-  );
-  /* About hero title: Primary (green) -> Accent (gold), 137deg. */
-  --paint-hero-title: linear-gradient(
-    137.29deg,
-    var(--color-primary) 0%,
-    var(--color-accent) 90%
+    rgb(69 161 99 / 0) 0%,
+    #45a163 25%,
+    #efc139 50%,
+    #c27927 75%,
+    rgb(194 121 39 / 0) 100%
   );
 }
 
-/* --- 2b. Page Themes ---
-   Each page has one dominant colour. A theme names it and the paints that
-   go with it; UI-kit components read these instead of fixed colours, so a
-   new theme is one more block here plus a PageTheme entry in
-   src/components/ui/theme.ts.
-
-     --theme-dominant   headings, active controls, links       (text-theme)
-     --theme-dominant-on-light   the same roles on light surfaces, where the
-                        dominant colour is too pale to read (text-theme-on-light)
-     --theme-stroke     angular rim for panels and cards       (.stroke-theme)
-
-   :root carries the projects theme so anything rendered outside a page
-   (the header, overlays) still resolves. */
-:root,
-[data-theme="projects"] {
-  --theme-dominant: var(--color-accent);
-  --theme-dominant-on-light: var(--color-ember);
-  --theme-stroke: var(--paint-angular);
-}
-[data-theme="about"] {
-  --theme-dominant: var(--color-primary);
-  --theme-dominant-on-light: var(--color-abyss);
-  --theme-stroke: var(--paint-primary-angular);
-}
-[data-theme="resume"] {
-  --theme-dominant: var(--color-secondary);
-  --theme-dominant-on-light: var(--color-ember);
-  --theme-stroke: var(--paint-card-angular);
-}
-/* Derived from whichever theme is active (Figma: theme/dominant-border,
-   theme/dominant-background). */
-:root,
-[data-theme] {
-  --theme-dominant-border: color-mix(in srgb, var(--theme-dominant) 50%, transparent);
-  --theme-dominant-background: color-mix(in srgb, var(--theme-dominant) 5%, transparent);
-}
-
-/* --- 3. Base ---
-   Elements carry no type styling of their own: headings and buttons look
-   like body text until given a type-* utility (or the <Text> component).
-   That keeps one source of truth for every size on the site. */
+/* --- 3. Base --- */
 
 @layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    background-color: var(--night-bg);
+  }
   body {
-    font-family: var(--font-satoshi);
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 1rem;
-    line-height: 1.5;
-    color: var(--color-body);
-    @variant lg {
-      font-size: 1.25rem;
-    }
-  }
-
-  /* ---- Project card type ramp ----
-     Satoshi Variable throughout, fixed sizes because the card is a fixed
-     360px. Each rule restates family, weight, transform and tracking so it
-     wins cleanly over the element defaults above rather than being patched
-     with utilities.
-
-     Weights are 500 / 700 / 400 / 700. Each is pinned twice: font-weight for
-     normal CSS matching, and font-variation-settings so the wght axis is set
-     outright. That second line matters for this file specifically, whose
-     default instance is 900 rather than 400. font-synthesis-weight is off, so
-     a failure shows as the true weight rather than a browser-faked bold.
-
-     font-variation-settings inherits, so a descendant that sets only
-     font-weight will keep its ancestor's wght. Every card style below sets
-     both; keep doing that on anything nested inside them. */
-
-  /* Title Text - Satoshi Bold 32px, uppercase, no extra tracking */
-  .card-title {
-    font-family: var(--font-satoshi);
-    font-weight: 700;
-    font-variation-settings: "wght" 700;
-    font-synthesis-weight: none;
-    font-size: 2rem;
-    line-height: 1.25;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    @apply text-center text-white;
-  }
-
-  /* Year Text - Satoshi Medium 20px, Accent */
-  .card-year {
-    font-family: var(--font-satoshi);
-    font-weight: 500;
-    font-variation-settings: "wght" 500;
-    font-synthesis-weight: none;
-    font-size: 1.25rem;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: 0;
-    @apply text-accent;
-  }
-
-  /* Description Text - Satoshi Regular 16px */
-  .card-description {
-    font-family: var(--font-satoshi);
-    font-weight: 400;
-    font-variation-settings: "wght" 400;
-    font-synthesis-weight: none;
-    font-size: 1rem;
-    line-height: 1.4;
-    letter-spacing: 0;
-    @apply text-center text-body;
-  }
-
-  /* Filter tile label - Satoshi Bold 20px, uppercase, no extra tracking */
-  .card-tile-label {
-    font-family: var(--font-satoshi);
-    font-weight: 700;
-    font-variation-settings: "wght" 700;
-    font-synthesis-weight: none;
-    font-size: 1.25rem;
-    line-height: 1.3;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    @apply text-center text-white;
+    line-height: 1.55;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-/* --- 4. Type Scale ---
-   Satoshi throughout; every step steps up at lg (1024px). Weights are only
-   ever 400 / 500 / 700 / 900. Colour is never set here — it comes from the
-   page theme or the caller.
+/* --- 4. Type scale (Figma text styles "2.0/…") ---
+   Satoshi for copy and labels, Chillax for headings, Borel for the wordmark
+   and the About greeting. Steps shrink below lg (1024px); colour is never
+   part of a step.
 
-     step       mobile → lg   weight  case    used for
-     display    48 → 96       900     upper   project hero titles, Up Next
-     h1         32 → 48       700     upper   section headings
-     h2         24 → 32       700     upper   card titles, dates, page labels
-     title      24 → 32       400     —       entry / card names (add uppercase as needed)
-     lead       20 → 32       400     —       intro paragraphs, big copy
-     callout    18 → 24       700     —       summary copy inside cards
-     label      16 → 24       700     upper   organisations, group labels
-     body       16 → 20       400     —       running text
-     body-sm    16            400     —       dense text (card blurbs, inputs)
-     button     14 → 28       500     upper   buttons and links styled as such
-     pill       16 → 20       700     upper   skill pills, tag tiles
-     tag        14 → 16       700     upper   tech tags, small badges
-     overline   12 → 14       700     upper   section kickers, captions
-
-   The project card (.card-*) is a fixed 360px component, so it uses the
-   lg sizes of this scale without stepping. */
-
-/* Type sizes per step (Figma: Typography collection, font-size/*), mobile
-   values with the lg step-up. The type-* utilities below read these. */
+     step         lg    mobile  face / weight     used for
+     display      96    40      Chillax 600       project hero titles
+     h1           64    40      Chillax 600       page and section titles, stats
+     h2           40    28      Chillax 500       problem, highlights, home intro
+     h3           28    24      Chillax 500       entry names, focus cards
+     lead         24    20      Satoshi 400       intros, reflections
+     body         18    16      Satoshi 400       running text
+     body-sm      16    16      Satoshi 400       captions, card blurbs
+     label        16    16      Satoshi 700       kickers (uppercase, +8%)
+     label-lg     18    18      Satoshi 700       skill group names
+     hero-label   20    16      Satoshi 700       hero kicker
+     chip         16    16      Satoshi 500       tech tags, filter chips
+     button       18    18      Satoshi 500       buttons, nav links
+     card-title   26    20      Satoshi 700       project card titles (uppercase)
+     script       120   72      Borel             "hi, i'm jaden"
+     wordmark     36    26      Borel             header logo */
 :root {
-  --type-display-size: 3rem;
-  --type-h1-size: 2rem;
-  --type-h2-size: 1.5rem;
-  --type-title-size: 1.5rem;
-  --type-lead-size: 1.25rem;
-  --type-callout-size: 1.125rem;
-  --type-label-size: 1rem;
-  --type-body-size: 1rem;
-  --type-body-sm-size: 1rem;
-  --type-button-size: 0.875rem;
-  --type-pill-size: 1rem;
-  --type-tag-size: 0.875rem;
-  --type-overline-size: 0.75rem;
+  --type-display: 2.5rem;
+  --type-h1: 2.5rem;
+  --type-h2: 1.75rem;
+  --type-h3: 1.5rem;
+  --type-lead: 1.25rem;
+  --type-body: 1rem;
+  --type-hero-label: 1rem;
+  --type-card-title: 1.25rem;
+  --type-script: 4.5rem;
+  --type-wordmark: 1.625rem;
 }
 @media (width >= 64rem) {
   :root {
-    --type-display-size: 6rem;
-    --type-h1-size: 3rem;
-    --type-h2-size: 2rem;
-    --type-title-size: 2rem;
-    --type-lead-size: 2rem;
-    --type-callout-size: 1.5rem;
-    --type-label-size: 1.5rem;
-    --type-body-size: 1.25rem;
-    --type-body-sm-size: 1rem;
-    --type-button-size: 1.75rem;
-    --type-pill-size: 1.25rem;
-    --type-tag-size: 1rem;
-    --type-overline-size: 0.875rem;
+    --type-display: 6rem;
+    --type-h1: 4rem;
+    --type-h2: 2.5rem;
+    --type-h3: 1.75rem;
+    --type-lead: 1.5rem;
+    --type-body: 1.125rem;
+    --type-hero-label: 1.25rem;
+    --type-card-title: 1.625rem;
+    --type-script: 7.5rem;
+    --type-wordmark: 2.25rem;
   }
 }
 
 @utility type-display {
-  font-family: var(--font-satoshi);
-  font-weight: 900;
-  font-size: var(--type-display-size);
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--type-display);
+  line-height: 1;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 @utility type-h1 {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-h1-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--type-h1);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
 }
 @utility type-h2 {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-h2-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--type-h2);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
-@utility type-title {
-  font-family: var(--font-satoshi);
-  font-weight: 400;
-  font-size: var(--type-title-size);
-  line-height: 1.35;
-  letter-spacing: 0;
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--type-h3);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
 }
 @utility type-lead {
-  font-family: var(--font-satoshi);
+  font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--type-lead-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-}
-@utility type-callout {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-callout-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-}
-@utility type-label {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-label-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  font-size: var(--type-lead);
+  line-height: 1.45;
 }
 @utility type-body {
-  font-family: var(--font-satoshi);
+  font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--type-body-size);
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-size: var(--type-body);
+  line-height: 1.6;
 }
 @utility type-body-sm {
-  font-family: var(--font-satoshi);
+  font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--type-body-sm-size);
-  line-height: 1.4;
-  letter-spacing: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+@utility type-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@utility type-label-lg {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+@utility type-hero-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--type-hero-label);
+  line-height: 1.3;
+}
+@utility type-chip {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 @utility type-button {
-  font-family: var(--font-satoshi);
+  font-family: var(--font-body);
   font-weight: 500;
-  font-size: var(--type-button-size);
+  font-size: 1.125rem;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+}
+@utility type-card-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--type-card-title);
   line-height: 1.2;
-  letter-spacing: 0;
   text-transform: uppercase;
 }
-@utility type-pill {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-pill-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: uppercase;
+@utility type-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: var(--type-script);
+  line-height: 1.1;
 }
-@utility type-tag {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-tag-size);
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-@utility type-overline {
-  font-family: var(--font-satoshi);
-  font-weight: 700;
-  font-size: var(--type-overline-size);
-  line-height: 1.35;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+@utility type-wordmark {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: var(--type-wordmark);
+  line-height: 1;
 }
 
 /* --- 5. Utilities --- */
 
 @layer utilities {
-  /* Trims the line box to cap height / baseline, so Figma's gap values
-     (measured between glyph edges) can be used as-is. */
-  .cap-trim {
-    text-box-trim: trim-both;
-    text-box-edge: cap alphabetic;
-  }
-
-  /* Paints the element's background gradient onto its glyphs and makes the
-     text fill transparent, so any --paint-* token shows through the letters.
-     Pair with a bg-[image:var(--paint-*)] utility (or set background-image).
-     -webkit-text-fill-color wins where supported; color:transparent is the
-     fallback for engines that ignore it. */
+  /* Paints a background gradient onto the glyphs (pair with bg-[image:…]). */
   .text-gradient {
     -webkit-background-clip: text;
     background-clip: text;
@@ -450,77 +338,29 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* Hide the scrollbar on horizontally-scrolled strips (the mobile category
-     rail) while keeping the element scrollable by touch/trackpad. */
   .no-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* old Edge */
+    scrollbar-width: none;
   }
   .no-scrollbar::-webkit-scrollbar {
-    display: none; /* WebKit */
+    display: none;
   }
 
-  /* Softly clip a horizontally scrolling strip: content fades to transparent
-     within 17px of each edge instead of hitting a hard cut, so a full-bleed
-     rail keeps the page's 17px side padding as a gradient fade. The -webkit-
-     prefix is required for iOS Safari. */
-  .fade-edges-x {
-    /* Left: opaque by 17px so the first button stays crisp against the gutter.
-       Right: content fades out and is fully clear by 17px BEFORE the edge, so
-       the last 17px is a clean empty gutter (true right padding), not faded
-       content bleeding to the screen edge. */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 17px,
-      #000 calc(100% - 34px),
-      transparent calc(100% - 17px)
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 17px,
-      #000 calc(100% - 34px),
-      transparent calc(100% - 17px)
-    );
-  }
-  /* At lg the rail sits inline (padding, no bleed), so the fade would clip the
-     first/last button's letters — turn it off. */
-  @media (width >= 1024px) {
-    .fade-edges-x {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
+  /* A horizontally scrolling strip that fades out at its right edge. */
+  .fade-right {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
   }
 
   /* ----------------------------------------------------------------
-     STROKE
-     A border replacement that (a) accepts any paint, including conic
-     gradients, (b) exists only on the sides you ask for, and (c) is
-     drawn inside the box so it never changes layout size.
-
-     Custom properties, set from JS via strokeStyle():
-       --s-top / --s-right / --s-bottom / --s-left   rim thickness per side
-       --p-top / --p-right / --p-bottom / --p-left   padding, EXCLUSIVE of the rim
-       --stroke-paint      any background value
-       --stroke-fallback   solid colour for the no-mask fallback
-
-     PER-SIDE MECHANIC: the rim is the ring between ::after's border box
-     and its content box, and ::after's padding is the per-side thickness.
-     A side left at 0 has no ring there, so it renders no rim. One utility
-     therefore covers 1, 2, 3 or 4 sides with no extra classes.
-
-     Padding is exclusive of the rim: --p-* is the gap measured from the
-     INSIDE edge of the stroke, matching Figma, where an inside stroke and
-     the frame's padding stack rather than overlap.
-     Do not put Tailwind p-* utilities on a .stroke element; use --p-*.
+     STROKE: a border replacement that takes any paint (including conic
+     gradients), exists only on the sides asked for, and is drawn inside
+     the box so it never changes layout size. Set via strokeStyle():
+       --s-* rim thickness per side, --p-* padding inside the rim,
+       --stroke-paint any background value, --stroke-fallback flat colour.
+     Don't put p-* utilities on a .stroke element; use --p-* or an inner div.
   ---------------------------------------------------------------- */
   .stroke {
     position: relative;
-    /* Declared, not just defaulted in var(). Custom properties inherit, so a
-       nested .stroke inside a stroked ancestor would otherwise pick up that
-       ancestor's --s-* values and grow rims on sides it never asked for.
-       A declaration here beats inheritance; inline strokeStyle() beats this. */
     --s-top: 0px;
     --s-right: 0px;
     --s-bottom: 0px;
@@ -529,39 +369,33 @@
     --p-right: 0px;
     --p-bottom: 0px;
     --p-left: 0px;
-    /* paint inherits as well; the named .stroke-* classes below and any
-       inline paint both override this, since they come later or are inline. */
-    --stroke-paint: var(--color-accent);
-    --stroke-fallback: var(--color-accent);
-    padding: calc(var(--s-top, 0px) + var(--p-top, 0px))
-      calc(var(--s-right, 0px) + var(--p-right, 0px))
-      calc(var(--s-bottom, 0px) + var(--p-bottom, 0px))
-      calc(var(--s-left, 0px) + var(--p-left, 0px));
+    --stroke-paint: var(--theme-primary);
+    --stroke-fallback: var(--theme-primary);
+    padding: calc(var(--s-top) + var(--p-top)) calc(var(--s-right) + var(--p-right))
+      calc(var(--s-bottom) + var(--p-bottom)) calc(var(--s-left) + var(--p-left));
   }
-
   .stroke::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 2;
     border-radius: inherit;
-    /* the padded sides are the sides that get a rim */
-    padding: var(--s-top, 0px) var(--s-right, 0px) var(--s-bottom, 0px)
-      var(--s-left, 0px);
-    background: var(--stroke-paint, var(--color-accent));
+    padding: var(--s-top) var(--s-right) var(--s-bottom) var(--s-left);
+    background: var(--stroke-paint);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor; /* Safari keyword */
-    mask-composite: exclude; /* standard keyword */
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     pointer-events: none;
   }
-
-  /* Named paints, so components stay declarative.
-     --stroke-fallback carries the flat colour for the @supports branch. */
+  .stroke-theme {
+    --stroke-paint: var(--theme-stroke);
+    --stroke-fallback: var(--theme-primary);
+  }
   .stroke-angular {
     --stroke-paint: var(--paint-angular);
     --stroke-fallback: var(--color-accent);
@@ -574,39 +408,79 @@
     --stroke-paint: var(--paint-card-angular);
     --stroke-fallback: var(--color-secondary);
   }
-  /* The page theme's rim (see [data-theme]). */
-  .stroke-theme {
-    --stroke-paint: var(--theme-stroke);
-    --stroke-fallback: var(--theme-dominant);
-  }
-  .stroke-accent-soft {
-    --stroke-paint: var(--paint-accent-soft);
-    --stroke-fallback: var(--paint-accent-soft);
-  }
-
-  /* Fallback where mask-composite is unavailable. Inset box-shadows are
-     also per-side and also layout-neutral, so single-sided strokes survive;
-     only the gradient degrades to a flat colour. */
   @supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
     .stroke::after {
       padding: 0;
       background: none;
       box-shadow:
-        inset 0 var(--s-top, 0px) 0 0
-          var(--stroke-fallback, var(--color-accent)),
-        inset calc(-1 * var(--s-right, 0px)) 0 0 0
-          var(--stroke-fallback, var(--color-accent)),
-        inset 0 calc(-1 * var(--s-bottom, 0px)) 0 0
-          var(--stroke-fallback, var(--color-accent)),
-        inset var(--s-left, 0px) 0 0 0
-          var(--stroke-fallback, var(--color-accent));
+        inset 0 var(--s-top) 0 0 var(--stroke-fallback),
+        inset calc(-1 * var(--s-right)) 0 0 0 var(--stroke-fallback),
+        inset 0 calc(-1 * var(--s-bottom)) 0 0 var(--stroke-fallback),
+        inset var(--s-left) 0 0 0 var(--stroke-fallback);
     }
   }
 }
-html,
-body,
-#root {
-  min-height: 100%;
-  background-color: var(--color-ink);
-  color: var(--color-body);
+
+/* --- 6. Ambient motion --- */
+
+@keyframes firefly-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(var(--dx1), var(--dy1));
+  }
+  66% {
+    transform: translate(var(--dx2), var(--dy2));
+  }
+}
+@keyframes firefly-glow {
+  0%,
+  100% {
+    opacity: var(--o-lo);
+  }
+  50% {
+    opacity: var(--o-hi);
+  }
+}
+@keyframes lantern-swing {
+  0%,
+  100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+@keyframes lantern-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.84;
+  }
+  60% {
+    opacity: 0.95;
+  }
+}
+@keyframes idle-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

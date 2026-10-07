@@ -1,44 +1,51 @@
-import type { SkillGroupData, SkillIcon } from "../../../domain/models/Resume";
-import { Pill } from "../../../components/ui/Pill";
-import { Text } from "../../../components/ui/Text";
-import unrealUrl from "@/assets/svg/resume/unreal.svg";
-import unityUrl from "@/assets/svg/resume/unity.svg";
+// src/features/resume/components/ResumeSkills.tsx
+import { ResumeService } from "../../../domain/services/ResumeService";
+import type { SkillIcon } from "../../../domain/models/Resume";
+import { Chip } from "../../../components/ui/Chip";
+import { Icon, type IconName } from "../../../components/ui/Icon";
+import { STEPS } from "./steps";
 
-const ICONS: Record<SkillIcon, string> = {
-  unreal: unrealUrl,
-  unity: unityUrl,
-};
+const ICON: Record<SkillIcon, IconName> = { cube: "cube", chip: "chip", globe: "globe", code: "code" };
 
-export const ResumeSkills = ({ groups }: { groups: SkillGroupData[] }) => (
-  <section className="flex flex-col gap-10 lg:gap-[54px]">
-    <Text variant="h1" trim className="text-wheat">
-      Skills &amp; Tools
-    </Text>
-
-    <div className="flex flex-col gap-12 lg:gap-[54px] lg:pl-[45px]">
-      {groups.map((group) => (
-        <div key={group.title} className="flex flex-col gap-6 lg:gap-[35px]">
-          <Text variant="label" as="h3" trim className="text-secondary">
-            {group.title}
-          </Text>
-          <ul className="flex flex-wrap gap-x-4 gap-y-4 lg:gap-x-[clamp(24px,3.6vw,65px)] lg:gap-y-8">
-            {group.skills.map((skill) => (
-              <li key={skill.name}>
-                <Pill
-                  variant="skill"
-                  icon={
-                    skill.icon && (
-                      <img src={ICONS[skill.icon]} alt="" className="size-full" />
-                    )
-                  }
+/** Skill groups, each in its step colour with an icon badge, divided by rules. */
+export const ResumeSkills = () => {
+  const skills = ResumeService.getSkills();
+  return (
+    <section className="flex flex-col gap-6 lg:gap-8 lg:pl-[70px]">
+      <h2 className="type-label" style={{ color: STEPS[skills.step].accent }}>
+        {skills.title}
+      </h2>
+      <ul className="flex flex-col">
+        {skills.groups.map((g) => {
+          const color = STEPS[g.step].chip;
+          return (
+            <li key={g.title} className="flex flex-col gap-3 border-b border-line py-[22px] first:pt-0 lg:flex-row lg:items-center lg:gap-0">
+              <div className="flex items-center gap-3 lg:w-80 lg:shrink-0">
+                <span
+                  className="flex size-10 items-center justify-center rounded-[10px] border"
+                  style={{
+                    color,
+                    borderColor: `color-mix(in srgb, ${color} 60%, transparent)`,
+                    background: `color-mix(in srgb, ${color} 15%, var(--night-bg))`,
+                  }}
                 >
-                  {skill.name}
-                </Pill>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </section>
-);
+                  <Icon name={ICON[g.icon]} size={22} />
+                </span>
+                <span className="type-label-lg" style={{ color }}>
+                  {g.title}
+                </span>
+              </div>
+              <ul className="flex flex-wrap gap-2">
+                {g.skills.map((s) => (
+                  <li key={s}>
+                    <Chip color={color}>{s}</Chip>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+};

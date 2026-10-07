@@ -1,0 +1,17 @@
+<svg width="80" height="300" viewBox="0 0 80 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Home &#226;&#128;&#148; Garden Entry &#226;&#128;&#148; Desktop 2.0">
+<g id="Lantern (swings, casts point light)">
+<g id="Vector">
+<path d="M40 0V200V0Z" fill="black"/>
+<path d="M40 0V200" stroke="#2A3A38" stroke-width="3" stroke-dasharray="6 4"/>
+</g>
+<path id="Vector_2" d="M26 200H54L60 210H20L26 200Z" fill="#1C2A28"/>
+<path id="Vector_3" d="M22 210H58V262C58 263.591 57.3679 265.117 56.2426 266.243C55.1174 267.368 53.5913 268 52 268H28C26.4087 268 24.8826 267.368 23.7574 266.243C22.6321 265.117 22 263.591 22 262V210Z" fill="#F2B24A" stroke="#1C2A28" stroke-width="4"/>
+<path id="Vector_4" d="M40 222C48 230 48 240 40 252C32 240 32 230 40 222Z" fill="#FFF1C2"/>
+<g id="Vector_5">
+<path d="M28 272H52H28Z" fill="black"/>
+<path d="M28 272H52" stroke="#1C2A28" stroke-width="5" stroke-linecap="round"/>
+</g>
+</g>
+</g>
+</svg>

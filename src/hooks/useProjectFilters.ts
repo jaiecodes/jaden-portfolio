@@ -1,84 +1,61 @@
-import { useMemo, useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ProjectService } from "../domain/services/ProjectService";
+import type { ProjectQuery, ProjectSort } from "../domain/models/Project";
+
+const SORTS: ProjectSort[] = ["newest", "oldest", "az"];
+
+/** Reads the gallery query from URL params, so every filtered view is a link. */
+export function readQuery(params: URLSearchParams): ProjectQuery {
+  const sort = params.get("sort") as ProjectSort | null;
+  return {
+    query: params.get("q") ?? "",
+    category: params.get("cat"),
+    tech: params.getAll("tech"),
+    years: params.getAll("year").map(Number).filter(Boolean),
+    sort: sort && SORTS.includes(sort) ? sort : "newest",
+  };
+}
+
+/** Writes a query back to params, leaving defaults out of the URL. */
+function writeQuery(q: ProjectQuery): URLSearchParams {
+  const p = new URLSearchParams();
+  if (q.query) p.set("q", q.query);
+  if (q.category) p.set("cat", q.category);
+  q.tech.forEach((t) => p.append("tech", t));
+  q.years.forEach((y) => p.append("year", String(y)));
+  if (q.sort !== "newest") p.set("sort", q.sort);
+  return p;
+}
+
+const toggle = <T,>(list: T[], value: T) =>
+  list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
 export function useProjectFilters() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [params, setParams] = useSearchParams();
+  const q = useMemo(() => readQuery(params), [params]);
 
-  // Read state from URL
-  const query = searchParams.get("q") || "";
-  const category = searchParams.get("cat") || null;
-  const selectedTags = searchParams.getAll("tag");
-
-  const availableCategories = useMemo(() => ProjectService.getCategories(), []);
-  const availableTags = useMemo(() => ProjectService.getUniqueTags(), []);
-
-  const filteredProjects = useMemo(() => {
-    return ProjectService.getFiltered(query, category, selectedTags);
-  }, [query, category, selectedTags]);
-
-  const setQuery = useCallback(
-    (newQuery: string) => {
-      setSearchParams(
-        (prev) => {
-          if (newQuery) prev.set("q", newQuery);
-          else prev.delete("q");
-          return prev;
-        },
-        { replace: true },
-      );
-    },
-    [setSearchParams],
+  const update = useCallback(
+    (patch: Partial<ProjectQuery>) =>
+      setParams((prev) => writeQuery({ ...readQuery(prev), ...patch }), { replace: true }),
+    [setParams],
   );
 
-  const setCategory = useCallback(
-    (newCat: string | null) => {
-      setSearchParams(
-        (prev) => {
-          if (newCat) prev.set("cat", newCat);
-          else prev.delete("cat");
-          return prev;
-        },
-        { replace: true },
-      );
-    },
-    [setSearchParams],
-  );
-
-  const toggleTag = useCallback(
-    (tag: string) => {
-      setSearchParams(
-        (prev) => {
-          const tags = prev.getAll("tag");
-          if (tags.includes(tag)) {
-            const filtered = tags.filter((t) => t !== tag);
-            prev.delete("tag");
-            filtered.forEach((t) => prev.append("tag", t));
-          } else {
-            prev.append("tag", tag);
-          }
-          return prev;
-        },
-        { replace: true },
-      );
-    },
-    [setSearchParams],
-  );
-
-  const clearFilters = useCallback(() => {
-    setSearchParams({}, { replace: true });
-  }, [setSearchParams]);
+  const projects = useMemo(() => ProjectService.find(q), [q]);
 
   return {
-    query,
-    setQuery,
-    category,
-    setCategory,
-    selectedTags,
-    toggleTag,
-    clearFilters,
-    availableCategories,
-    availableTags,
-    filteredProjects,
+    ...q,
+    projects,
+    total: ProjectService.count(),
+    /** How many filters beyond the category are on (for the Filters badge). */
+    activeCount: q.tech.length + q.years.length + (q.sort !== "newest" ? 1 : 0),
+    setQuery: (query: string) => update({ query }),
+    setCategory: (category: string | null) => update({ category }),
+    toggleTech: (tech: string) => update({ tech: toggle(q.tech, tech) }),
+    toggleYear: (year: number) => update({ years: toggle(q.years, year) }),
+    setSort: (sort: ProjectSort) => update({ sort }),
+    /** Replaces the whole query, used when the filter drawer applies. */
+    apply: (next: ProjectQuery) => setParams(writeQuery(next), { replace: true }),
+    clear: () => setParams(new URLSearchParams(), { replace: true }),
   };
 }

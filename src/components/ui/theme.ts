@@ -3,63 +3,63 @@
 // components that use it stay single-export (react-refresh lint rule).
 
 /**
- * A page theme names the page's dominant colour and its rim paint. The
- * values live in index.css under [data-theme="…"]; adding a theme means a
- * new block there and a new member here.
+ * A page theme sets the semantic colour tokens (night/*, text/*, theme/*)
+ * for everything inside it; the values live in index.css under
+ * [data-theme="…"]. Project pages set the same tokens inline from their
+ * palette instead (paletteStyle()).
  */
-export type PageTheme = "projects" | "about" | "resume";
+export type PageTheme = "home" | "projects" | "about" | "resume";
 
-/** Steps of the type scale (see "Type Scale" in index.css). */
+/** Steps of the 2.0 type scale (see "Type scale" in index.css). */
 export type TextVariant =
   | "display"
   | "h1"
   | "h2"
-  | "title"
+  | "h3"
   | "lead"
-  | "callout"
-  | "label"
   | "body"
   | "body-sm"
+  | "label"
+  | "label-lg"
+  | "hero-label"
+  | "chip"
   | "button"
-  | "pill"
-  | "tag"
-  | "overline";
+  | "card-title"
+  | "script"
+  | "wordmark";
 
 /** Full class names (not built from strings) so Tailwind can see them. */
 export const TEXT_CLASS: Record<TextVariant, string> = {
   display: "type-display",
   h1: "type-h1",
   h2: "type-h2",
-  title: "type-title",
+  h3: "type-h3",
   lead: "type-lead",
-  callout: "type-callout",
-  label: "type-label",
   body: "type-body",
   "body-sm": "type-body-sm",
+  label: "type-label",
+  "label-lg": "type-label-lg",
+  "hero-label": "type-hero-label",
+  chip: "type-chip",
   button: "type-button",
-  pill: "type-pill",
-  tag: "type-tag",
-  overline: "type-overline",
+  "card-title": "type-card-title",
+  script: "type-script",
+  wordmark: "type-wordmark",
 };
 
 /**
- * Named colours a component can be tinted with. `theme` follows the page;
- * the others are fixed brand colours for elements that deliberately stand
- * apart from it (e.g. the gold social buttons on the green About page).
+ * Semantic colours a part can take. All follow the page theme, so the same
+ * component reads gold on Projects, green on About, a project's own colour
+ * on its case study.
  */
-export type Tone = "theme" | "primary" | "secondary" | "accent" | "blush";
+export type Tone = "primary" | "secondary" | "highlight" | "accent" | "fg" | "muted" | "faint";
 
 export const TONE_TEXT: Record<Tone, string> = {
-  theme: "text-theme",
-  primary: "text-primary",
-  secondary: "text-secondary",
-  accent: "text-accent",
-  blush: "text-blush",
+  primary: "text-t-primary",
+  secondary: "text-t-secondary",
+  highlight: "text-t-highlight",
+  accent: "text-t-accent",
+  fg: "text-fg",
+  muted: "text-muted",
+  faint: "text-faint",
 };
-
-/**
- * What a component sits on. `dark` is the default page; `light` is for pale
- * backgrounds (e.g. an overview under a light hero), where text turns ink and
- * accents use the theme's on-light colour (Figma: Surface=Light variants).
- */
-export type Surface = "dark" | "light";

@@ -1,94 +1,113 @@
 // src/features/projects/ProjectPage.tsx
 import { useState } from "react";
-import { motion } from "motion/react";
-import ProjectsTitle from "@/assets/svg/titles/PROJECTS.svg?react";
-import { useProjectFilters } from "../../hooks/useProjectFilters";
+import { useLocation } from "react-router-dom";
 import { PageFrame } from "../../components/ui/PageFrame";
-import { Text } from "../../components/ui/Text";
-import { SearchBar } from "./components/SearchBar";
-import { CategoryRail } from "./components/CategoryRail";
-import { FiltersToggle } from "./components/FiltersToggle";
-import { TagFilterPanel } from "./components/TagFilterPanel";
-import { ProjectGrid } from "./components/ProjectGrid";
+import { Button } from "../../components/ui/Button";
+import { Icon } from "../../components/ui/Icon";
+import { ProjectService } from "../../domain/services/ProjectService";
+import { SORT_LABELS, shortCategory, type ProjectSort } from "../../domain/models/Project";
+import { useProjectFilters } from "../../hooks/useProjectFilters";
+import { useViewport } from "../../hooks/useViewport";
+import { CategoryChips } from "./components/CategoryChips";
+import { FilterDrawer } from "./components/FilterDrawer";
+import { MobileProjectCard } from "./components/MobileProjectCard";
+import { PlayerCard } from "./components/PlayerCard";
+import { SearchField } from "./components/SearchField";
 
+const SORT_CYCLE: ProjectSort[] = ["newest", "oldest", "az"];
+
+const FiltersButton = ({ active, onClick }: { active: number; onClick: () => void }) => (
+  <Button onClick={onClick} aria-haspopup="dialog" className="pr-[22px] pl-5">
+    <Icon name="filters" size={20} />
+    Filters
+    {active > 0 && (
+      <span className="type-chip flex size-6 items-center justify-center rounded-full bg-t-primary text-t-on-primary">
+        {active}
+      </span>
+    )}
+  </Button>
+);
+
+/** The project gallery (Figma: Projects — Desktop 2.0 / Mobile 2.0). */
 export const ProjectPage = () => {
-  const {
-    query,
-    setQuery,
-    category,
-    setCategory,
-    selectedTags,
-    toggleTag,
-    clearFilters,
-    availableCategories,
-    availableTags,
-    filteredProjects,
-  } = useProjectFilters();
-
-  // FILTERS reveals the tech-tag multi-select. Start open if tags are already
-  // active (e.g. arriving on a bookmarked ?tag= URL) so they aren't hidden.
-  const [showFilters, setShowFilters] = useState(selectedTags.length > 0);
-  const toggleFilters = () => setShowFilters((v) => !v);
-
-  const hasActiveFilters =
-    selectedTags.length > 0 || Boolean(category) || Boolean(query);
+  const f = useProjectFilters();
+  const { search } = useLocation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { width } = useViewport();
+  const categories = ProjectService.getCategories();
+  const nextSort = SORT_CYCLE[(SORT_CYCLE.indexOf(f.sort) + 1) % SORT_CYCLE.length];
 
   return (
-    <PageFrame theme="projects" className="gap-[26px] lg:gap-[33px]">
-      {/* Title (+ search on desktop) */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-        <motion.h1 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-          <ProjectsTitle
-            aria-label="Projects"
-            role="img"
-            className="h-auto w-[240px] sm:w-[280px] lg:w-[300px] 2xl:w-[414px]"
+    <PageFrame theme="projects" fixedFireflies>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <h1 className="type-h1 text-gradient bg-[image:var(--theme-title)] pb-1 lg:uppercase">Projects</h1>
+        <div className="flex gap-3">
+          <SearchField
+            value={f.query}
+            onChange={f.setQuery}
+            placeholder={width >= 1024 ? "Search projects or tech (e.g. Unreal)" : "Search"}
+            className="flex-1 lg:w-[400px] lg:flex-none"
           />
-        </motion.h1>
-
-        {/* Desktop-only search, beside the title */}
-        <SearchBar
-          value={query}
-          onChange={setQuery}
-          className="hidden h-[60px] w-full max-w-[660px] lg:flex"
-        />
+          <div className="hidden lg:block">
+            <Button onClick={() => f.setSort(nextSort)} title={`Sort: ${SORT_LABELS[nextSort]} next`}>
+              {SORT_LABELS[f.sort]} <Icon name="arrowDown" size={18} className={f.sort === "oldest" ? "rotate-180" : ""} />
+            </Button>
+          </div>
+          <FiltersButton active={f.activeCount} onClick={() => setDrawerOpen(true)} />
+        </div>
       </div>
 
-      {/* Mobile-only search — thinner, above the categories */}
-      <SearchBar value={query} onChange={setQuery} className="flex h-11 w-full lg:hidden" />
-
-      {/* CATEGORIES label — FILTERS shares this line on mobile (avoids a
-          standalone row); on desktop it moves to the sort row instead. */}
-      <div className="flex items-center justify-between gap-4">
-        <Text variant="h2" as="p" className="text-secondary/75">
-          Categories
-        </Text>
-        <FiltersToggle open={showFilters} onToggle={toggleFilters} className="lg:hidden" />
-      </div>
-
-      {/* Sort row: categories scroll horizontally; FILTERS trails them. */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
-        <CategoryRail
-          categories={availableCategories}
-          active={category}
-          onSelect={setCategory}
-        />
-        <FiltersToggle
-          open={showFilters}
-          onToggle={toggleFilters}
-          className="hidden lg:block"
-        />
-      </div>
-
-      <TagFilterPanel
-        open={showFilters}
-        tags={availableTags}
-        selected={selectedTags}
-        onToggle={toggleTag}
-        canClear={hasActiveFilters}
-        onClear={clearFilters}
+      <CategoryChips
+        categories={categories}
+        total={f.total}
+        selected={f.category}
+        onSelect={f.setCategory}
+        className="mt-10 hidden flex-wrap lg:flex"
       />
+      <div className="fade-right no-scrollbar -mr-5 mt-4 overflow-x-auto pr-5 lg:hidden">
+        <CategoryChips
+          categories={categories}
+          total={f.total}
+          selected={f.category}
+          onSelect={f.setCategory}
+          short={shortCategory}
+          className="w-max pr-6"
+        />
+      </div>
 
-      <ProjectGrid projects={filteredProjects} />
+      {f.projects.length === 0 ? (
+        <div className="mt-16 flex flex-col items-start gap-4">
+          <p className="type-lead text-muted">No projects match those filters.</p>
+          <Button onClick={f.clear}>Clear filters</Button>
+        </div>
+      ) : (
+        <>
+          <ul className="mt-12 hidden grid-cols-[repeat(auto-fill,minmax(300px,360px))] justify-between gap-x-10 gap-y-16 md:grid">
+            {f.projects.map((p) => (
+              <li key={p.id} className="flex justify-center">
+                <PlayerCard project={p} search={search} />
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-4 flex flex-col gap-4 md:hidden">
+            {f.projects.map((p) => (
+              <li key={p.id}>
+                <MobileProjectCard project={p} search={search} />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <FilterDrawer
+        open={drawerOpen}
+        query={f}
+        onApply={(q) => {
+          f.apply(q);
+          setDrawerOpen(false);
+        }}
+        onClose={() => setDrawerOpen(false)}
+      />
     </PageFrame>
   );
 };

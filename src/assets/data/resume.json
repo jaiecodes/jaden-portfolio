@@ -1,96 +1,84 @@
 {
-  "pdfUrl": "/resume.pdf",
+  "pdfUrl": "",
   "sections": [
     {
       "id": "work",
-      "title": "Work Experience",
-      "tone": "primary",
+      "title": "Work experience",
+      "step": 1,
       "entries": [
         {
           "title": "Software Engineer",
           "organization": "Brunswick",
-          "date": "Jan 2026",
-          "context": "Engineered Slate UI and real-time telemetry pipelines.",
-          "outcome": "Scaled multi-exhibit marine simulators for CES 2026.",
-          "tags": ["C++", "Unreal", "CANbus"],
+          "date": "Jan 2026 – now",
+          "step": 1,
+          "context": "Building real-time boat simulators in Unreal Engine 5 for CES and dealer demos.",
+          "tags": ["C++", "Unreal", "CAN bus"],
           "projectId": "ces-helm-sim"
         }
       ]
     },
     {
       "id": "education",
-      "title": "Education &\nSelected Projects",
-      "tone": "accent",
+      "title": "Education & selected projects",
+      "step": 3,
       "entries": [
         {
           "title": "B.S. Computer Science",
           "organization": "University of Illinois",
           "date": "Dec 2025",
-          "context": "Specialization in Computer Graphics & Embedded Systems.",
-          "outcome": "Leadership in Design for America & SHPE UIUC.",
-          "tags": ["SHPE", "DFA", "SIGCHI"]
+          "step": 2,
+          "context": "[Awards and honors]. Member of SHPE, DFA, and SIGCHI.",
+          "tags": ["Graphics", "HCI"]
         },
         {
           "title": "Wireless Sensing",
-          "organization": "CS 245 - Internet of Things",
-          "date": "Jan 2026",
-          "context": "Engineered continuous IMU tracking and telemetry pipeline.",
-          "outcome": "Reduced sensor transport packet loss by 18%.",
-          "tags": ["Surfshark", "Python", "RaspPi"],
+          "organization": "CS 245 · Internet of Things",
+          "date": "2024",
+          "step": 3,
+          "context": "Handheld Raspberry Pi that locates hidden Wi-Fi cameras from signal strength and IMU-tracked position.",
+          "tags": ["Python", "Wireshark", "Raspberry Pi"],
           "projectId": "wireless-sensing"
         },
         {
           "title": "Mix Space",
           "organization": "Research Park Hackathon",
-          "date": "Jan 2026",
-          "context": "Collaborative spatial AR tooling prototype.",
-          "outcome": "Won Best Technical Architecture Award.",
-          "tags": ["Surfshark", "Python", "RaspPi"],
+          "date": "2025",
+          "step": 4,
+          "context": "[One line of context] → [outcome with a number].",
+          "tags": ["Python", "Llama", "API"],
           "projectId": "mix-space"
         }
       ]
     }
   ],
-  "skillGroups": [
-    {
-      "title": "Engines & Real-Time",
-      "skills": [
-        { "name": "Unreal Engine 5", "icon": "unreal" },
-        { "name": "Unity", "icon": "unity" },
-        { "name": "C++" },
-        { "name": "Slate UI" },
-        { "name": "Shader Graph" }
-      ]
-    },
-    {
-      "title": "Hardware & Embedded",
-      "skills": [
-        { "name": "Raspberry Pi" },
-        { "name": "CANbus Telemetry" },
-        { "name": "Kvaser Hardware" },
-        { "name": "SenseHat IMU" }
-      ]
-    },
-    {
-      "title": "Web & APIs",
-      "skills": [
-        { "name": "React" },
-        { "name": "Next.js" },
-        { "name": "Tailwind CSS" },
-        { "name": "TypeScript" },
-        { "name": "Supabase" }
-      ]
-    },
-    {
-      "title": "Languages & Tools",
-      "skills": [
-        { "name": "C++" },
-        { "name": "Python" },
-        { "name": "Git" },
-        { "name": "Blender API" },
-        { "name": "FreeCAD" },
-        { "name": "Figma" }
-      ]
-    }
-  ]
+  "skills": {
+    "title": "Skills & tools",
+    "step": 4,
+    "groups": [
+      {
+        "title": "Engines & real-time",
+        "icon": "cube",
+        "step": 1,
+        "skills": ["Unreal Engine 5", "Unity", "C++", "Blueprints", "Shaders (HLSL)"]
+      },
+      {
+        "title": "Hardware & embedded",
+        "icon": "chip",
+        "step": 2,
+        "skills": ["Raspberry Pi", "CAN bus", "IMU", "RSSI sensing"]
+      },
+      {
+        "title": "Web & APIs",
+        "icon": "globe",
+        "step": 3,
+        "skills": ["JavaScript", "Tailwind", "Stripe", "REST APIs"]
+      },
+      {
+        "title": "Languages & tools",
+        "icon": "code",
+        "step": 4,
+        "skills": ["Python", "C#", "Blender", "Perforce", "Git", "Wireshark"]
+      }
+    ]
+  }
 }

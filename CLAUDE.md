@@ -25,13 +25,13 @@ The project follows the layered modularization pattern from [Modularizing React 
 |---|---|---|
 | Domain models | `src/domain/models/` | Pure data shapes + filtering logic (no React) |
 | Domain services | `src/domain/services/` | Loads JSON, exposes query methods |
-| Data | `src/assets/data/*.json` | Content: `projects.json`, `about.json`, `resume.json`, `heroThemes.json` |
+| Data | `src/assets/data/*.json` | Content: `projects.json`, `heroThemes.json`, `home.json`, `about.json`, `resume.json` |
 | Hooks | `src/hooks/` | State and side effects (URL-synced filters, layout measurement) |
 | Features | `src/features/<feature>/` | `<Feature>Page.tsx` composes the page from `components/` and services |
 | UI kit | `src/components/ui/` | Shared primitives and the design system (see below) |
 | Utils | `src/components/utils/` | Utility components (e.g. ScrollToTop) |
 
-Every feature follows the same shape — `projects/`, `about/`, `resume/`:
+Every feature follows the same shape — `home/`, `projects/`, `about/`, `resume/`:
 
 ```
 src/features/about/
@@ -43,8 +43,9 @@ Page content never lives in components: it goes in a JSON file with an interface
 
 ### Routing (App.tsx)
 
-- `/` → `ProjectPage` — filterable project gallery
-- `/project/:id` → `ProjectDetail` — individual project view
+- `/` → `HomePage` — the garden entry; scrolling dollies through the arch and lands on `/projects`
+- `/projects` → `ProjectPage` — filterable project gallery
+- `/project/:id` → `ProjectDetail` — project case study
 - `/about` → `AboutPage` — content from `about.json` via `AboutService`
 - `/resume` → `ResumePage` — content from `resume.json` via `ResumeService`. Entries link to a case study with `projectId`; ids that don't match a project are dropped, so cards never link to a blank page.
 
@@ -52,45 +53,45 @@ Page content never lives in components: it goes in a JSON file with an interface
 
 `projects.json` → `ProjectService` (loads + queries) → `useProjectFilters` hook (syncs state to URL search params) → `ProjectPage` / `ProjectDetail`
 
-Filter state lives entirely in URL query params (`?q=`, `?cat=`, `?tag=`), making filters bookmarkable. `ProjectDetail` reads the same params to determine the "next project" navigation sequence within the current filtered set.
+Filter state lives entirely in URL query params (`?q=`, `?cat=`, `?tech=`, `?year=`, `?sort=`), making filters bookmarkable. `ProjectDetail` reads the same params to pick the "Up next" project within the current filtered set.
 
-**To add a project:** add an entry to `src/assets/data/projects.json` matching the `ProjectData` interface in `src/domain/models/Project.ts`. No code changes needed. Put its card icon in `public/icons/projects/` and set `icon` to its URL; it's drawn with its own colours (set `iconMask: true` for a single-colour shape to be painted with the brand gradient). Without `icon`, the card shows the gradient boat.
+**To add a project:** add an entry to `src/assets/data/projects.json` matching `ProjectData` in `src/domain/models/Project.ts`, add its hero to `heroThemes.json`, and put its card art in `public/v2/card-art/` as `<name>.webp` (720×440) and `<name>@2x.webp` (1440×880). No code changes needed. A link with an empty `url` renders as "coming soon"; `video` links jump to the demo on the page. Highlight visuals and the demo video show their caption until given a `src`.
 
-### Project hero and overview
+### Project case study
 
-Each project's hero lives in `src/assets/data/heroThemes.json` (model: `src/domain/models/HeroTheme.ts`), drawn to Figma's "Project Hero Page Designs" boards:
+Each project page takes its colours from its hero (`palette` in `heroThemes.json`, applied with `paletteStyle()`), so every kit component on the page re-skins itself. The page background continues from the bottom of the hero end frame (`seam`).
 
-- `layers` animate between the desktop start and end frames (1800×1044 scene, scaled to the viewport width).
-- `mobile` (`scale`, `start`, `end`) frames the same scene for portrait screens, matching the "Project Hero Page Designs - Mobile" board (375×812): the scene is scaled and panned from the start to the end offset while the layers animate. The canvas is fitted to the screen height and centred.
-- `foreground` is the colour the hero ends on. The overview starts in it and fades into the page ink. `overviewSurface()` picks light-surface components (ink text, translucent panel, `--theme-dominant-on-light` accents) when dark text reads better on that colour.
+The hero (Figma: "Project Heroes — Start / End frames") animates `layers` from the start to the end frame of the 1800×1044 scene, then the scrim and title rise in. Each layer is placed at its start-frame box and animated with `x`/`y`/`rotate`/`scale`/`scaleX`/`scaleY`/`opacity`; `input` ranges stagger layers (e.g. Wireless Sensing moves the person first, then the room). Phones show the scene at `mobile.scale`, shifted `mobile.x`, in a 390×560 frame scaled to the screen width. While the hero is behind the header, the page sets the header's text colour (`useHeaderTone`) so the nav reads on pale art.
 
 ### UI kit and theming
 
 All styling decisions live in `src/index.css` and `src/components/ui/`. Use the kit rather than raw sizes, weights or hex colours.
 
-**Page themes.** Every page has one dominant colour. `<PageFrame theme="projects" | "about" | "resume">` sets `data-theme`, and the matching block in `index.css` defines `--theme-dominant` and `--theme-stroke` (its angular rim paint). Kit components and the `theme` colour (`text-theme`, `bg-theme/5`, `outline-theme`, `.stroke-theme`) follow it, so the same component reads gold on Projects, green on About, orange on Resume. To add a theme: add a `[data-theme="…"]` block in `index.css` and a member to `PageTheme` in `src/components/ui/theme.ts`. Fixed brand colours (`primary`, `secondary`, `accent`, `blush`, …) stay available for elements that deliberately stand apart from the page theme.
+This is design kit 2.0 (Figma page "Designs 2.0", section "Components 2.0").
 
-**Type scale.** Satoshi everywhere, one scale, weights 400/500/700/900 only. Each step is a `type-*` utility that steps up at `lg`; colour is never part of a step. Use `<Text variant="…">` (or the `type-*` class directly):
+**Semantic tokens.** Components only use semantic colours, mirroring the Figma variables: `night/*` (`bg-night`, `bg-raised`, `border-line`, `bg-sunken`), `text/*` (`text-fg`, `text-muted`, `text-faint`) and `theme/*` (`text-t-primary`, `t-secondary`, `t-highlight`, `t-accent`, `t-on-primary`). A page sets them all: `<PageFrame theme="home" | "projects" | "about" | "resume">` uses the `[data-theme]` blocks in `index.css` (Projects gold, About green, Resume orange → green); project pages set them inline from their palette. To add a theme: add a `[data-theme="…"]` block and a `PageTheme` member in `src/components/ui/theme.ts`. Brand colours (`accent`, `secondary`, `primary`, `ember`, `blush`, …) and the angular rims (`.stroke-angular`, `.stroke-primary-angular`, `.stroke-card-angular`) stay fixed. Light mode (the lantern switch) isn't built yet; it would be another set of token values.
 
-| Step | Mobile → lg | Weight | Use |
+**Type scale.** Satoshi for copy and labels, Chillax for headings, Borel for the wordmark and the About greeting. Each step is a `type-*` utility that steps down below `lg`; colour is never part of a step. Use `<Text variant="…" tone="…">` (or the class directly):
+
+| Step | lg / mobile | Face | Use |
 |---|---|---|---|
-| `display` | 48 → 96 | 900 | Project hero titles, Up Next |
-| `h1` | 32 → 48 | 700 | Section headings |
-| `h2` | 24 → 32 | 700 | Card titles, dates, page labels |
-| `title` | 24 → 32 | 400 | Entry / card names |
-| `lead` | 20 → 32 | 400 | Intro paragraphs |
-| `callout` | 18 → 24 | 700 | Summary copy inside cards |
-| `label` | 16 → 24 | 700 | Organisations, group labels |
-| `body` | 16 → 20 | 400 | Running text |
-| `body-sm` | 16 | 400 | Dense text, inputs |
-| `button` | 14 → 28 | 500 | Buttons |
-| `pill` | 16 → 20 | 700 | Skill pills, tag tiles |
-| `tag` | 14 → 16 | 700 | Tech tags |
-| `overline` | 12 → 14 | 700 | Kickers, captions (tracked) |
+| `display` | 96 / 40 | Chillax 600 | Project hero titles |
+| `h1` | 64 / 40 | Chillax 600 | Page and section titles, stats |
+| `h2` | 40 / 28 | Chillax 500 | Problem, highlight titles, home intro |
+| `h3` | 28 / 24 | Chillax 500 | Entry names, focus cards |
+| `lead` | 24 / 20 | Satoshi 400 | Intros, reflections |
+| `body` | 18 / 16 | Satoshi 400 | Running text |
+| `body-sm` | 16 | Satoshi 400 | Captions, card blurbs |
+| `label` | 16 | Satoshi 700 | Kickers (uppercase, +8% tracking) |
+| `label-lg` | 18 | Satoshi 700 | Skill group names |
+| `hero-label` | 20 / 16 | Satoshi 700 | Hero kicker |
+| `chip` | 16 | Satoshi 500 | Tags, filter chips |
+| `button` | 18 | Satoshi 500 | Buttons, nav |
+| `card-title` | 26 / 20 | Satoshi 700 | Project card titles (uppercase) |
+| `script` | 120 / 72 | Borel | "hi, i'm jaden" |
+| `wordmark` | 36 / 26 | Borel | Header logo |
 
-Headings and buttons have no element styles — an unstyled `<h2>` looks like body text — so pick the step by role, and the tag by document outline. Exceptions: the header keeps its brand faces (Borel wordmark, Chillax nav), and the fixed-size project card (`.card-*`) and project hero title use the scale's desktop sizes without stepping.
-
-**Components.** `PageFrame` (page shell: theme, gutters, header clearance), `Text`, `Button` / `buttonClass()` (`chip`, `pill`, `outline` variants), `Board` (tinted panel with a rim), `Pill`, `StrokeFrame` / `strokeStyle()` (gradient rims on any sides), `GradientIcon`, `ArrowIcon`.
+**Components.** `PageFrame` (theme, fireflies, gutters), `Header` (vine, nav, mobile menu), `VineDivider`, `Fireflies`, `Text`, `Button` / `buttonClass()` (`primary`, `ghost`), `ActionLink` (picks `<Link>` / `<a>`, shows empty links as pending), `FilterChip`, `Chip` (tech tag; `color` overrides the primary), `Icon`, `LanternIcon`, `StrokeFrame` / `strokeStyle()` (gradient rims on any sides).
 
 ### Tailwind CSS v4
 
@@ -100,4 +101,4 @@ Tailwind is loaded via the `@tailwindcss/vite` Vite plugin — there is no `tail
 
 Deployed to Vercel. `vercel.json` rewrites every path to `index.html` so `BrowserRouter` deep links (`/about`, `/project/:id`) load instead of 404ing; static files in `public/` are still served first.
 
-Two feedback builds are deployed from the CLI as separate Vercel projects (production URLs are public, unlike preview URLs): `jaden-portfolio-a` (branch `version-a`) and `jaden-portfolio-b` (branch `version-b`); `main` holds the latest shared code. Redeploy from the matching checkout with `npx vercel deploy --prod`.
+Two feedback builds are separate Vercel projects whose production branches are `version-a` (`jaden-portfolio-a`, design 1.0) and `version-b` (`jaden-portfolio-b`, design 2.0). Pushing either branch redeploys its site; pushing `main` only makes a preview.

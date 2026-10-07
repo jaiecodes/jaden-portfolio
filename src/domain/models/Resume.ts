@@ -1,18 +1,23 @@
+// src/domain/models/Resume.ts
 import { isExternalUrl } from "./Link";
 
-/** Colour family a resume section is themed with (maps to a theme token). */
-export type ResumeTone = "primary" | "accent";
+/**
+ * Where an item sits on the resume's orange → green ramp (1 = orange, 4 =
+ * green). Timeline nodes, organisation labels, chips and skill groups take
+ * their colour from their step.
+ */
+export type ResumeStep = 1 | 2 | 3 | 4;
 
-/** Bundled icons a skill pill can show; anything else falls back to a dot. */
-export type SkillIcon = "unreal" | "unity";
+/** Icons a skill group can show. */
+export type SkillIcon = "cube" | "chip" | "globe" | "code";
 
 export interface ResumeEntryData {
   title: string;
   organization: string;
   date: string;
   context: string;
-  outcome: string;
   tags: string[];
+  step: ResumeStep;
   /** Links the card to a project case study, if that project exists. */
   projectId?: string;
   /** External link; takes precedence over projectId. */
@@ -22,24 +27,22 @@ export interface ResumeEntryData {
 export interface ResumeSectionData {
   id: string;
   title: string;
-  tone: ResumeTone;
+  step: ResumeStep;
   entries: ResumeEntryData[];
-}
-
-export interface SkillData {
-  name: string;
-  icon?: SkillIcon;
 }
 
 export interface SkillGroupData {
   title: string;
-  skills: SkillData[];
+  icon: SkillIcon;
+  step: ResumeStep;
+  skills: string[];
 }
 
 export interface ResumeData {
+  /** Empty until the PDF is added; the download then shows as pending. */
   pdfUrl: string;
   sections: ResumeSectionData[];
-  skillGroups: SkillGroupData[];
+  skills: { title: string; step: ResumeStep; groups: SkillGroupData[] };
 }
 
 export class ResumeEntry {
@@ -47,8 +50,8 @@ export class ResumeEntry {
   readonly organization: string;
   readonly date: string;
   readonly context: string;
-  readonly outcome: string;
   readonly tags: string[];
+  readonly step: ResumeStep;
   /** Resolved destination, or undefined when the entry has nothing to link to. */
   readonly href?: string;
 
@@ -61,13 +64,9 @@ export class ResumeEntry {
     this.organization = data.organization;
     this.date = data.date;
     this.context = data.context;
-    this.outcome = data.outcome;
     this.tags = data.tags;
-    this.href =
-      data.url ??
-      (data.projectId && projectExists
-        ? `/project/${data.projectId}`
-        : undefined);
+    this.step = data.step;
+    this.href = data.url ?? (data.projectId && projectExists ? `/project/${data.projectId}` : undefined);
   }
 
   get isExternal(): boolean {
@@ -78,13 +77,13 @@ export class ResumeEntry {
 export class ResumeSection {
   readonly id: string;
   readonly title: string;
-  readonly tone: ResumeTone;
+  readonly step: ResumeStep;
   readonly entries: ResumeEntry[];
 
   constructor(data: ResumeSectionData, entries: ResumeEntry[]) {
     this.id = data.id;
     this.title = data.title;
-    this.tone = data.tone;
+    this.step = data.step;
     this.entries = entries;
   }
 }

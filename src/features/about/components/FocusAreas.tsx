@@ -1,23 +1,35 @@
 // src/features/about/components/FocusAreas.tsx
-import type { FocusAreasData } from "../../../domain/models/About";
+import { AboutService } from "../../../domain/services/AboutService";
 import { Text } from "../../../components/ui/Text";
-import { FocusAreaCard } from "./FocusAreaCard";
+import { FocusCard } from "./FocusCard";
 
-/** "What I'm into right now": heading, intro and a row of focus cards. */
-export const FocusAreas = ({ focus }: { focus: FocusAreasData }) => (
-  <section className="flex w-full flex-col items-start gap-8 lg:gap-16">
-    <Text variant="h1" className="w-full text-theme">
-      {focus.title}
-    </Text>
-
-    <Text variant="lead" trim className="max-w-[862px] text-white/75">
-      {focus.intro}
-    </Text>
-
-    <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-[38px]">
-      {focus.items.map((area) => (
-        <FocusAreaCard key={area.tag} area={area} />
-      ))}
-    </div>
-  </section>
-);
+/** "What I'm into right now" and its three cards. */
+export const FocusAreas = () => {
+  const f = AboutService.getFocusAreas();
+  return (
+    <section className="flex flex-col gap-10 lg:gap-[60px]">
+      <header className="flex flex-col gap-3.5">
+        <Text variant="label" tone="primary" as="p">
+          {f.kicker}
+        </Text>
+        <Text
+          variant="h1"
+          as="h2"
+          className="text-gradient bg-[image:linear-gradient(90deg,var(--theme-primary),var(--theme-secondary)_60%)] pb-1 max-lg:text-[28px]"
+        >
+          {f.title}
+        </Text>
+        <Text variant="lead" tone="muted" className="max-lg:text-base">
+          {f.intro}
+        </Text>
+      </header>
+      <ul className="grid gap-5 md:grid-cols-3 lg:gap-[30px]">
+        {f.items.map((area) => (
+          <li key={area.title} className="flex">
+            <FocusCard area={area} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};

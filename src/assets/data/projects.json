@@ -1,203 +1,831 @@
 [
-  {"id": "ces-helm-sim",
+  {
+    "id": "ces-helm-sim",
     "name": "CES Helm Simulator",
     "year": 2026,
-    "category": "Spatial Sensing",
-    "role": "Lead Software Engineering Intern",
-    "tags": ["C++", "Unreal", "Python", "CANbus"],
-    "description": "A high-fidelity maritime driving simulation developed for Brunswick Corporation to showcase autonomous boating intelligence at CES 2026.",
-    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
-    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
-    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
-    "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
-      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+    "category": "Game Development",
+    "teaser": "Boat-helm exhibit",
+    "summary": "Boat-helm exhibit for CES 2026. I built the UI architecture and live sync with the sim and real helm.",
+    "tags": [
+      "Unreal",
+      "CommonUI",
+      "WebSockets",
+      "CAN bus"
     ],
-    "media": [
-      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
-      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
-    ],
-    "images": [
-      {
-        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
-        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
+    "cardArt": "/v2/card-art/ces",
+    "subtitle": "A real-time boat-helm simulator for Brunswick’s CES 2026 exhibit, driven by a real helm.",
+    "snapshot": {
+      "role": {
+        "value": "CG & Software Engineering Intern",
+        "detail": "UI architecture, WebSocket sync, mentoring"
       },
-      {
-        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
-        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
+      "team": {
+        "value": "6 people",
+        "detail": "May–Dec 2025 · Brunswick"
       },
-      {
-        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
-        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
+      "stack": [
+        "Unreal 5",
+        "CommonUI",
+        "MVVM",
+        "WebSockets",
+        "CAN bus"
+      ],
+      "outcome": {
+        "value": "UI screens: 2 weeks → 3–4 days",
+        "detail": "Shown live at CES 2026"
       }
-    ]},
-  {"id": "flite-sim",
+    },
+    "links": [
+      {
+        "kind": "video",
+        "label": "Watch video",
+        "url": "",
+        "primary": true
+      }
+    ],
+    "video": {
+      "caption": "Promo footage of the CES 2026 exhibit"
+    },
+    "problem": {
+      "heading": "Two separate projects had to feel like one boat.",
+      "body": "The exhibit paired an Unreal environment (boat, water, world) with a separate Unreal dashboard and 3D map, both driven by a real helm. Every turn of the wheel had to land in both at once, while a team of interns kept shipping new screens. This was the exhibit’s third iteration; I’d worked on versions since 2023.",
+      "constraints": [
+        "2 Unreal projects",
+        "Real helm hardware",
+        "Live show floor",
+        "Interns in parallel"
+      ]
+    },
+    "highlights": {
+      "heading": "Three pieces that held it together",
+      "items": [
+        {
+          "title": "A UI architecture that made screens fast to build",
+          "challenge": "Every dashboard screen was wired by hand, so each new view rebuilt the same plumbing and took about two weeks.",
+          "approach": "I rebuilt the dashboard on CommonUI with MVVM. View models hold the live data (speed, heading, steering, weather, distance) and screens just bind to them, while CommonUI handles stacking and input focus.",
+          "result": "New screens dropped from 2 weeks to 3–4 days, and the intern I mentored could build screens by binding to existing view models.",
+          "visual": {
+            "caption": "Helm and game events → view models → bound widgets."
+          }
+        },
+        {
+          "title": "One event stream, two projects",
+          "challenge": "The UI and environment were separate projects built by different people, so the map, gauges and world drifted out of sync.",
+          "approach": "I designed and documented the WebSocket events that pass state between them in week one, then debugged the 3D map (another intern’s task) and linked it to those events.",
+          "result": "The dashboard, map and world moved together as one experience.",
+          "visual": {
+            "caption": "Helm → CAN bus → environment ↔ WebSocket events ↔ UI and 3D map (redrawn)."
+          }
+        },
+        {
+          "title": "A dashboard that feels alive",
+          "challenge": "The gauges had to reflect the actual helm, and a dashboard showing only speed felt static.",
+          "approach": "I learned to read the helm’s CAN bus data and fed speed, direction and steering angle into the view models, then added simulated weather, time of day, and distance traveled from in-game speed.",
+          "result": "The gauges responded to the real wheel and throttle, and the dashboard told the story of a trip.",
+          "visual": {
+            "caption": "Dashboard with helm-driven and simulated data called out."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "3–4 days",
+        "label": "per UI screen, down from 2 weeks"
+      },
+      {
+        "value": "CES 2026",
+        "label": "live, driven by a real helm"
+      },
+      {
+        "value": "2",
+        "label": "interns mentored"
+      }
+    ],
+    "reflection": {
+      "worked": "Agreeing on the WebSocket event schema in week one and documenting it. Two projects were built in parallel and still plugged together, and MVVM let that live data flow straight into the screens.",
+      "differently": "Turn the UI into a reusable base. We started by copying files from the 2025 version; a base project or UI plugin would make the next exhibit a setup step instead of a cleanup."
+    }
+  },
+  {
+    "id": "flite-sim",
     "name": "Fliteboard Simulator",
     "year": 2026,
-    "category": "Spatial Sensing",
-    "role": "Lead Software Engineering Intern",
-    "tags": ["C++", "Unreal", "Python", "Network"],
-    "description": "A high-fidelity virtual immersion experience developed for Brunswick Corporation to showcase Fliteboards at CES 2026.",
-    "contributions": "Architected the physics-based boat swaying mechanics and integrated real-world sensor data into the Unreal Engine environment.",
-    "challenges": "Synchronizing low-latency sensor telemetry with high-refresh-rate visual assets without jitter.",
-    "impact": "Successfully demonstrated to 5,000+ attendees, resulting in a 40% increase in B2B engagement for autonomous systems.",
-    "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/ces-sim" },
-      { "type": "figma", "url": "https://figma.com/jaden/ces-ui" }
+    "category": "Game Development",
+    "teaser": "eFoil ride simulator",
+    "summary": "An eFoil simulator I rebuilt: real thrust physics, a race mode with rider summaries, new controls.",
+    "tags": [
+      "Unreal",
+      "CommonUI",
+      "C#",
+      "Bluetooth"
     ],
-    "media": [
-      "https://placehold.co/1920x1080/001220/white?text=CES+Main+View",
-      "https://placehold.co/1920x1080/001220/white?text=Telemetry+UI"
-    ],
-    "images": [
+    "cardArt": "/v2/card-art/flite",
+    "subtitle": "An eFoil ride experience for Brunswick, rebuilt with real physics, a race mode and new controls.",
+    "snapshot": {
+      "role": {
+        "value": "CG & Software Engineering Intern",
+        "detail": "Owned the project after inheriting it"
+      },
+      "team": {
+        "value": "Me + my manager",
+        "detail": "May–Dec 2025 · alongside CES Helm"
+      },
+      "stack": [
+        "Unreal 5",
+        "CommonUI",
+        "C#",
+        "Bluetooth",
+        "HID input"
+      ],
+      "outcome": {
+        "value": "100–200 riders a day at CES",
+        "detail": "Each left with a personal ride summary"
+      }
+    },
+    "links": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Telemetry+Rig",
-        "caption": "Testing the physics engine synchronization with hardware-in-the-loop telemetry rig."
+        "kind": "video",
+        "label": "Watch video",
+        "url": "",
+        "primary": true
+      }
+    ],
+    "video": {
+      "caption": "Promo footage of the Fliteboard experience"
+    },
+    "problem": {
+      "heading": "An inherited simulator held together by magic numbers.",
+      "body": "Board movement came from hand-tuned constants, the UI couldn’t track more than one rider, and the Bluetooth controller only worked through a script running outside the game. Brunswick wanted a competitive race mode with a takeaway for every rider.",
+      "constraints": [
+        "Inherited code",
+        "Built alongside CES Helm",
+        "Real Fliteboard controller",
+        "Multiple input methods"
+      ]
+    },
+    "highlights": {
+      "heading": "Physics, data and controls",
+      "items": [
+        {
+          "title": "From magic numbers to real thrust",
+          "challenge": "Motion came from hand-tuned constants, so changing one thing broke how everything felt.",
+          "approach": "I rewrote the movement with vector math and a simple thrust model, so speed and direction come from forces instead of magic numbers.",
+          "result": "Predictable, tunable handling that carried two new level sections and a new board model for race mode.",
+          "visual": {
+            "caption": "Forces on the board: thrust, drag and lift."
+          }
+        },
+        {
+          "title": "Every rider leaves with their run",
+          "challenge": "Race mode had to track several riders and give each one a personal summary.",
+          "approach": "I rebuilt the UI on the CommonUI and MVVM base from CES Helm. Each run records route, board tilt, speed and controller thrust and exports it for the mailing list; a registration app gives every attendee a unique ID and sends their name into the game.",
+          "result": "A summary screen for every rider, and follow-up data for 100–200 riders a day.",
+          "visual": {
+            "caption": "End-of-ride summary: route, tilt, speed and thrust."
+          }
+        },
+        {
+          "title": "Prototyping how you ride it",
+          "challenge": "The real controller relied on an external script, and the team wanted to test riding by shifting your weight.",
+          "approach": "I moved the Bluetooth C# integration into Unreal and prototyped weight control with force-sensitive pads, detecting which side had pressure with a slight linear curve. I also tried exposing the microcontroller as a gamepad, but it lacked XInput support.",
+          "result": "Executives liked the weight prototype but chose camera controls for reliability, which my manager built into a unified input system.",
+          "visual": {
+            "caption": "Pressure-pad prototype and input diagram."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "100–200",
+        "label": "riders a day at CES"
       },
       {
-        "url": "https://placehold.co/1080x1920/333/white?text=Sensor+Prototype",
-        "caption": "Initial sketch of the LiDAR sensor mounting bracket for the autonomous boat hull."
+        "value": "3",
+        "label": "input methods prototyped"
       },
       {
-        "url": "https://placehold.co/1920x1080/444/white?text=CES+Floor+Plan",
-        "caption": "Brunswick Corporation's 2026 CES floor layout showcasing the interactive simulation pod."
+        "value": "2",
+        "label": "new level sections"
       }
     ],
-    "icon": "/icons/projects/fliteboard.png"},
-  {"id": "cake-inventory-app",
-    "name": "Baking Web Platform",
-    "year": 2026,
-    "category": "Web Platforms",
-    "role": "Full Stack Developer",
-    "tags": ["JavaScript", "Stripe", "Tailwind", "UI/UX"],
-    "description": "A custom management tool for a home-based bakery to track orders, inventory, and automated customer messaging.",
-    "contributions": "Developed the order tracking dashboard and the inventory logic to deduct ingredients automatically.",
-    "challenges": "Integrating a flexible calendar system that accounts for bakery lead times.",
-    "impact": "Saved the business owner an average of 10 hours per week in administrative overhead.",
-    "externalLinks": [
-      { "type": "figma", "url": "https://figma.com/jaden/bakery-app-ux" },
-      {
-        "type": "external",
-        "url": "https://jadenbakes.com",
-        "label": "Live Site"
-      }
-    ],
-    "media": ["https://placehold.co/600x400/222/white?text=Bakery+App+Cover"],
-    "images": [
-      {
-        "url": "https://placehold.co/1920x1080/222/white?text=Inventory+Dashboard",
-        "caption": "The main inventory view showing low-stock alerts for critical baking ingredients."
-      }
-    ],
-    "icon": "/icons/projects/cookie.svg"},
-  {"id": "echoes-elements",
+    "reflection": {
+      "worked": "Replacing magic numbers with a real force model first. Every later addition (new levels, a new board, race mode) became easier to tune.",
+      "differently": "Check hardware capabilities before committing. The gamepad plan stalled on the microcontroller’s missing XInput support, which a quick spike would have caught."
+    }
+  },
+  {
+    "id": "echoes-elements",
     "name": "Echoes of the Elements",
     "year": 2025,
     "category": "Game Development",
-    "role": "Gameplay Programmer",
-    "tags": ["C++", "Unreal", "Blueprints", "UI/UX"],
-    "description": "A third person adventure 4-level mini game, focused on elemental puzzles and abilities.",
-    "contributions": "Designed the core movement system and the 'Earth' element ability set using a hybrid C++/Blueprint approach.",
-    "challenges": "Optimizing mesh calculations for elemental destruction without dropping below 60fps.",
-    "impact": "Achieved a stable 60fps on mid-range hardware while maintaining high-fidelity physics interactions.",
-    "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/echoes" }
+    "teaser": "Elemental action-puzzle game",
+    "summary": "Four-realm elemental game. I built the ability, save and UI systems, and brought in the hero.",
+    "tags": [
+      "Unreal",
+      "Blueprints",
+      "CommonUI",
+      "Blender"
     ],
-    "media": [
-      "https://placehold.co/600x400/222/white?text=Echoes+Cover",
-      "https://placehold.co/600x400/333/white?text=Problem+Visual"
-    ],
-    "images": [
+    "cardArt": "/v2/card-art/echoes",
+    "subtitle": "A third-person elemental adventure built by a team of four for CS 415: Game Development.",
+    "snapshot": {
+      "role": {
+        "value": "Systems programmer",
+        "detail": "Abilities, movement, saves, UI, character"
+      },
+      "team": {
+        "value": "4 developers",
+        "detail": "Fall 2025 · CS 415, UIUC"
+      },
+      "stack": [
+        "Unreal 5",
+        "Blueprints",
+        "CommonUI",
+        "Meshy AI",
+        "Blender"
+      ],
+      "outcome": {
+        "value": "All 4 realms in a packaged build",
+        "detail": "Submitted as our final"
+      }
+    },
+    "links": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Kael+Model",
-        "caption": "High-poly character sculpt for Kael, optimized for Unreal Engine 5's Nanite system."
+        "kind": "video",
+        "label": "Watch gameplay",
+        "url": "",
+        "primary": true
+      }
+    ],
+    "video": {
+      "caption": "Gameplay capture from the packaged build"
+    },
+    "problem": {
+      "heading": "Four people, four realms, one game that has to feel like one game.",
+      "body": "Each teammate owned a realm (Earth, Air, Water, Fire), but every realm needed the same player, abilities, checkpoints and progress tracking. Without shared systems, we’d have shipped four games stitched together.",
+      "constraints": [
+        "One semester",
+        "4 parallel builders",
+        "Weekly builds",
+        "Blueprints only"
+      ]
+    },
+    "highlights": {
+      "heading": "The systems everyone built on",
+      "items": [
+        {
+          "title": "An ability system teammates could plug into",
+          "challenge": "Abilities had to hit enemies, hazards and objects built by three other people, without everyone’s Blueprints depending on each other.",
+          "approach": "One modular Ability Component holds mana, cooldowns and spawning; damage flows through a shared Character Interface, so anything with Receive Damage can be hit. On top: Fire Bolt, Flame Strike, a mana-draining Water Shield, double jump and air dash, plus templates for new enemy types.",
+          "result": "Teammates’ enemies and hazards worked with every ability without touching my code. Combos were cut for time, but the hooks are there.",
+          "visual": {
+            "caption": "Ability Component and Character Interface."
+          }
+        },
+        {
+          "title": "Progress that survives every level change",
+          "challenge": "Moving between the hub and four realms reloads the level and wipes the player’s state.",
+          "approach": "A persistent Game Instance tracks finished realms, and a Save Game stores health, mana, the last checkpoint and items. Checkpoints save on overlap, hub doors unlock from the completed list, and menus run on a CommonUI widget stack.",
+          "result": "Clear a realm and the next portal opens; die, and you resume at your last checkpoint.",
+          "visual": {
+            "caption": "Checkpoint → save → hub unlock."
+          }
+        },
+        {
+          "title": "A playable hero on a student timeline",
+          "challenge": "We needed a main character with a full moveset, but nobody had time to model and animate one from scratch.",
+          "approach": "I generated the base model with Meshy AI, cleaned up geometry and fixed textures in Blender, retargeted free marketplace animations onto the new skeleton, and built ability effect meshes timed to my ability code.",
+          "result": "A rigged, animated hero with matching effects in every realm.",
+          "visual": {
+            "caption": "The model before and after cleanup."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "5",
+        "label": "abilities across 3 elements"
       },
       {
-        "url": "https://placehold.co/1920x1080/444/white?text=Ability+Blueprints",
-        "caption": "Visual scripting logic for the Earth-bending ability interaction system."
-      }
-    ],
-    "icon": "/icons/projects/flame.svg"},
-  {"id": "mix-space",
-    "name": "Mix Space",
-    "year": 2025,
-    "category": "Web Platforms",
-    "role": "",
-    "tags": ["Python", "Llama", "Network", "API"],
-    "description": "A Research Park Hackathon project. Full write-up coming soon.",
-    "contributions": "Write-up coming soon.",
-    "challenges": "Write-up coming soon.",
-    "impact": "Write-up coming soon.",
-    "externalLinks": [],
-    "media": ["https://placehold.co/600x400/222/white?text=Mix+Space+Cover"],
-    "images": [
+        "value": "4",
+        "label": "realms in one build"
+      },
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Mix+Space",
-        "caption": ""
+        "value": "1",
+        "label": "hero, from model to moveset"
       }
     ],
-    "icon": "/icons/projects/music-jar.svg"},
+    "reflection": {
+      "worked": "Interface-driven damage. Building against “anything that can receive damage” let four people work in parallel without breaking each other’s levels.",
+      "differently": "Scope down earlier. Combos and a final boss never made it, and the Air realm ended up least polished. I’d lock a smaller core loop first and treat extras as stretch goals."
+    }
+  },
   {
     "id": "cad-simplifier",
     "name": "CAD Simplifier",
-    "year": 2024,
+    "year": 2025,
     "category": "Tools Engineering",
-    "role": "Tooling Engineer",
-    "tags": ["C++", "Blender", "Python", "Briefcase"],
-    "description": "An automated desktop tool for optimizing high-poly CAD models for real-time applications.",
-    "contributions": "Built the Python-based Blender bridge and the C++ UI framework for the desktop app.",
-    "challenges": "Handling non-manifold geometry during the automated decimation process.",
-    "impact": "Reduced average model polygon count by 85% while preserving critical visual silhouettes for AR/VR.",
-    "externalLinks": [
-      { "type": "github", "url": "https://github.com/jaden/cad-simple" }
+    "teaser": "CAD-to-sim mesh pipeline",
+    "summary": "Desktop tool that turns weeks of CAD remodeling into minutes: 7.4M → 27K triangles.",
+    "tags": [
+      "Python",
+      "C++",
+      "CGAL",
+      "Blender"
     ],
-    "media": ["https://placehold.co/600x400/222/white?text=CAD+Tool+Cover"],
-    "images": [
+    "cardArt": "/v2/card-art/cad",
+    "subtitle": "Turning engineering CAD into real-time assets for boat simulation.",
+    "snapshot": {
+      "role": {
+        "value": "Solo developer",
+        "detail": "Pipeline, C++ wrapper, desktop app"
+      },
+      "team": {
+        "value": "Solo",
+        "detail": "Apr–Jun 2025 · Brunswick internship"
+      },
+      "stack": [
+        "Python",
+        "C++",
+        "CGAL",
+        "Blender",
+        "FreeCAD"
+      ],
+      "outcome": {
+        "value": "Weeks of remodeling → minutes",
+        "detail": "7.4M → 27K triangles on a Sea Ray SLX 280"
+      }
+    },
+    "links": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Decimation+Log",
-        "caption": "Visualizing the automated decimation process on a complex engine block model."
+        "kind": "source",
+        "label": "Source code ↗",
+        "url": "",
+        "primary": true
+      },
+      {
+        "kind": "download",
+        "label": "Download",
+        "url": ""
       }
     ],
-    "icon": "/icons/projects/globe.png"},
-  {"id": "wireless-sensing",
+    "video": {
+      "caption": "Before and after: the Sea Ray SLX 280 hull"
+    },
+    "problem": {
+      "heading": "Engineering CAD is built to manufacture a boat, not to render one at 60 fps.",
+      "body": "Boat CAD models every bolt, bracket and interior part. Exported, one hull runs to millions of triangles with overlapping, non-manifold geometry, and an artist spent weeks remodeling each boat by hand. I built this as an exploratory project while CES Helm was still in ideation.",
+      "constraints": [
+        "7M+ triangle inputs",
+        "Keep the silhouette",
+        "Non-programmer users",
+        "Windows and macOS"
+      ]
+    },
+    "highlights": {
+      "heading": "Wrap, decimate, ship",
+      "items": [
+        {
+          "title": "Wrap first, decimate second",
+          "challenge": "Decimating raw CAD directly collapses thin parts, keeps hidden interior geometry and leaves messy topology.",
+          "approach": "I wrote a small C++ tool on CGAL’s 3D Alpha Wrapping that shrink-wraps the model in a clean, watertight surface. Alpha and offset scale with the model’s size, and a second, coarser pass tightens it further.",
+          "result": "7,374,479 → 1,260,118 → 410,694 triangles from the wraps, then 26,938 after Blender decimation.",
+          "visual": {
+            "caption": "Alpha and offset comparison."
+          }
+        },
+        {
+          "title": "Three tools, one button",
+          "challenge": "The pipeline spans FreeCAD, a compiled C++ binary and Blender, each with its own command line and install location.",
+          "approach": "A Python orchestrator runs each step as a subprocess and finds the installs automatically; headless Blender converts to quads, decimates and exports FBX; a Toga app exposes three sliders and a live log, packaged as a native installer.",
+          "result": "The sim’s graphics team went from weeks of remodeling to minutes, and spent that time retexturing instead.",
+          "visual": {
+            "caption": "Desktop app and output log."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "Minutes",
+        "label": "not weeks, to a sim-ready hull"
+      },
+      {
+        "value": "99.6%",
+        "label": "fewer triangles (7.4M → 27K)"
+      },
+      {
+        "value": "274×",
+        "label": "lighter mesh"
+      }
+    ],
+    "reflection": {
+      "worked": "Making alpha and offset relative to the model’s size, so one set of defaults worked across very different models.",
+      "differently": "Plan for distribution and fidelity from the start. GPL components kept it internal; next I’d explore cleaner topology and preserving UV and texture data, so artists start closer to final."
+    }
+  },
+  {
+    "id": "cake-inventory-app",
+    "name": "Patito’s Patisserie",
+    "year": 2025,
+    "category": "Web Platforms",
+    "teaser": "Brand and storefront",
+    "summary": "Brand, duck and bilingual storefront for a cookie shop, with an admin the owner runs alone.",
+    "tags": [
+      "JavaScript",
+      "Workers",
+      "D1",
+      "Branding"
+    ],
+    "cardArt": "/v2/card-art/cake",
+    "subtitle": "A brand, a duck and a bilingual storefront for a small-batch Mexican-inspired cookie shop.",
+    "snapshot": {
+      "role": {
+        "value": "Solo designer & developer",
+        "detail": "Brand, mascot, site, admin"
+      },
+      "team": {
+        "value": "Solo",
+        "detail": "Jun–Jul 2025"
+      },
+      "stack": [
+        "JavaScript",
+        "HTML/CSS",
+        "Workers",
+        "D1",
+        "Branding"
+      ],
+      "outcome": {
+        "value": "Owner-editable live site",
+        "detail": "No developer needed for weekly updates"
+      }
+    },
+    "links": [
+      {
+        "kind": "site",
+        "label": "Visit site ↗",
+        "url": "",
+        "primary": true
+      }
+    ],
+    "video": {
+      "caption": "Walkthrough of the live storefront, in English and Spanish"
+    },
+    "problem": {
+      "heading": "A bakery whose menu changes every Friday can’t wait on a developer.",
+      "body": "Patito’s sells small-batch, Mexican-inspired cookies (horchata, Abuelita hot chocolate, churro) baked to order, with a new batch every Friday. The owner needed a site that felt like the brand, worked in English and Spanish, and could change week to week without anyone touching code.",
+      "constraints": [
+        "Non-technical owner",
+        "Weekly menu",
+        "English + Spanish",
+        "Near-zero hosting"
+      ]
+    },
+    "highlights": {
+      "heading": "A brand and the tools to run it",
+      "items": [
+        {
+          "title": "A brand built around one duck",
+          "challenge": "A small home bakery needed to feel warm, specific and memorable, not like a template.",
+          "approach": "I designed the identity from scratch: Patito the duck in a chef’s hat, a four-color palette (deep green, sage, coral, sunny yellow), playful display type and a friendly bilingual voice.",
+          "result": "One consistent personality across the logo, mascot, site and copy.",
+          "visual": {
+            "caption": "Brand sheet: the duck, palette swatches, type and a couple of site sections."
+          }
+        },
+        {
+          "title": "An owner who never needs a programmer",
+          "challenge": "The menu changes weekly, and the owner wanted to tweak the look too, but isn’t a developer.",
+          "approach": "The menu and design settings live in a Cloudflare D1 database behind an admin page. The storefront reads the menu from a Worker API (/api/menu) and is styled from design tokens, all on Cloudflare’s edge.",
+          "result": "Menu updates and design tweaks go live with no code and no deploy.",
+          "visual": {
+            "caption": "The admin screen next to the storefront, showing an edit reflected live."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "Live",
+        "label": "bilingual storefront"
+      },
+      {
+        "value": "0",
+        "label": "developers for weekly updates"
+      },
+      {
+        "value": "1",
+        "label": "complete brand identity"
+      }
+    ],
+    "reflection": {
+      "worked": "Building the site on design tokens from day one. It’s what made “the owner can change the look” a simple feature instead of a rewrite.",
+      "differently": "Validate the business before building the full platform. The bakery didn’t move past the idea stage, so I’d launch a simple menu page and order form first, and add the platform once orders came in."
+    }
+  },
+  {
+    "id": "mix-space",
+    "name": "Mix Space",
+    "year": 2025,
+    "category": "Tools Engineering",
+    "teaser": "LLM playlist",
+    "summary": "Room playlist built from everyone’s Spotify, matched to the host’s vibe by a local LLM.",
+    "tags": [
+      "Python",
+      "Llama 3",
+      "Haystack",
+      "Spotify"
+    ],
+    "cardArt": "/v2/card-art/mix",
+    "subtitle": "A crowd-sourced playlist for shared spaces, built in one evening at the Research Park Hackathon.",
+    "snapshot": {
+      "role": {
+        "value": "LLM & matching pipeline",
+        "detail": "Song descriptions, semantic search"
+      },
+      "team": {
+        "value": "6 people",
+        "detail": "~6 hours · July 2025"
+      },
+      "stack": [
+        "Python",
+        "Llama 3",
+        "Ollama",
+        "Haystack",
+        "Spotify API"
+      ],
+      "outcome": {
+        "value": "Working live demo",
+        "detail": "Real listeners’ tracks queued from one prompt"
+      }
+    },
+    "links": [
+      {
+        "kind": "source",
+        "label": "Source code ↗",
+        "url": "",
+        "primary": true
+      }
+    ],
+    "video": {
+      "caption": "Recreated offline demo: prompt → matched playlist"
+    },
+    "problem": {
+      "heading": "Public spaces play one person’s playlist to a room full of people.",
+      "body": "Gyms, cafés and shops pick a playlist and hope. Mix Space lets everyone in the room shape it without installing anything: scan a code, log in with Spotify, and your top tracks join the pool. The host sets the mood in plain words, like “hype workout” or “coffeehouse acoustics.”",
+      "constraints": [
+        "6-hour build",
+        "No app for guests",
+        "Free local AI only",
+        "Plain-language prompts"
+      ]
+    },
+    "highlights": {
+      "heading": "Where the AI did the work",
+      "items": [
+        {
+          "title": "Teaching the playlist what a “vibe” is",
+          "challenge": "A host types “chill coffeehouse,” but Spotify only hands back titles and artists. Nothing in that data says what a song feels like.",
+          "approach": "For every pooled song, a local LLM writes a short description of its mood, genre and energy. I embedded those with a sentence-transformer and indexed them in Haystack, so the prompt runs as a semantic search for the top 10 matches.",
+          "result": "Free-form prompts pulled sensible songs from a pool of 90 tracks across 6 listeners.",
+          "visual": {
+            "caption": "A prompt → the generated descriptions → the matched queue."
+          }
+        },
+        {
+          "title": "Picking the right model in a six-hour window",
+          "challenge": "The search is only as good as the descriptions. Vague ones made every song look like every other song.",
+          "approach": "I started with Gemma, compared its descriptions against Llama 3 on the same tracks, and switched to Llama 3 for its more specific mood and genre language. Both ran locally through Ollama, so there were no rate limits or API costs.",
+          "result": "Clearer descriptions, so prompts and songs actually lined up.",
+          "visual": {
+            "caption": "One song’s Gemma description next to its Llama 3 description."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "~6 hrs",
+        "label": "start to live demo"
+      },
+      {
+        "value": "90",
+        "label": "songs from 6 listeners"
+      },
+      {
+        "value": "0",
+        "label": "apps for guests to install"
+      }
+    ],
+    "reflection": {
+      "worked": "Using an LLM to describe songs rather than classify them. It gave the search something meaningful to match, and the host could type any prompt.",
+      "differently": "Record the demo the moment it works. Ours ran live, but the submitted video didn’t capture it, and Spotify has since closed its API to most new developers."
+    }
+  },
+  {
+    "id": "wireless-sensing",
     "name": "Wireless Sensing",
-    "year": 2024,
+    "year": 2023,
     "category": "Spatial Sensing",
-    "role": "",
-    "tags": ["Python", "RSSI", "RasPi", "Wireshark"],
-    "description": "A handheld Raspberry Pi that locates hidden wireless cameras by correlating 802.11 signal strength with the operator's IMU-tracked position.",
-    "contributions": "Write-up coming soon.",
-    "challenges": "Write-up coming soon.",
-    "impact": "Write-up coming soon.",
-    "externalLinks": [],
-    "media": [
-      "https://placehold.co/600x400/222/white?text=Wireless+Sensing+Cover"
+    "teaser": "Hidden-camera finder",
+    "summary": "Handheld Pi that hunts a hidden camera by mapping Wi-Fi signal strength against footsteps.",
+    "tags": [
+      "Python",
+      "Raspberry Pi",
+      "Scapy",
+      "SciPy"
     ],
-    "images": [
+    "cardArt": "/v2/card-art/wireless",
+    "subtitle": "Finding a hidden spy camera with packet sniffing and step tracking, for the CS 437 Midterm Competition.",
+    "snapshot": {
+      "role": {
+        "value": "Co-developer & walker",
+        "detail": "Collection, analysis, field runs"
+      },
+      "team": {
+        "value": "2 people",
+        "detail": "Oct 2023 · CS 437, UIUC"
+      },
+      "stack": [
+        "Python",
+        "Raspberry Pi",
+        "Scapy",
+        "SciPy",
+        "pandas"
+      ],
+      "outcome": {
+        "value": "Correct zone on Day 1",
+        "detail": "2.1 m localization error"
+      }
+    },
+    "links": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Wireless+Sensing",
-        "caption": ""
+        "kind": "source",
+        "label": "Source code ↗",
+        "url": "",
+        "primary": true
+      },
+      {
+        "kind": "download",
+        "label": "Report (PDF)",
+        "url": ""
       }
     ],
-    "icon": "/icons/projects/wifi.svg"},
-  {"id": "ajo",
-    "name": "Ajo",
+    "video": {
+      "caption": "Day 1 RSSI-vs-position plot"
+    },
+    "problem": {
+      "heading": "A camera is hidden in the room. All you have is its Wi-Fi traffic.",
+      "body": "A Raspberry Pi “spy camera” was hidden somewhere in a zoned room. We had to find it with our own Pi, using only the signal strength (RSSI) of its packets and the Sense HAT’s motion sensors. On Day 2 the camera only transmitted when it detected motion, and decoys were added.",
+      "constraints": [
+        "RSSI only",
+        "Noisy IMU",
+        "Timed search",
+        "Decoys on Day 2"
+      ]
+    },
+    "highlights": {
+      "heading": "Two days, two lessons",
+      "items": [
+        {
+          "title": "Turning footsteps into a signal map",
+          "challenge": "IMU data was too noisy to double-integrate into a position, especially once we stopped walking in a straight line.",
+          "approach": "We sniffed only the camera’s packets in monitor mode with Scapy, logging RSSI with each accelerometer reading, and pressed the joystick at every turn to stamp direction. A Savitzky-Golay filter smoothed the signal; peaks became steps, and a stride estimate turned steps into distance.",
+          "result": "A walked path colored by RSSI. On Day 1 the strongest signal pointed to the correct zone.",
+          "visual": {
+            "caption": "Day 1 RSSI-vs-position plot, plus raw vs. smoothed acceleration."
+          }
+        },
+        {
+          "title": "What Day 2 taught us",
+          "challenge": "We got the zone wrong. Holding the Pi steady flattened the bounce step detection needs, we ran the Day 1 script by mistake, and packets arrived after I’d walked past the camera.",
+          "approach": "We rebuilt the tool for real-time feedback: the Sense HAT’s LED shifts color as RSSI rises or falls against the best reading so far, and collection moved onto separate threads so no packets or steps were dropped.",
+          "result": "A device you can steer by while walking, instead of one you can only read afterward.",
+          "visual": {
+            "caption": "The LED color scale, next to the Day 2 step plot."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "2.1 m",
+        "label": "localization error, Day 1"
+      },
+      {
+        "value": "Zone 1",
+        "label": "found correctly on Day 1"
+      },
+      {
+        "value": "2",
+        "label": "days of field runs"
+      }
+    ],
+    "reflection": {
+      "worked": "Using the joystick to record direction. It sidestepped the IMU’s worst weakness and made step-based tracking workable.",
+      "differently": "Design for feedback during the search, not just analysis after it, and rehearse the exact run. Our best idea for Day 2 sat unused because we launched the wrong script."
+    }
+  },
+  {
+    "id": "ajo",
+    "name": "AJO",
     "year": 2019,
     "category": "Game Development",
-    "role": "",
-    "tags": ["C#", "Unity", "UI/UX", "Mobile"],
-    "description": "A 2D mobile platformer controlled entirely by touch gestures, with custom character art and animations built alongside the movement system.",
-    "contributions": "Write-up coming soon.",
-    "challenges": "Write-up coming soon.",
-    "impact": "Write-up coming soon.",
-    "externalLinks": [],
-    "media": ["https://placehold.co/600x400/222/white?text=Ajo+Cover"],
-    "images": [
+    "teaser": "Gesture platformer",
+    "summary": "Gesture-controlled mobile platformer. I concepted Ajo and painted every elemental power.",
+    "tags": [
+      "Photoshop",
+      "Unity",
+      "2D Art",
+      "Mobile"
+    ],
+    "cardArt": "/v2/card-art/ajo",
+    "subtitle": "A gesture-controlled mobile platformer built in two weeks at the National High School Game Academy, Carnegie Mellon.",
+    "snapshot": {
+      "role": {
+        "value": "Concept & 2D artist",
+        "detail": "Ajo concept, elemental powers, skies"
+      },
+      "team": {
+        "value": "5 people · Butter Games",
+        "detail": "2 weeks · Summer 2019 · CMU"
+      },
+      "stack": [
+        "Photoshop",
+        "Unity",
+        "2D Art",
+        "Mobile",
+        "Gestures"
+      ],
+      "outcome": {
+        "value": "4-level playable game",
+        "detail": "Pitch to final demo in 2 weeks"
+      }
+    },
+    "links": [
       {
-        "url": "https://placehold.co/1920x1080/222/white?text=Ajo",
-        "caption": ""
+        "kind": "video",
+        "label": "Watch gameplay",
+        "url": "",
+        "primary": true
       }
     ],
-    "icon": "/icons/projects/ajo.png"
+    "video": {
+      "caption": "Gameplay capture from the final build"
+    },
+    "problem": {
+      "heading": "Two weeks to turn a pitch into a game nobody had seen before.",
+      "body": "Faculty formed new teams to build original games. We pitched three ideas and they picked AJO: a puzzle platformer where Ajo, a boy who lost his memory, recovers it level by level. Every power is cast by drawing a shape: swipe for Wind, circle for Fire, triangle for Earth, rectangle for Water.",
+      "constraints": [
+        "2-week build",
+        "Touch input",
+        "4 themed levels",
+        "2 artists, 1 look"
+      ]
+    },
+    "highlights": {
+      "heading": "Where art met code",
+      "items": [
+        {
+          "title": "Wind, the power that changes with the world",
+          "challenge": "Wind is AJO’s core power, used to move yourself and objects. It needed a different look in each level while staying instantly recognizable.",
+          "approach": "I painted the wind effects and their level-specific variations in Photoshop, then worked with the programmers on the logic that picks the right animation for the current level.",
+          "result": "One wind power, with the right version showing up in every level.",
+          "visual": {
+            "caption": "The wind variations side by side, plus a clip of it in play."
+          }
+        },
+        {
+          "title": "When a triangle looks like a circle",
+          "challenge": "Earth is cast by drawing a triangle, but quick, rounded triangles kept being read as circles, which cast Fire instead.",
+          "approach": "I worked with the programmers to tune the recognizer’s corner detection, adjusting the angle threshold that decides whether a turn in the stroke counts as a corner.",
+          "result": "Sloppy triangles still register three corners and reliably cast the Earth rock.",
+          "visual": {
+            "caption": "A drawn triangle with its detected corners marked, next to a circle."
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "2 wks",
+        "label": "pitch to final demo"
+      },
+      {
+        "value": "4",
+        "label": "elemental powers painted"
+      },
+      {
+        "value": "4",
+        "label": "themed levels"
+      }
+    ],
+    "reflection": {
+      "worked": "Implementing my own art in Unity and staying in the loop with the programmers. Most of the bugs I helped fix sat right where art met code.",
+      "differently": "It was our first game, so: playtest with peers, not just our team; keep Perforce organized (I was often on an outdated version); and split assets with a shared style reference, since our two art styles didn’t always look cohesive."
+    }
   }
 ]
