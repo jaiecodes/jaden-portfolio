@@ -1,35 +1,38 @@
+// src/features/projects/components/NextProject.tsx
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Project } from "../../../domain/models/Project";
+import { Text } from "../../../components/ui/Text";
 
 interface NextProjectProps {
   project: Project;
   currentSearch: string;
 }
 
-export const NextProject = ({ project, currentSearch }: NextProjectProps) => {
-  return (
-    <footer className="border-t border-zinc-900 bg-black overflow-hidden">
-      <Link
-        to={{
-          pathname: `/project/${project.id}`,
-          search: currentSearch,
-        }}
-        className="group block py-48 px-6 text-center hover:bg-zinc-900 transition-colors duration-1000"
+/** The next project in the (filtered) sequence, as one big link. */
+export const NextProject = ({ project, currentSearch }: NextProjectProps) => (
+  <footer className="overflow-hidden border-t border-white/10">
+    <Link
+      to={{ pathname: `/project/${project.id}`, search: currentSearch }}
+      className="group block px-[17px] py-[120px] text-center no-underline lg:px-[90px] lg:py-[200px]"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center gap-5 lg:gap-7"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Text variant="overline" className="text-theme">
+          Up Next
+        </Text>
+        <Text
+          variant="display"
+          as="h2"
+          className="text-white transition-transform duration-700 group-hover:scale-105"
         >
-          <h6 className="text-zinc-500 group-hover:text-red-500 tracking-[0.2em] mb-6 transition-colors">
-            Up Next
-          </h6>
-          <h1 className=" text-white group-hover:scale-105 transition-transform duration-700">
-            {project.name} <span className="text-zinc-800">→</span>
-          </h1>
-        </motion.div>
-      </Link>
-    </footer>
-  );
-};
+          {project.name} →
+        </Text>
+      </motion.div>
+    </Link>
+  </footer>
+);

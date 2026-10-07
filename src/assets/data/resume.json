@@ -1,0 +1,96 @@
+{
+  "pdfUrl": "/resume.pdf",
+  "sections": [
+    {
+      "id": "work",
+      "title": "Work Experience",
+      "tone": "primary",
+      "entries": [
+        {
+          "title": "Software Engineer",
+          "organization": "Brunswick",
+          "date": "Jan 2026",
+          "context": "Engineered Slate UI and real-time telemetry pipelines.",
+          "outcome": "Scaled multi-exhibit marine simulators for CES 2026.",
+          "tags": ["C++", "Unreal", "CANbus"],
+          "projectId": "ces-helm-sim"
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "title": "Education &\nSelected Projects",
+      "tone": "accent",
+      "entries": [
+        {
+          "title": "B.S. Computer Science",
+          "organization": "University of Illinois",
+          "date": "Dec 2025",
+          "context": "Specialization in Computer Graphics & Embedded Systems.",
+          "outcome": "Leadership in Design for America & SHPE UIUC.",
+          "tags": ["SHPE", "DFA", "SIGCHI"]
+        },
+        {
+          "title": "Wireless Sensing",
+          "organization": "CS 245 - Internet of Things",
+          "date": "Jan 2026",
+          "context": "Engineered continuous IMU tracking and telemetry pipeline.",
+          "outcome": "Reduced sensor transport packet loss by 18%.",
+          "tags": ["Surfshark", "Python", "RaspPi"],
+          "projectId": "wireless-sensing"
+        },
+        {
+          "title": "Mix Space",
+          "organization": "Research Park Hackathon",
+          "date": "Jan 2026",
+          "context": "Collaborative spatial AR tooling prototype.",
+          "outcome": "Won Best Technical Architecture Award.",
+          "tags": ["Surfshark", "Python", "RaspPi"],
+          "projectId": "mix-space"
+        }
+      ]
+    }
+  ],
+  "skillGroups": [
+    {
+      "title": "Engines & Real-Time",
+      "skills": [
+        { "name": "Unreal Engine 5", "icon": "unreal" },
+        { "name": "Unity", "icon": "unity" },
+        { "name": "C++" },
+        { "name": "Slate UI" },
+        { "name": "Shader Graph" }
+      ]
+    },
+    {
+      "title": "Hardware & Embedded",
+      "skills": [
+        { "name": "Raspberry Pi" },
+        { "name": "CANbus Telemetry" },
+        { "name": "Kvaser Hardware" },
+        { "name": "SenseHat IMU" }
+      ]
+    },
+    {
+      "title": "Web & APIs",
+      "skills": [
+        { "name": "React" },
+        { "name": "Next.js" },
+        { "name": "Tailwind CSS" },
+        { "name": "TypeScript" },
+        { "name": "Supabase" }
+      ]
+    },
+    {
+      "title": "Languages & Tools",
+      "skills": [
+        { "name": "C++" },
+        { "name": "Python" },
+        { "name": "Git" },
+        { "name": "Blender API" },
+        { "name": "FreeCAD" },
+        { "name": "Figma" }
+      ]
+    }
+  ]
+}

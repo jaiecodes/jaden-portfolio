@@ -1,0 +1,32 @@
+{
+  "intro": "a computer science graduate from UIUC. specializing in computer graphics and real-time rendering. currently building tools for the future of boating simulation.",
+  "socials": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/jadenambrocio/" },
+    { "label": "GitHub", "url": "https://github.com/jaiecodes" },
+    { "label": "Email", "url": "mailto:jambrocioalcantara@gmail.com" }
+  ],
+  "focusAreas": {
+    "title": "Focus Areas",
+    "intro": "What I'm into right now. Some of it is deliberate skill-building, some of it is just curiosity.",
+    "items": [
+      {
+        "tag": "Tools & UI",
+        "tone": "primary",
+        "title": "Unreal Engine 5\nArchitecture",
+        "description": "Diving deep into Slate UI and MVVM patterns for custom engine tools."
+      },
+      {
+        "tag": "Rendering",
+        "tone": "accent",
+        "title": "Real-Time\nRaytracing",
+        "description": "Studying light transport algorithms and their implementation in C++."
+      },
+      {
+        "tag": "Off the Clock",
+        "tone": "blush",
+        "title": "Artisanal\nPâtisserie",
+        "description": "Perfecting temperature-controlled fermentation for the bakery project."
+      }
+    ]
+  }
+}

@@ -14,12 +14,12 @@ export const Dropdown = ({
 }: DropdownProps) => {
   return (
     <div className="flex flex-col gap-1.5 min-w-[160px]">
-      <label className="caption-btn-sm text-zinc-500 ml-1">{label}</label>
+      <label className="type-overline ml-1 text-zinc-500">{label}</label>
 
       <select
         value={selected || ""}
         onChange={(e) => onSelect(e.target.value || null)}
-        className="caption-btn bg-zinc-900/50 border border-zinc-800 text-zinc-300 px-3 py-2.5 
+        className="type-tag bg-zinc-900/50 border border-zinc-800 text-zinc-300 px-3 py-2.5 
                    rounded-lg outline-none cursor-pointer hover:border-zinc-700
                    focus:border-zinc-600 transition-all appearance-none"
       >

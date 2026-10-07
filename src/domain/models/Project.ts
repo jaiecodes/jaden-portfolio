@@ -9,6 +9,17 @@ export interface ExternalLink {
   label?: string;
 }
 
+const LINK_LABELS: Record<LinkType, string> = {
+  github: "GitHub",
+  figma: "Figma",
+  external: "Live Site",
+  linkedin: "LinkedIn",
+};
+
+/** Display text for a project link: its own label, or one from its type. */
+export const linkLabel = (link: ExternalLink): string =>
+  link.label ?? LINK_LABELS[link.type];
+
 export interface ProjectImage {
   url: string;
   caption: string;
@@ -28,7 +39,10 @@ export interface ProjectData {
   challenges: string;
   impact: string;
   images: ProjectImage[];
-  icon?: string; // URL of a single-colour SVG, used as the gradient mask on the card
+  /** URL of the card icon (served from /public). Drawn as-is unless iconMask is set. */
+  icon?: string;
+  /** Treat `icon` as a single-colour shape and paint it with the brand gradient. */
+  iconMask?: boolean;
 }
 
 export class Project {
@@ -46,6 +60,7 @@ export class Project {
   readonly impact: string;
   readonly images: ProjectImage[];
   readonly icon?: string;
+  readonly iconMask: boolean;
 
   constructor(data: ProjectData) {
     this.id = data.id;
@@ -62,11 +77,18 @@ export class Project {
     this.impact = data.impact;
     this.images = data.images;
     this.icon = data.icon;
+    this.iconMask = data.iconMask ?? false;
   }
 
-  /** SVG URL used as the card's gradient mask, falling back to the bundled glyph. */
+  /** Card icon URL, falling back to the bundled boat glyph. */
   get iconUrl(): string {
     return this.icon ?? defaultIcon;
+  }
+
+  /** Whether the card should paint the icon with the brand gradient (the
+   *  fallback glyph is a single-colour shape, so it always is). */
+  get iconIsMask(): boolean {
+    return !this.icon || this.iconMask;
   }
 
   matchesSearch(query: string): boolean {

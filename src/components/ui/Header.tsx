@@ -7,7 +7,12 @@ import { NavLinkItem } from "./NavLinkItem";
 const navLinks = [
   { name: "about", path: "/about", font: "font-chillax", type: "nav" as const },
   { name: "jaden", path: "/", font: "font-borel", type: "brand" as const },
-  { name: "work", path: "/work", font: "font-chillax", type: "nav" as const },
+  {
+    name: "resume",
+    path: "/resume",
+    font: "font-chillax",
+    type: "nav" as const,
+  },
 ];
 
 // Destinations reached from the logo (home) go in the mobile drawer instead.

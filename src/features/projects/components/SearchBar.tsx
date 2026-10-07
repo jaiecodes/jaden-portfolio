@@ -31,7 +31,7 @@ export const SearchBar = ({ value, onChange, className = "" }: SearchBarProps) =
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search projects..."
-        className="body-secondary min-w-0 flex-1 bg-transparent text-white placeholder-white/40 outline-none"
+        className="type-body-sm min-w-0 flex-1 bg-transparent text-white placeholder-white/40 outline-none"
       />
       <svg
         width="28"

@@ -1,7 +1,8 @@
 // src/features/projects/components/ProjectCarousel.tsx
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
-import type { ProjectImage } from "../../../domain/models/Project"; // Import new type
+import type { ProjectImage } from "../../../domain/models/Project";
+import { Text } from "../../../components/ui/Text";
 
 interface CarouselProps {
   images: ProjectImage[]; // Updated Prop Type
@@ -54,6 +55,7 @@ export const ProjectCarousel = ({
           {/* --- "X" Exit Button --- */}
           <button
             onClick={onClose}
+            aria-label="Close"
             className="absolute top-10 right-10 z-50 text-white hover:scale-125 transition-transform"
           >
             <svg
@@ -66,9 +68,9 @@ export const ProjectCarousel = ({
               <path
                 d="M18 6L6 18M6 6L18 18"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </button>
@@ -76,7 +78,8 @@ export const ProjectCarousel = ({
           {/* Navigation Controls */}
           <div className="absolute inset-x-10 flex justify-between z-10 pointer-events-none text-white/50">
             <button
-              className="pointer-events-auto hover:text-white"
+              aria-label="Previous image"
+              className="type-h2 pointer-events-auto hover:text-white"
               onClick={() =>
                 setIndex((i) => (i > 0 ? i - 1 : images.length - 1))
               }
@@ -84,7 +87,8 @@ export const ProjectCarousel = ({
               ←
             </button>
             <button
-              className="pointer-events-auto hover:text-white"
+              aria-label="Next image"
+              className="type-h2 pointer-events-auto hover:text-white"
               onClick={() =>
                 setIndex((i) => (i < images.length - 1 ? i + 1 : 0))
               }
@@ -111,12 +115,12 @@ export const ProjectCarousel = ({
 
             {/* --- Image Captions & Counter --- */}
             <div className="mt-10 text-center max-w-3xl">
-              <h6 className="caption-btn-sm text-zinc-600 tracking-widest">
-                ITEM {index + 1} OF {images.length}
-              </h6>
-              <p className="caption-btn-sm mt-3 text-white text-base leading-relaxed">
+              <Text variant="overline" className="text-zinc-600">
+                Item {index + 1} of {images.length}
+              </Text>
+              <Text variant="body" className="mt-3 text-white">
                 {images[index].caption}
-              </p>
+              </Text>
             </div>
           </motion.div>
         </motion.div>

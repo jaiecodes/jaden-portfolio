@@ -40,14 +40,23 @@ export const ProjectCard = ({ project }: { project: Project }) => {
               {project.year.toString()}
             </p>
 
-            <GradientIcon
-              src={project.iconUrl}
-              label={`${project.name} icon`}
-              size={90}
-              className="transition-transform duration-500 group-hover:scale-105"
-            />
+            {project.iconIsMask ? (
+              <GradientIcon
+                src={project.iconUrl}
+                label={`${project.name} icon`}
+                size={90}
+                className="transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              /* Icons with their own colours; 90px box with the design's 6/4px inset. */
+              <img
+                src={project.iconUrl}
+                alt={`${project.name} icon`}
+                className="size-[90px] shrink-0 object-contain px-1.5 py-1 transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
 
-            <h5 className="card-title">{project.name}</h5>
+            <h3 className="card-title">{project.name}</h3>
 
             <p
               className="w-full px-5 py-[11px] shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]"

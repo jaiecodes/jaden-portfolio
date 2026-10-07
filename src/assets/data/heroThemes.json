@@ -2,6 +2,12 @@
   "ces-helm-sim": {
     "background": "#A7E8FF",
     "textColor": "#026AFD",
+    "foreground": "#101A34",
+    "mobile": {
+      "scale": 0.87165,
+      "start": { "x": -790, "y": -40 },
+      "end": { "x": -790, "y": -40 }
+    },
     "titleZIndex": 20,
     "titleLines": ["CES Helm", "Simulator"],
     "layers": [
@@ -53,6 +59,12 @@
   "echoes-elements": {
     "background": "#D7CABB",
     "textColor": "#161721",
+    "foreground": "#161721",
+    "mobile": {
+      "scale": 0.77778,
+      "start": { "x": -262, "y": 0 },
+      "end": { "x": -262, "y": 0 }
+    },
     "titleZIndex": 5,
     "titleLines": ["Echoes of the", "Elements"],
     "layers": [
@@ -115,6 +127,12 @@
   "flite-sim": {
     "background": "#B6B4A5",
     "textColor": "#362B00",
+    "foreground": "#524F98",
+    "mobile": {
+      "scale": 0.77778,
+      "start": { "x": -512, "y": 0 },
+      "end": { "x": -512, "y": 0 }
+    },
     "titleZIndex": 20,
     "titleLines": ["Fliteboard", "Simulator"],
     "layers": [
@@ -178,6 +196,305 @@
         "transforms": [
           { "property": "x", "input": [0, 1], "output": ["0px", "0px"] },
           { "property": "y", "input": [0, 1], "output": ["418px", "-50px"] }
+        ]
+      }
+    ]
+  },
+  "ajo": {
+    "background": "#C2D7D0",
+    "textColor": "#023941",
+    "foreground": "#379664",
+    "mobile": {
+      "scale": 0.85632,
+      "start": { "x": -266, "y": -82 },
+      "end": { "x": -736, "y": -82 }
+    },
+    "titleZIndex": 5,
+    "titleLines": ["Ajo"],
+    "layers": [
+      {
+        "src": "/svg/ajo/rock.svg",
+        "zIndex": 10,
+        "position": { "left": "810.0px", "top": "658.0px", "width": "817.42px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "122.62px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-250.5px"] },
+          { "property": "rotate", "input": [0, 1], "output": [0, 11.06] }
+        ]
+      },
+      {
+        "src": "/svg/ajo/water-sprout.svg",
+        "zIndex": 20,
+        "position": {
+          "left": "445.3px",
+          "top": "564.57px",
+          "width": "485.08px"
+        },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "106.97px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-260.96px"] },
+          { "property": "rotate", "input": [0, 1], "output": [24.31, 7.23] }
+        ]
+      },
+      {
+        "src": "/svg/ajo/grass.svg",
+        "zIndex": 30,
+        "position": { "left": "-7px", "top": "804px", "width": "1821px" },
+        "transforms": []
+      },
+      {
+        "src": "/svg/ajo/ajo-character.svg",
+        "zIndex": 40,
+        "position": { "left": "502.0px", "top": "366.0px", "width": "203.07px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "553.51px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-208.34px"] },
+          { "property": "rotate", "input": [0, 1], "output": [0, -2.78] }
+        ]
+      },
+      {
+        "src": "/svg/ajo/wind.svg",
+        "zIndex": 50,
+        "position": {
+          "left": "-218.0px",
+          "top": "465.5px",
+          "width": "619.88px"
+        },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "382.83px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-251.71px"] },
+          { "property": "rotate", "input": [0, 1], "output": [17.82, 21.87] }
+        ],
+        "scaleY": -1
+      },
+      {
+        "src": "/svg/ajo/fire-ball.svg",
+        "zIndex": 60,
+        "position": {
+          "left": "130.53px",
+          "top": "148.99px",
+          "width": "293.61px"
+        },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "550.53px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-225.08px"] },
+          { "property": "rotate", "input": [0, 1], "output": [-88.73, -38.25] }
+        ]
+      }
+    ]
+  },
+  "cake-inventory-app": {
+    "background": "#FFF8EA",
+    "textColor": "#005347",
+    "foreground": "#FFD035",
+    "mobile": {
+      "scale": 0.77778,
+      "start": { "x": -177, "y": 92 },
+      "end": { "x": -512, "y": 0 }
+    },
+    "titleZIndex": 5,
+    "titleLines": ["Baking Web", "Platform"],
+    "layers": [
+      {
+        "src": "/svg/cake-inventory-app/webpage.svg",
+        "zIndex": 10,
+        "position": { "left": "199px", "top": "242px", "width": "537.978px" },
+        "transforms": []
+      },
+      {
+        "src": "/svg/cake-inventory-app/duck-logo.svg",
+        "zIndex": 20,
+        "position": { "left": "799.41px", "top": "270.26px", "width": "1205px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "-470.18px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-494.71px"] },
+          { "property": "rotate", "input": [0, 1], "output": [120.05, 109.33] }
+        ],
+        "scaleY": -1
+      }
+    ]
+  },
+  "cad-simplifier": {
+    "background": "#D8F2EF",
+    "textColor": "#CA1246",
+    "foreground": "#D8F2EF",
+    "mobile": {
+      "scale": 1.14943,
+      "start": { "x": -227, "y": -45 },
+      "end": { "x": -991, "y": -73 }
+    },
+    "titleZIndex": 5,
+    "titleLines": ["CAD", "Simplifier"],
+    "layers": [
+      {
+        "src": "/svg/cad-simplifier/heart-2.svg",
+        "zIndex": 10,
+        "position": { "left": "651.0px", "top": "35.0px", "width": "249px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "720.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "354.0px"] }
+        ]
+      },
+      {
+        "src": "/svg/cad-simplifier/heart-1.svg",
+        "zIndex": 20,
+        "position": { "left": "650.0px", "top": "670.0px", "width": "500px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "125.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-345.0px"] }
+        ]
+      },
+      {
+        "src": "/svg/cad-simplifier/heart-0.svg",
+        "zIndex": 30,
+        "position": { "left": "110.0px", "top": "280.0px", "width": "500px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "69.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-10.0px"] }
+        ]
+      }
+    ]
+  },
+  "mix-space": {
+    "background": "#022532",
+    "textColor": "#FED5C7",
+    "foreground": "#022532",
+    "mobile": {
+      "scale": 0.77778,
+      "start": { "x": -306, "y": 120 },
+      "end": { "x": -512, "y": 0 }
+    },
+    "titleZIndex": 20,
+    "titleLines": ["Mix", "Space"],
+    "layers": [
+      {
+        "src": "/svg/mix-space/bracket-top.svg",
+        "zIndex": 10,
+        "position": {
+          "left": "300.67px",
+          "top": "188.67px",
+          "width": "666.67px"
+        },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "265.5px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-133.67px"] },
+          { "property": "scale", "input": [0, 1], "output": [1, 1.9665] }
+        ]
+      },
+      {
+        "src": "/svg/mix-space/wave-2.svg",
+        "zIndex": 30,
+        "position": { "left": "334.0px", "top": "338.67px", "width": "600px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "533.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "0.33px"] }
+        ]
+      },
+      {
+        "src": "/svg/mix-space/wave-1.svg",
+        "zIndex": 40,
+        "position": { "left": "334.0px", "top": "338.67px", "width": "600px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "0.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "0.33px"] }
+        ]
+      },
+      {
+        "src": "/svg/mix-space/wave-3.svg",
+        "zIndex": 50,
+        "position": { "left": "467.0px", "top": "339.0px", "width": "333.33px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "267.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "0.0px"] },
+          {
+            "property": "opacity",
+            "input": [0, 0.15, 0.6],
+            "output": [0, 0, 1]
+          }
+        ]
+      },
+      {
+        "src": "/svg/mix-space/bracket-bottom.svg",
+        "zIndex": 60,
+        "position": {
+          "left": "300.67px",
+          "top": "655.33px",
+          "width": "666.67px"
+        },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "265.5px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "133.17px"] },
+          { "property": "scale", "input": [0, 1], "output": [1, 1.9665] }
+        ]
+      }
+    ]
+  },
+  "wireless-sensing": {
+    "background": "#1B0036",
+    "textColor": "#C5F8DB",
+    "foreground": "#1B0036",
+    "mobile": {
+      "scale": 0.93295,
+      "start": { "x": -256, "y": 30 },
+      "end": { "x": -560, "y": 0 }
+    },
+    "titleZIndex": 5,
+    "titleLines": ["Wireless", "Sensing"],
+    "layers": [
+      {
+        "src": "/svg/wireless-sensing/rings.png",
+        "zIndex": 10,
+        "position": { "left": "-405.0px", "top": "932.0px", "width": "2736px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "-210.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "-400.0px"] }
+        ]
+      },
+      {
+        "src": "/svg/wireless-sensing/signal-node.svg",
+        "zIndex": 20,
+        "position": { "left": "1203.0px", "top": "702.0px", "width": "86px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] }
+        ]
+      },
+      {
+        "src": "/svg/wireless-sensing/signal-3.svg",
+        "zIndex": 30,
+        "position": { "left": "1159.0px", "top": "661.0px", "width": "174px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] },
+          { "property": "opacity", "input": [0, 0.4, 0.7], "output": [0, 0, 1] }
+        ]
+      },
+      {
+        "src": "/svg/wireless-sensing/signal-2.svg",
+        "zIndex": 40,
+        "position": { "left": "1125.0px", "top": "607.0px", "width": "242px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "242.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "40.0px"] },
+          { "property": "opacity", "input": [0, 0.6, 0.9], "output": [0, 0, 1] }
+        ]
+      },
+      {
+        "src": "/svg/wireless-sensing/p-node.svg",
+        "zIndex": 50,
+        "position": { "left": "522.0px", "top": "430.0px", "width": "86px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "302.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "28.0px"] }
+        ]
+      },
+      {
+        "src": "/svg/wireless-sensing/person.svg",
+        "zIndex": 60,
+        "position": { "left": "273.0px", "top": "274.0px", "width": "324px" },
+        "transforms": [
+          { "property": "x", "input": [0, 1], "output": ["0px", "302.0px"] },
+          { "property": "y", "input": [0, 1], "output": ["0px", "28.0px"] }
         ]
       }
     ]

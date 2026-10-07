@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="78" height="58" viewBox="0 0 78 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="wifi-[#1029]" fill-rule="evenodd" clip-rule="evenodd" d="M30.6595 51.9479L34.829 56.2257C37.135 58.5914 40.8681 58.5914 43.1682 56.2257L47.3379 51.9479C42.7319 47.2224 35.2655 47.2224 30.6595 51.9479ZM13.9812 34.8366L22.3203 43.3922C31.5147 33.9534 46.4827 33.9534 55.6829 43.3922L64.0221 34.8366C50.2041 20.6541 27.7992 20.6541 13.9812 34.8366ZM76.2713 22.2637L72.3613 26.2753C53.9372 7.37342 24.066 7.37342 5.63613 26.2753L1.7261 22.2637C-0.774471 19.6982 -0.520941 15.4516 2.24502 13.1827C23.6886 -4.39422 54.3147 -4.39422 75.7582 13.1827C78.5242 15.4516 78.7719 19.6982 76.2713 22.2637Z" fill="url(#paint0_linear_0_27)"/>
+<defs>
+<linearGradient id="paint0_linear_0_27" x1="39" y1="53" x2="39" y2="7.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A14D45"/>
+<stop offset="0.384615" stop-color="#DD8B2D"/>
+<stop offset="0.429959" stop-color="#D58330"/>
+<stop offset="0.695922" stop-color="#EFC139"/>
+<stop offset="0.961538" stop-color="#EFC139"/>
+</linearGradient>
+</defs>
+</svg>

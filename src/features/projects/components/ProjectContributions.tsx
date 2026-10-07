@@ -1,47 +1,49 @@
 // src/features/projects/components/ProjectContributions.tsx
+import { Text } from "../../../components/ui/Text";
 
-export const ProjectContributions = ({
-  content,
-  videoThumbnail,
-}: {
+interface ProjectContributionsProps {
   content: string;
-  videoThumbnail: string;
-}) => {
-  return (
-    <section className="py-32 bg-white text-black px-6">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-start">
-        {/* Left: Sticky Video Preview */}
-        <div className="lg:w-1/2 sticky top-32">
-          <div className="relative group cursor-pointer overflow-hidden rounded-2xl shadow-2xl">
-            <img
-              src={videoThumbnail}
-              className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            {/* Play Button Overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl">
-                <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-black border-b-[10px] border-b-transparent ml-1" />
-              </div>
-            </div>
-          </div>
-          <h6 className="mt-4 caption-btn-sm tracking-normal text-zinc-400">
-            Click to Play Demo
-          </h6>
-        </div>
+  /** Poster for the demo video slot; the slot shows the abyss colour without it. */
+  videoThumbnail?: string;
+}
 
-        {/* Right: Scrolling Text */}
-        <div className="lg:w-1/2">
-          <h6 className="tracking-[0.2em] text-zinc-400 mb-8">
-            Key Contributions
-          </h6>
-          <div className="space-y-12">
-            <p className="text-3xl md:text-4xl leading-[1.1] tracking-tight text-zinc-900">
-              {content}
-            </p>
-            {/* You can map more specific contribution bullet points here later */}
-          </div>
-        </div>
+/** Demo video slot beside what was built. */
+export const ProjectContributions = ({ content, videoThumbnail }: ProjectContributionsProps) => (
+  <section className="px-[17px] py-14 lg:p-[90px]">
+    <div className="mx-auto flex w-full max-w-[1620px] flex-col gap-6 lg:gap-[54px]">
+      <Text variant="overline" as="h2" className="text-theme">
+        Key Contributions
+      </Text>
+
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-[90px]">
+        <figure className="m-0 flex w-full flex-col gap-4 lg:w-[900px] lg:shrink-0">
+          <button
+            type="button"
+            aria-label="Play demo"
+            className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-[10px] border border-theme/50 bg-abyss"
+          >
+            {videoThumbnail && (
+              <img
+                src={videoThumbnail}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
+            <span className="relative flex size-14 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-110 lg:size-[72px]">
+              <svg width="40%" height="40%" viewBox="0 0 24 24" aria-hidden>
+                <path d="M8 5v14l11-7z" fill="var(--color-ink)" />
+              </svg>
+            </span>
+          </button>
+          <Text variant="overline" as="figcaption" className="text-body/60">
+            Click to play demo
+          </Text>
+        </figure>
+
+        <Text variant="lead" className="text-white lg:flex-1">
+          {content}
+        </Text>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);

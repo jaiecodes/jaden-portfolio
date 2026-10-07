@@ -24,7 +24,8 @@
   font-family: "Satoshi";
   /* truetype-variations first: older Safari ignores the weight axis on a
      variable TTF declared only as truetype, and silently synthesises bold. */
-  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
+  src:
+    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
     url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
   font-weight: 300 900;
   font-display: swap;
@@ -35,7 +36,8 @@
    instead of silently falling back to the system sans. */
 @font-face {
   font-family: "Satoshi Variable";
-  src: url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
+  src:
+    url("./assets/fonts/Satoshi-Variable.ttf") format("truetype-variations"),
     url("./assets/fonts/Satoshi-Variable.ttf") format("truetype");
   font-weight: 300 900;
   font-display: swap;
@@ -54,16 +56,32 @@
    bg-secondary/50 etc. Alpha lives in the modifier, not the token. */
 
 @theme {
-  --font-satoshi: "Satoshi Variable", "Satoshi", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-satoshi:
+    "Satoshi Variable", "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  /* Brand faces, header only: Borel for the "jaden" wordmark, Chillax for
+     the nav links. Everything else is Satoshi on the type scale below. */
   --font-borel: "Borel", cursive;
   --font-chillax: "Chillax", ui-sans-serif, system-ui, sans-serif;
 
   --color-accent: #efc139; /* Accent */
   --color-secondary: #dd8b2d; /* Secondary */
+  --color-primary: #4db36f; /* Primary (green) */
   --color-ember: #a14d45; /* angular gradient terminus */
+  --color-blush: #f0789a; /* angular primary gradient terminus */
+  --color-moss: #78b34d; /* Resume: work heading / title gradient end */
+  --color-citron: #d1c85a; /* Resume: education heading */
+  --color-wheat: #d1aa5a; /* Resume: skills heading */
+  --color-olive: #8e9c32; /* Card rim gradient midpoint */
+  --color-abyss: #082c36; /* Card rim gradient terminus */
   --color-ink: #030a11; /* Card Info background */
   --color-body: #c8c8c5; /* Description text */
+}
+
+/* `theme` follows the page's [data-theme], so text-theme, bg-theme/5,
+   outline-theme/50 etc. pick up whichever page they render on. */
+@theme inline {
+  --color-theme: var(--theme-dominant);
+  --color-theme-on-light: var(--theme-dominant-on-light);
 }
 
 /* Paints. Any of these can be handed to a stroke, an icon, or a fill. */
@@ -81,6 +99,22 @@
     var(--color-accent) 47%,
     var(--color-secondary) 62%,
     var(--color-ember) 100%
+  );
+  --paint-primary-angular: conic-gradient(
+    from 242deg at 50% 50%,
+    var(--color-blush) 0%,
+    var(--color-primary) 4%,
+    var(--color-primary) 47%,
+    var(--color-accent) 62%,
+    var(--color-blush) 100%
+  );
+  /* Resume card rim: Secondary -> olive -> deep teal, angular. */
+  --paint-card-angular: conic-gradient(
+    from 215deg at 50% 50%,
+    var(--color-secondary) 4%,
+    var(--color-secondary) 20%,
+    var(--color-olive) 52%,
+    var(--color-abyss) 100%
   );
   --paint-accent-soft: rgb(239 193 57 / 0.5); /* Accent_Border */
   --paint-secondary-soft: rgb(221 139 45 / 0.5); /* Secondary_Border */
@@ -106,85 +140,66 @@
     rgb(239 193 57 / 0.15) 0%,
     rgb(221 139 45 / 0.15) 100%
   );
+  /* About hero title: Primary (green) -> Accent (gold), 137deg. */
+  --paint-hero-title: linear-gradient(
+    137.29deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 90%
+  );
 }
 
-/* --- 3. The Flexible Design System --- */
+/* --- 2b. Page Themes ---
+   Each page has one dominant colour. A theme names it and the paints that
+   go with it; UI-kit components read these instead of fixed colours, so a
+   new theme is one more block here plus a PageTheme entry in
+   src/components/ui/theme.ts.
+
+     --theme-dominant   headings, active controls, links       (text-theme)
+     --theme-dominant-on-light   the same roles on light surfaces, where the
+                        dominant colour is too pale to read (text-theme-on-light)
+     --theme-stroke     angular rim for panels and cards       (.stroke-theme)
+
+   :root carries the projects theme so anything rendered outside a page
+   (the header, overlays) still resolves. */
+:root,
+[data-theme="projects"] {
+  --theme-dominant: var(--color-accent);
+  --theme-dominant-on-light: var(--color-ember);
+  --theme-stroke: var(--paint-angular);
+}
+[data-theme="about"] {
+  --theme-dominant: var(--color-primary);
+  --theme-dominant-on-light: var(--color-abyss);
+  --theme-stroke: var(--paint-primary-angular);
+}
+[data-theme="resume"] {
+  --theme-dominant: var(--color-secondary);
+  --theme-dominant-on-light: var(--color-ember);
+  --theme-stroke: var(--paint-card-angular);
+}
+/* Derived from whichever theme is active (Figma: theme/dominant-border,
+   theme/dominant-background). */
+:root,
+[data-theme] {
+  --theme-dominant-border: color-mix(in srgb, var(--theme-dominant) 50%, transparent);
+  --theme-dominant-background: color-mix(in srgb, var(--theme-dominant) 5%, transparent);
+}
+
+/* --- 3. Base ---
+   Elements carry no type styling of their own: headings and buttons look
+   like body text until given a type-* utility (or the <Text> component).
+   That keeps one source of truth for every size on the site. */
 
 @layer base {
-  body,
-  .body-primary {
+  body {
     font-family: var(--font-satoshi);
     font-weight: 400;
-    /* Scales from 18px to 24px */
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
-    @apply text-white antialiased leading-relaxed;
-  }
-
-  /* Body Secondary - Satoshi Regular (18px) */
-  /* Perfect for lists, small paragraphs, or technical details */
-  .body-secondary {
-    font-family: var(--font-satoshi);
-    font-weight: 400;
-    /* Scales from 16px to 18px */
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    @apply text-zinc-400 leading-normal;
-  }
-
-  /* H1 - Chillax Semi Bold (96px) - Page/Project Titles */
-  h1 {
-    font-family: var(--font-chillax);
-    font-weight: 600;
-    font-size: clamp(3rem, 8vw, 6rem);
-    @apply leading-tight;
-  }
-
-  /* H2 - Chillax Semi Bold (60px) - CTA / Next Project */
-  h2 {
-    font-family: var(--font-chillax);
-    font-weight: 600;
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
-    @apply leading-snug;
-  }
-
-  /* H3 - Borel Regular UpperCase (48px) - Section Titles */
-  h3 {
-    font-family: var(--font-borel);
-    font-weight: 900;
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    @apply uppercase tracking-tighter;
-  }
-
-  /* H4 - Borel Regular UpperCase (30px) - Section SubTitles */
-  h4 {
-    font-family: var(--font-borel);
-    font-weight: 400;
-    font-size: clamp(1.25rem, 3vw, 1.875rem);
-    @apply uppercase tracking-wider;
-  }
-
-  /* H5 - Satoshi Bold (20px) - Subsection titles / Buttons */
-  h5 {
-    font-family: var(--font-satoshi);
-    font-weight: 700;
-    font-size: 1.25rem;
-    @apply uppercase tracking-wider;
-  }
-
-  /* H6 - Satoshi Bold (14px) - Captions / Buttons */
-  h6,
-  .caption-btn,
-  button {
-    font-family: var(--font-satoshi);
-    font-weight: 700;
-    font-size: 0.875rem;
-    @apply uppercase tracking-widest;
-  }
-  .caption-btn-sm,
-  button {
-    font-family: var(--font-satoshi);
-    font-weight: 700;
-    font-size: 0.75rem;
-    @apply uppercase tracking-widest;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-body);
+    @variant lg {
+      font-size: 1.25rem;
+    }
   }
 
   /* ---- Project card type ramp ----
@@ -255,9 +270,174 @@
   }
 }
 
-/* --- 4. Utilities --- */
+/* --- 4. Type Scale ---
+   Satoshi throughout; every step steps up at lg (1024px). Weights are only
+   ever 400 / 500 / 700 / 900. Colour is never set here — it comes from the
+   page theme or the caller.
+
+     step       mobile → lg   weight  case    used for
+     display    48 → 96       900     upper   project hero titles, Up Next
+     h1         32 → 48       700     upper   section headings
+     h2         24 → 32       700     upper   card titles, dates, page labels
+     title      24 → 32       400     —       entry / card names (add uppercase as needed)
+     lead       20 → 32       400     —       intro paragraphs, big copy
+     callout    18 → 24       700     —       summary copy inside cards
+     label      16 → 24       700     upper   organisations, group labels
+     body       16 → 20       400     —       running text
+     body-sm    16            400     —       dense text (card blurbs, inputs)
+     button     14 → 28       500     upper   buttons and links styled as such
+     pill       16 → 20       700     upper   skill pills, tag tiles
+     tag        14 → 16       700     upper   tech tags, small badges
+     overline   12 → 14       700     upper   section kickers, captions
+
+   The project card (.card-*) is a fixed 360px component, so it uses the
+   lg sizes of this scale without stepping. */
+
+/* Type sizes per step (Figma: Typography collection, font-size/*), mobile
+   values with the lg step-up. The type-* utilities below read these. */
+:root {
+  --type-display-size: 3rem;
+  --type-h1-size: 2rem;
+  --type-h2-size: 1.5rem;
+  --type-title-size: 1.5rem;
+  --type-lead-size: 1.25rem;
+  --type-callout-size: 1.125rem;
+  --type-label-size: 1rem;
+  --type-body-size: 1rem;
+  --type-body-sm-size: 1rem;
+  --type-button-size: 0.875rem;
+  --type-pill-size: 1rem;
+  --type-tag-size: 0.875rem;
+  --type-overline-size: 0.75rem;
+}
+@media (width >= 64rem) {
+  :root {
+    --type-display-size: 6rem;
+    --type-h1-size: 3rem;
+    --type-h2-size: 2rem;
+    --type-title-size: 2rem;
+    --type-lead-size: 2rem;
+    --type-callout-size: 1.5rem;
+    --type-label-size: 1.5rem;
+    --type-body-size: 1.25rem;
+    --type-body-sm-size: 1rem;
+    --type-button-size: 1.75rem;
+    --type-pill-size: 1.25rem;
+    --type-tag-size: 1rem;
+    --type-overline-size: 0.875rem;
+  }
+}
+
+@utility type-display {
+  font-family: var(--font-satoshi);
+  font-weight: 900;
+  font-size: var(--type-display-size);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+@utility type-h1 {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-h1-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-h2 {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-h2-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-title {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: var(--type-title-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+@utility type-lead {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: var(--type-lead-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+@utility type-callout {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-callout-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+@utility type-label {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-label-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-body {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: var(--type-body-size);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+@utility type-body-sm {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: var(--type-body-sm-size);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+@utility type-button {
+  font-family: var(--font-satoshi);
+  font-weight: 500;
+  font-size: var(--type-button-size);
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-pill {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-pill-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-tag {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-tag-size);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@utility type-overline {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: var(--type-overline-size);
+  line-height: 1.35;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* --- 5. Utilities --- */
 
 @layer utilities {
+  /* Trims the line box to cap height / baseline, so Figma's gap values
+     (measured between glyph edges) can be used as-is. */
+  .cap-trim {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+
   /* Paints the element's background gradient onto its glyphs and makes the
      text fill transparent, so any --paint-* token shows through the letters.
      Pair with a bg-[image:var(--paint-*)] utility (or set background-image).
@@ -369,9 +549,12 @@
     padding: var(--s-top, 0px) var(--s-right, 0px) var(--s-bottom, 0px)
       var(--s-left, 0px);
     background: var(--stroke-paint, var(--color-accent));
-    -webkit-mask: linear-gradient(#000 0 0) content-box,
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; /* Safari keyword */
     mask-composite: exclude; /* standard keyword */
     pointer-events: none;
@@ -383,13 +566,22 @@
     --stroke-paint: var(--paint-angular);
     --stroke-fallback: var(--color-accent);
   }
+  .stroke-primary-angular {
+    --stroke-paint: var(--paint-primary-angular);
+    --stroke-fallback: var(--color-primary);
+  }
+  .stroke-card-angular {
+    --stroke-paint: var(--paint-card-angular);
+    --stroke-fallback: var(--color-secondary);
+  }
+  /* The page theme's rim (see [data-theme]). */
+  .stroke-theme {
+    --stroke-paint: var(--theme-stroke);
+    --stroke-fallback: var(--theme-dominant);
+  }
   .stroke-accent-soft {
     --stroke-paint: var(--paint-accent-soft);
     --stroke-fallback: var(--paint-accent-soft);
-  }
-  .stroke-secondary-soft {
-    --stroke-paint: var(--paint-secondary-soft);
-    --stroke-fallback: var(--paint-secondary-soft);
   }
 
   /* Fallback where mask-composite is unavailable. Inset box-shadows are
@@ -399,7 +591,8 @@
     .stroke::after {
       padding: 0;
       background: none;
-      box-shadow: inset 0 var(--s-top, 0px) 0 0
+      box-shadow:
+        inset 0 var(--s-top, 0px) 0 0
           var(--stroke-fallback, var(--color-accent)),
         inset calc(-1 * var(--s-right, 0px)) 0 0 0
           var(--stroke-fallback, var(--color-accent)),
@@ -409,4 +602,11 @@
           var(--stroke-fallback, var(--color-accent));
     }
   }
+}
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: var(--color-ink);
+  color: var(--color-body);
 }
