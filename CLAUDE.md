@@ -98,4 +98,6 @@ Tailwind is loaded via the `@tailwindcss/vite` Vite plugin — there is no `tail
 
 ### Deployment (Vercel)
 
-Deployed to Vercel, which handles SPA fallback routing natively — no special config needed. `BrowserRouter` works as-is.
+Deployed to Vercel. `vercel.json` rewrites every path to `index.html` so `BrowserRouter` deep links (`/about`, `/project/:id`) load instead of 404ing; static files in `public/` are still served first.
+
+Two feedback builds are deployed from the CLI as separate Vercel projects (production URLs are public, unlike preview URLs): `jaden-portfolio-a` (branch `claude/project-review-status-713df8`) and `jaden-portfolio-b` (branch `design-b`). Redeploy from the matching checkout with `npx vercel deploy --prod`.
