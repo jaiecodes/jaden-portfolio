@@ -43,8 +43,12 @@ export interface HeroThemeData {
   /** Whether the hero kicker uses the primary colour or the text colour. */
   heroLabel: "primary" | "text";
   palette: ProjectPalette;
-  /** Phone framing: the scene at `scale`, shifted `x` px in a 390px frame. */
-  mobile: { scale: number; x: number };
+  /**
+   * Phone framing, in Figma's 390×560 frame: the scene at `scale`, shifted
+   * `x` px. With `startX` the camera pans from `startX` to `x` as the art
+   * animates, following a subject that travels across the scene.
+   */
+  mobile: { scale: number; x: number; startX?: number };
   layers: HeroLayer[];
 }
 

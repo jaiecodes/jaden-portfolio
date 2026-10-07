@@ -177,7 +177,7 @@
   },
   "mobile": {
    "scale": 0.56,
-   "x": -309
+   "x": -242
   },
   "layers": [
    {
@@ -388,7 +388,7 @@
   },
   "mobile": {
    "scale": 0.56,
-   "x": -309
+   "x": -253
   },
   "layers": [
    {
@@ -1016,7 +1016,7 @@
    },
    {
     "src": "/svg/mix-space/wave-3.svg",
-    "zIndex": 20,
+    "zIndex": 60,
     "position": {
      "left": "733.33px",
      "top": "339.33px",
@@ -1144,7 +1144,8 @@
   },
   "mobile": {
    "scale": 0.56,
-   "x": -309
+   "x": -247,
+   "startX": -85
   },
   "layers": [
    {
@@ -1184,66 +1185,21 @@
     "src": "/svg/wireless-sensing/signal-node.svg",
     "zIndex": 20,
     "position": {
-     "left": "1180.0px",
-     "top": "704.0px",
+     "left": "1492px",
+     "top": "624px",
      "width": "86px"
     },
-    "transforms": [
-     {
-      "property": "x",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "312.0px"
-      ]
-     },
-     {
-      "property": "y",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "-80.0px"
-      ]
-     }
-    ]
+    "transforms": []
    },
    {
     "src": "/svg/wireless-sensing/signal-3.svg",
     "zIndex": 30,
     "position": {
-     "left": "1136.0px",
-     "top": "663.0px",
+     "left": "1448px",
+     "top": "583px",
      "width": "174px"
     },
     "transforms": [
-     {
-      "property": "x",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "312.0px"
-      ]
-     },
-     {
-      "property": "y",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "-80.0px"
-      ]
-     },
      {
       "property": "opacity",
       "input": [
@@ -1261,33 +1217,11 @@
     "src": "/svg/wireless-sensing/signal-2.svg",
     "zIndex": 40,
     "position": {
-     "left": "1102.0px",
-     "top": "609.0px",
+     "left": "1414px",
+     "top": "529px",
      "width": "242px"
     },
     "transforms": [
-     {
-      "property": "x",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "312.0px"
-      ]
-     },
-     {
-      "property": "y",
-      "input": [
-       0.45,
-       1
-      ],
-      "output": [
-       "0px",
-       "-80.0px"
-      ]
-     },
      {
       "property": "opacity",
       "input": [
@@ -1305,8 +1239,8 @@
     "src": "/svg/wireless-sensing/p-node.svg",
     "zIndex": 50,
     "position": {
-     "left": "548.0px",
-     "top": "386.0px",
+     "left": "548px",
+     "top": "340px",
      "width": "86px"
     },
     "transforms": [
@@ -1318,18 +1252,7 @@
       ],
       "output": [
        "0px",
-       "323.0px"
-      ]
-     },
-     {
-      "property": "y",
-      "input": [
-       0,
-       0.5
-      ],
-      "output": [
-       "0px",
-       "-46.0px"
+       "323px"
       ]
      }
     ]
@@ -1338,8 +1261,8 @@
     "src": "/svg/wireless-sensing/person.svg",
     "zIndex": 60,
     "position": {
-     "left": "310.0px",
-     "top": "264.0px",
+     "left": "310px",
+     "top": "184px",
      "width": "324px"
     },
     "transforms": [
@@ -1351,18 +1274,7 @@
       ],
       "output": [
        "0px",
-       "312.0px"
-      ]
-     },
-     {
-      "property": "y",
-      "input": [
-       0,
-       0.5
-      ],
-      "output": [
-       "0px",
-       "-80.0px"
+       "312px"
       ]
      }
     ]
@@ -1387,7 +1299,8 @@
   },
   "mobile": {
    "scale": 0.56,
-   "x": -309
+   "x": -399,
+   "startX": -163
   },
   "layers": [
    {

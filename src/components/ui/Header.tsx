@@ -207,7 +207,7 @@ export const Header = () => {
         <Backdrop />
 
         {/* Desktop */}
-        <nav aria-label="Main" className="pointer-events-auto relative hidden items-baseline justify-center gap-20 pt-[22px] lg:flex">
+        <nav aria-label="Main" className="pointer-events-auto relative hidden items-baseline justify-center gap-20 pt-10 lg:flex">
           <NavLink to="/about" className={({ isActive }) => `type-button transition-colors ${isActive ? "" : "opacity-70 hover:opacity-100"}`}>
             {({ isActive }) => (
               <>
@@ -228,7 +228,7 @@ export const Header = () => {
             )}
           </NavLink>
         </nav>
-        <LanternButton className="pointer-events-auto absolute top-[44px] right-[52px] hidden lg:flex" />
+        <LanternButton className="pointer-events-auto absolute top-[34px] right-[52px] hidden lg:flex" />
 
         {/* Mobile */}
         <div className="pointer-events-auto relative flex h-[60px] items-center justify-between px-5 pt-2 lg:hidden">
@@ -249,7 +249,10 @@ export const Header = () => {
           </div>
         </div>
 
-        <VineDivider className="absolute inset-x-0 top-[60px] lg:top-[88px]" />
+        {/* Project pages keep the header clear over their hero art */}
+        {!location.pathname.startsWith("/project/") && (
+          <VineDivider className="absolute inset-x-0 top-[60px] lg:top-[88px]" />
+        )}
       </header>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />

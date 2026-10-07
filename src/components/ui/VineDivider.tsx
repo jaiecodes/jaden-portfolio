@@ -6,8 +6,7 @@ const MID = 14.8;
 const AMP = 2.3;
 const LEAF_EVERY = 115;
 const LEAF_START = 70;
-const PAINT_MS = 7000; // phases 1–4: the firefly crosses
-const FADE_MS = 1200; // phase 5: the trail fades and a new firefly enters
+const SPEED = 180; // px per second
 
 /** The vine as one path, a gentle sine wave across `width`. */
 function vinePath(width: number): string {
@@ -26,79 +25,111 @@ function leafPath(x: number, below: boolean): string {
     : `M${x} 16C${x + 4.8} 10.6 ${x + 12} 8.8 ${x + 21.6} 10.6C${x + 15.6} 11.2 ${x + 8.4} 13 ${x} 16Z`;
 }
 
+const vineY = (x: number) => MID + AMP * Math.sin((x / PERIOD) * Math.PI * 2 - Math.PI / 2);
+
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
  * The header's vine (Figma: Vine Divider, Night). A firefly flies left to
- * right and paints the vine behind it — nothing ahead of it is drawn — fading
- * from transparent through green and yellow-green to the firefly's gold. When
- * it reaches the edge the trail fades and a new firefly enters at the left.
- * Leaves and the glow overhang the 28px row; nothing is clipped vertically.
+ * right in an endless loop, painting the vine behind it: the trail fades from
+ * transparent through green and yellow-green to the firefly's gold, and
+ * nothing ahead of it is drawn. As it leaves the right edge it re-enters at
+ * the left while its tail finishes crossing, so the loop never pauses.
+ *
+ * The vine itself stays still; a moving window reveals it. The window and the
+ * trail's paint are drawn twice — at the firefly and one width ahead of it,
+ * for the previous lap's tail — so the wrap is seamless.
  */
 export const VineDivider = ({ className = "" }: { className?: string }) => {
   const id = useId().replace(/:/g, "");
   const wrap = useRef<HTMLDivElement>(null);
-  const clip = useRef<SVGRectElement>(null);
-  const grad = useRef<SVGLinearGradientElement>(null);
+  const windows = useRef<(SVGRectElement | null)[]>([]);
+  const grads = useRef<(SVGLinearGradientElement | null)[]>([]);
   const fly = useRef<SVGGElement>(null);
-  const trail = useRef<SVGGElement>(null);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setWidth(Math.round(e.contentRect.width)));
+    const measure = () => setWidth(Math.round(el.getBoundingClientRect().width));
+    const ro = new ResizeObserver(measure);
     ro.observe(el);
+    measure();
     return () => ro.disconnect();
   }, []);
 
+  const trail = Math.min(width * 0.6, 1100);
+
   useEffect(() => {
     if (!width) return;
-    const place = (tip: number, fade: number) => {
-      clip.current?.setAttribute("width", String(Math.max(tip, 0)));
-      grad.current?.setAttribute("x2", String(Math.max(tip, 1)));
-      const y = MID + AMP * Math.sin((tip / PERIOD) * Math.PI * 2 - Math.PI / 2);
-      fly.current?.setAttribute("transform", `translate(${tip} ${y})`);
-      if (trail.current) trail.current.style.opacity = String(fade);
+    const place = (tip: number) => {
+      // This lap's trail, and the last lap's tail still crossing the right edge.
+      [tip, tip + width].forEach((end, i) => {
+        windows.current[i]?.setAttribute("x", String(end - trail));
+        grads.current.slice(i * 2, i * 2 + 2).forEach((g) => {
+          g?.setAttribute("x1", String(end - trail));
+          g?.setAttribute("x2", String(end));
+        });
+      });
+      fly.current?.setAttribute("transform", `translate(${tip} ${vineY(tip)})`);
     };
     if (reducedMotion()) {
-      place(width * 0.6, 1);
+      place(width * 0.6);
       return;
     }
     let raf = 0;
     const t0 = performance.now();
     const tick = (now: number) => {
-      const t = (now - t0) % (PAINT_MS + FADE_MS);
-      if (t < PAINT_MS) {
-        const p = t / PAINT_MS;
-        place(width * (1 - Math.pow(1 - p, 1.4)), 1);
-      } else {
-        place(width, 1 - (t - PAINT_MS) / FADE_MS);
-      }
+      place((((now - t0) / 1000) * SPEED) % width);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [width]);
+  }, [width, trail]);
 
   const leaves: { x: number; below: boolean }[] = [];
   for (let i = 0, x = LEAF_START; x < width; i++, x += LEAF_EVERY) leaves.push({ x, below: i % 2 === 1 });
+  const path = vinePath(width);
 
   return (
     <div ref={wrap} className={`pointer-events-none h-7 w-full ${className}`} aria-hidden>
       {width > 0 && (
         <svg width={width} height={28} viewBox={`0 0 ${width} 28`} overflow="visible">
           <defs>
-            <clipPath id={`vine-clip-${id}`}>
-              <rect ref={clip} x={0} y={-20} width={0} height={68} />
-            </clipPath>
-            <linearGradient ref={grad} id={`vine-paint-${id}`} gradientUnits="userSpaceOnUse" x1={0} y1={0} x2={1} y2={0}>
-              <stop offset="0" stopColor="#4db36f" stopOpacity="0" />
-              <stop offset="0.35" stopColor="#4db36f" stopOpacity="0.9" />
-              <stop offset="0.72" stopColor="#9ebd4a" />
-              <stop offset="1" stopColor="#efc139" />
-            </linearGradient>
+            {[0, 1].map((i) => (
+              <g key={i}>
+                {/* Reveal: transparent at the tail, opaque at the firefly */}
+                <linearGradient
+                  ref={(el) => void (grads.current[i * 2] = el)}
+                  id={`vine-fade-${id}-${i}`}
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0" stopColor="#fff" stopOpacity="0" />
+                  <stop offset="0.35" stopColor="#fff" stopOpacity="0.9" />
+                  <stop offset="1" stopColor="#fff" />
+                </linearGradient>
+                <mask id={`vine-mask-${id}-${i}`} maskUnits="userSpaceOnUse" x={-trail} y={-20} width={width + 2 * trail} height={68}>
+                  <rect
+                    ref={(el) => void (windows.current[i] = el)}
+                    y={-20}
+                    width={trail}
+                    height={68}
+                    fill={`url(#vine-fade-${id}-${i})`}
+                  />
+                </mask>
+                {/* Paint: green along the trail, warming to gold at the firefly */}
+                <linearGradient
+                  ref={(el) => void (grads.current[i * 2 + 1] = el)}
+                  id={`vine-paint-${id}-${i}`}
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0" stopColor="#4db36f" />
+                  <stop offset="0.72" stopColor="#9ebd4a" />
+                  <stop offset="1" stopColor="#efc139" />
+                </linearGradient>
+              </g>
+            ))}
             <linearGradient id={`leaf-${id}`} x1="0" x2="1" y1="0" y2="0">
               <stop offset="0" stopColor="#3e8a57" />
               <stop offset="1" stopColor="#4db36f" />
@@ -111,12 +142,14 @@ export const VineDivider = ({ className = "" }: { className?: string }) => {
               </feMerge>
             </filter>
           </defs>
-          <g ref={trail} clipPath={`url(#vine-clip-${id})`}>
-            <path d={vinePath(width)} stroke={`url(#vine-paint-${id})`} strokeWidth={1.8} strokeLinecap="round" fill="none" />
-            {leaves.map(({ x, below }, i) => (
-              <path key={x} d={leafPath(x, below)} fill={`url(#leaf-${id})`} opacity={Math.min(1, 0.16 + i * 0.27)} />
-            ))}
-          </g>
+          {[0, 1].map((i) => (
+            <g key={i} mask={`url(#vine-mask-${id}-${i})`}>
+              <path d={path} stroke={`url(#vine-paint-${id}-${i})`} strokeWidth={1.8} strokeLinecap="round" fill="none" />
+              {leaves.map(({ x, below }) => (
+                <path key={x} d={leafPath(x, below)} fill={`url(#leaf-${id})`} />
+              ))}
+            </g>
+          ))}
           <g ref={fly} filter={`url(#glow-${id})`}>
             <circle r={4.5} fill="#efc139" />
             <circle cx={-12.5} cy={-4.5} r={1.5} fill="#efc139" opacity={0.8} />

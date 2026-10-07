@@ -36,7 +36,7 @@ export const ResumeTimeline = () => {
   return (
     <div ref={track} className="relative pl-[48px] lg:pl-[70px]">
       <div aria-hidden className="absolute top-0 bottom-0 left-[6px] w-[2px] lg:left-[20px]" style={{ background: TRACK_PAINT }} />
-      <motion.div aria-hidden className="absolute left-[-24px] h-[58px] w-[63px] lg:left-[-11px]" style={{ top }}>
+      <motion.div aria-hidden className="absolute left-[-24px] z-10 h-[58px] w-[63px] lg:left-[-11px]" style={{ top }}>
         <img src={autumnLeaf} alt="" className="absolute inset-0 size-full" />
         <motion.img src={greenLeaf} alt="" className="absolute inset-0 size-full" style={{ opacity: reduce ? 1 : green }} />
       </motion.div>

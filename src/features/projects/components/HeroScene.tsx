@@ -66,27 +66,28 @@ interface HeroSceneProps {
   progress: MotionValue<number>;
   /** Scene pixels per CSS pixel. */
   scale: number;
-  offsetX?: number;
-  offsetY?: number;
+  /** Horizontal offset in CSS pixels; a motion value lets the camera pan. */
+  offsetX?: number | MotionValue<number>;
   className?: string;
   style?: CSSProperties;
 }
 
 /** The 1800×1044 hero art, scaled and positioned, at any point of its animation. */
-export const HeroScene = ({ layers, progress, scale, offsetX = 0, offsetY = 0, className = "", style }: HeroSceneProps) => (
-  <div
+export const HeroScene = ({ layers, progress, scale, offsetX = 0, className = "", style }: HeroSceneProps) => (
+  <motion.div
     aria-hidden
     className={`pointer-events-none absolute top-0 left-0 ${className}`}
     style={{
       width: SCENE_W,
       height: SCENE_H,
       transformOrigin: "top left",
-      transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+      x: offsetX,
+      scale,
       ...style,
     }}
   >
     {layers.map((layer) => (
       <Layer key={layer.src} layer={layer} progress={progress} />
     ))}
-  </div>
+  </motion.div>
 );

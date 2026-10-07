@@ -43,11 +43,14 @@ export const ProjectHero = ({ project, theme, onBehindHeader }: ProjectHeroProps
 
   const label = theme.heroLabel === "primary" ? "text-t-primary" : "text-fg";
 
-  // Desktop: the scene spans the viewport width. Phone: the 390×560 frame,
-  // scaled to the screen width, with the scene shifted as in Figma.
-  const scale = desktop ? width / SCENE_W : (theme.mobile.scale * width) / PHONE_W;
-  const stageH = desktop ? Math.max(SCENE_H * scale, Math.min(height, SCENE_H * scale * 1.15)) : (PHONE_H * width) / PHONE_W;
-  const offsetX = desktop ? 0 : (theme.mobile.x * width) / PHONE_W;
+  // Desktop: the scene spans the viewport width. Phone: the hero fills the
+  // screen; the 390×560 Figma framing is scaled to the screen height and kept
+  // centred, so wider phones see more of the scene at the sides.
+  const fit = height / PHONE_H;
+  const scale = desktop ? width / SCENE_W : theme.mobile.scale * fit;
+  const stageH = desktop ? Math.max(SCENE_H * scale, Math.min(height, SCENE_H * scale * 1.15)) : height;
+  const frameX = (x: number) => (desktop ? 0 : width / 2 + (x - PHONE_W / 2) * fit);
+  const offsetX = useTransform(art, [0, 1], [frameX(theme.mobile.startX ?? theme.mobile.x), frameX(theme.mobile.x)]);
   const sceneH = SCENE_H * scale;
 
   return (
@@ -84,7 +87,8 @@ export const ProjectHero = ({ project, theme, onBehindHeader }: ProjectHeroProps
             y: titleY,
             left: desktop ? (200 / SCENE_W) * width : 20,
             right: 20,
-            bottom: desktop ? Math.max(0, stageH - sceneH) + (120 / SCENE_H) * sceneH : 0,
+            // Phone: clear of the sticky link bar (≈80px) at the bottom.
+            bottom: desktop ? Math.max(0, stageH - sceneH) + (120 / SCENE_H) * sceneH : project.links.length ? 104 : 40,
           }}
         >
           <p className={`${desktop ? "type-hero-label" : "type-label"} ${label}`}>{project.heroLabel}</p>

@@ -10,7 +10,7 @@ export const AboutIntro = () => {
     <div className="flex flex-col gap-7 lg:max-w-[640px] lg:pt-[30px]">
       {/* Padding: gradient text only paints inside the box, and Borel's
           ascenders and dots overshoot its line height. */}
-      <Text variant="script" className="text-gradient -my-[0.3em] bg-[image:var(--paint-primary-accent)] py-[0.3em]">
+      <Text variant="script" className="text-gradient -mt-[0.7em] -mb-[0.5em] bg-[image:var(--paint-primary-accent)] pt-[0.7em] pb-[0.5em]">
         {AboutService.getGreeting().map((line) => (
           <span key={line} className="block">
             {line}
