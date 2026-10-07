@@ -1,0 +1,9 @@
+# Only what the build needs is uploaded to Vercel.
+.claude
+.vercel
+.env*
+.git
+node_modules
+dist
+CLAUDE.md
+README.md
