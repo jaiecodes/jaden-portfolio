@@ -160,6 +160,7 @@
   --menu-kicker: var(--color-primary);
   --drawer-rim: var(--paint-angular);
   --drawer-bg: color-mix(in srgb, var(--night-raised) 60%, transparent);
+  --drawer-blur: 32px;
 }
 
 /* --- 2c. Day (light mode: the sakura garden) ---
@@ -238,6 +239,7 @@
   --drawer-rim: #c42a57;
   /* The drawer glass: 40% (light glass reads heavier than dark), faint blossom tint. */
   --drawer-bg: rgb(251 236 239 / 0.4);
+  --drawer-blur: 12px;
   --paint-underline: linear-gradient(90deg, rgb(234 89 110 / 0) 0%, #ea596e 25%, #f2b441 50%, #1f6b76 75%, rgb(31 107 118 / 0) 100%);
 }
 /* Day colours fade in rather than snap when the lantern is switched. */

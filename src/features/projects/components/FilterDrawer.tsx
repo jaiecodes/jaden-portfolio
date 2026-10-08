@@ -164,7 +164,7 @@ export const FilterDrawer = ({ open, query, onApply, onClose }: FilterDrawerProp
           >
             {/* The glass and its angular rim (on the edge facing the page) */}
             <div
-              className={`stroke stroke-drawer flex h-full flex-col bg-(--drawer-bg) backdrop-blur-[32px] ${desktop ? "" : "rounded-t-[24px]"}`}
+              className={`stroke stroke-drawer flex h-full flex-col bg-(--drawer-bg) backdrop-blur-(--drawer-blur) ${desktop ? "" : "rounded-t-[24px]"}`}
               style={desktop ? ({ "--s-left": "1px" } as CSSProperties) : ({ "--s-top": "1px" } as CSSProperties)}
             >
               {!desktop && <div aria-hidden className="mx-auto mt-2.5 h-[5px] w-10 shrink-0 rounded-full bg-muted/60" />}
