@@ -117,7 +117,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             }}
           >
             <div className="relative flex h-[74px] items-center justify-between">
-              <Link to="/" onClick={onClose} className="type-wordmark pt-1 text-fg">
+              <Link to="/" onClick={onClose} className="type-wordmark relative top-[12px] text-fg">
                 jaden
               </Link>
               <button
@@ -166,12 +166,12 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             <div className="mt-6 flex items-center justify-between">
               <span className="type-body flex items-center gap-3 text-muted">
                 <LanternIcon size={26} className="text-fg" />
-                Lantern
+                Screen Mode
               </span>
-              <div className="flex rounded-full border border-line p-1" role="group" aria-label="Lantern">
+              <div className="flex rounded-full border border-line p-1" role="group" aria-label="Screen Mode">
                 <span className="type-button rounded-full bg-primary px-4 py-2 text-night">Night</span>
-                <span className="type-button px-4 py-2 text-muted opacity-60" title="Light mode is coming soon">
-                  Lit
+                <span className="type-button px-4 py-2 text-muted opacity-60" title="Day mode is coming soon">
+                  Day
                 </span>
               </div>
             </div>
@@ -234,7 +234,7 @@ export const Header = () => {
 
         {/* Mobile */}
         <div className="pointer-events-auto relative flex h-[60px] items-center justify-between px-5 pt-2 lg:hidden">
-          <Link to="/" className="type-wordmark pt-1" aria-label="jaden, home">
+          <Link to="/" className="type-wordmark relative top-[12px]" aria-label="jaden, home">
             jaden
           </Link>
           <div className="flex items-center gap-1">
