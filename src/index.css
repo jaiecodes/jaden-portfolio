@@ -236,8 +236,8 @@
   --switch-on: #c42a57;
   --menu-kicker: #c42a57;
   --drawer-rim: #c42a57;
-  /* Dims the page (not cream on cream) so the 60% drawer reads as glass. */
-  --drawer-scrim: rgb(42 38 56 / 0.32);
+  /* The day scrim with a faint blossom tint. */
+  --drawer-scrim: rgb(250 234 237 / 0.62);
   --paint-underline: linear-gradient(90deg, rgb(234 89 110 / 0) 0%, #ea596e 25%, #f2b441 50%, #1f6b76 75%, rgb(31 107 118 / 0) 100%);
 }
 /* Day colours fade in rather than snap when the lantern is switched. */
