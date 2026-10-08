@@ -142,6 +142,8 @@
   --glass: color-mix(in srgb, var(--night-bg) 60%, transparent);
   --scrim: rgb(4 10 10 / 0.62);
   --glass-blur: 32px;
+  --menu-blur: 32px;
+  --menu-rim: var(--night-line);
   --card-rim: var(--paint-angular);
   --card-inner-rim: var(--paint-accent-secondary);
   --card-tab: var(--paint-accent-secondary);
@@ -220,6 +222,9 @@
      light glass over a light page reads heavier. Faint blossom tint. */
   --glass: rgb(251 236 239 / 0.4);
   --glass-blur: 8px;
+  --menu-blur: 16px;
+  /* The menu's bottom edge, pink like the drawer rim. */
+  --menu-rim: #c42a57;
   --scrim: rgb(249 244 236 / 0.45);
   --card-rim: conic-gradient(from 215deg at 50% 50%, #ea596e 0%, #f4abba 4%, #8cc3cb 47%, #f2b441 62%, #ea596e 100%);
   --card-inner-rim: linear-gradient(90deg, rgb(234 89 110 / 0.9), rgb(140 195 203 / 0.9), rgb(242 180 65 / 0.9));
