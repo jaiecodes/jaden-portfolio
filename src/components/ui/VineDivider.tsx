@@ -31,8 +31,66 @@ const vineY = (x: number) => MID + AMP * Math.sin((x / PERIOD) * Math.PI * 2 - M
 const SPRIG_EVERY = 46;
 const SPRIG_START = 26;
 
+/** The divider's colours. Night has leaves; day has blossom sprigs. */
+interface Look {
+  paint: [string, string, string, string];
+  stops: [number, number, number, number];
+  fly: string;
+  sparkle: string;
+  halo?: string;
+  leaf: [string, string];
+  sprig: { petal: string; centre: string; bud: string };
+}
+
+/** A project's divider colours (from its hero theme); the firefly is its primary. */
+export interface DividerColors {
+  trail: string;
+  mid: string;
+  leaf: string;
+  blossom: string;
+  fly: string;
+}
+
+const NIGHT: Look = {
+  paint: ["#4db36f", "#76b85c", "#9ebd4a", "#efc139"],
+  stops: [0, 0.36, 0.72, 1],
+  fly: "#efc139",
+  sparkle: "#efc139",
+  leaf: ["#3e8a57", "#4db36f"],
+  sprig: { petal: "#f4abba", centre: "#ea596e", bud: "#ea596e" },
+};
+const DAY: Look = {
+  ...NIGHT,
+  paint: ["#7a5a4f", "#c9748a", "#ea596e", "#f2b441"],
+  stops: [0, 0.45, 0.82, 1],
+  fly: "#f2b441",
+  sparkle: "#ea596e",
+  halo: "#f5a623",
+};
+
+/** Project pages (Figma: Mobile nav menu — every project page): the same vine in the project's colours. */
+function projectLook(c: DividerColors, day: boolean): Look {
+  return day
+    ? {
+        ...NIGHT,
+        paint: ["#7a5a4f", "#7a5a4f", c.mid, c.fly],
+        stops: [0, 0.35, 0.75, 1],
+        fly: c.fly,
+        sparkle: c.fly,
+        sprig: { petal: c.blossom, centre: "#ffcc4d", bud: c.fly },
+      }
+    : {
+        ...NIGHT,
+        paint: [c.trail, c.trail, c.mid, c.fly],
+        stops: [0, 0.35, 0.72, 1],
+        fly: c.fly,
+        sparkle: c.fly,
+        leaf: [c.leaf, c.trail],
+      };
+}
+
 /** Day: a short twig off the branch, ending in a blossom or a bud. */
-const Sprig = ({ x, up, blossom }: { x: number; up: boolean; blossom: boolean }) => {
+const Sprig = ({ x, up, blossom, look }: { x: number; up: boolean; blossom: boolean; look: Look["sprig"] }) => {
   const y0 = vineY(x);
   const tx = x + 7;
   const ty = y0 + (up ? -8 : 8);
@@ -42,12 +100,12 @@ const Sprig = ({ x, up, blossom }: { x: number; up: boolean; blossom: boolean })
       {blossom ? (
         <g transform={`translate(${tx} ${ty})`}>
           {[0, 72, 144, 216, 288].map((a) => (
-            <ellipse key={a} cx={0} cy={-2.6} rx={1.9} ry={2.7} fill="#f4abba" transform={`rotate(${a})`} />
+            <ellipse key={a} cx={0} cy={-2.6} rx={1.9} ry={2.7} fill={look.petal} transform={`rotate(${a})`} />
           ))}
-          <circle r={1.3} fill="#ea596e" />
+          <circle r={1.3} fill={look.centre} />
         </g>
       ) : (
-        <ellipse cx={tx} cy={ty} rx={1.9} ry={2.6} fill="#ea596e" transform={`rotate(${up ? 30 : -30} ${tx} ${ty})`} />
+        <ellipse cx={tx} cy={ty} rx={1.9} ry={2.6} fill={look.bud} transform={`rotate(${up ? 30 : -30} ${tx} ${ty})`} />
       )}
     </g>
   );
@@ -69,8 +127,9 @@ const reducedMotion = () =>
  *
  * By day (Vine Divider, Day) it is a cherry branch: bark warming to blossom
  * pink, with twigs alternating blossoms and buds, and an amber firefly.
+ * `colors` re-colours both for a project page.
  */
-export const VineDivider = ({ className = "" }: { className?: string }) => {
+export const VineDivider = ({ className = "", colors }: { className?: string; colors?: DividerColors }) => {
   const id = useId().replace(/:/g, "");
   const wrap = useRef<HTMLDivElement>(null);
   const windows = useRef<(SVGRectElement | null)[]>([]);
@@ -124,9 +183,8 @@ export const VineDivider = ({ className = "" }: { className?: string }) => {
   for (let i = 0, x = SPRIG_START; x < width - 8; i++, x += SPRIG_EVERY) sprigs.push({ x, up: i % 2 === 0, blossom: i % 2 === 0 });
   const path = vinePath(width);
   // Night: green vine warming to a gold firefly. Day: bark to blossom pink to an amber firefly.
-  const paint = day ? ["#7a5a4f", "#c9748a", "#ea596e", "#f2b441"] : ["#4db36f", "#76b85c", "#9ebd4a", "#efc139"];
-  const stops = day ? [0, 0.45, 0.82, 1] : [0, 0.36, 0.72, 1];
-  const flyColor = day ? "#f2b441" : "#efc139";
+  const look = colors ? projectLook(colors, day) : day ? DAY : NIGHT;
+  const { paint, stops } = look;
 
   return (
     // Width comes from the caller (e.g. absolute inset-x-0), so it can bleed past padding.
@@ -169,8 +227,8 @@ export const VineDivider = ({ className = "" }: { className?: string }) => {
               </g>
             ))}
             <linearGradient id={`leaf-${id}`} x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0" stopColor="#3e8a57" />
-              <stop offset="1" stopColor="#4db36f" />
+              <stop offset="0" stopColor={look.leaf[0]} />
+              <stop offset="1" stopColor={look.leaf[1]} />
             </linearGradient>
             <filter id={`glow-${id}`} x="-200%" y="-200%" width="500%" height="500%">
               <feGaussianBlur stdDeviation="5" result="b" />
@@ -184,16 +242,16 @@ export const VineDivider = ({ className = "" }: { className?: string }) => {
             <g key={i} mask={`url(#vine-mask-${id}-${i})`}>
               <path d={path} stroke={`url(#vine-paint-${id}-${i})`} strokeWidth={1.8} strokeLinecap="round" fill="none" />
               {day
-                ? sprigs.map((s) => <Sprig key={s.x} {...s} />)
+                ? sprigs.map((s) => <Sprig key={s.x} {...s} look={look.sprig} />)
                 : leaves.map(({ x, below }) => <path key={x} d={leafPath(x, below)} fill={`url(#leaf-${id})`} />)}
             </g>
           ))}
           <g ref={fly} filter={`url(#glow-${id})`}>
-            {day && <circle r={7} fill="#f5a623" opacity={0.35} />}
-            <circle r={4.5} fill={flyColor} />
-            <circle cx={-12.5} cy={-4.5} r={1.5} fill={day ? "#ea596e" : flyColor} opacity={0.8} />
-            <circle cx={-29} cy={8} r={1} fill={flyColor} opacity={0.7} />
-            <circle cx={17} cy={-7} r={1} fill={day ? "#ea596e" : flyColor} opacity={0.7} />
+            {look.halo && <circle r={7} fill={look.halo} opacity={0.35} />}
+            <circle r={4.5} fill={look.fly} />
+            <circle cx={-12.5} cy={-4.5} r={1.5} fill={look.sparkle} opacity={0.8} />
+            <circle cx={-29} cy={8} r={1} fill={look.fly} opacity={0.7} />
+            <circle cx={17} cy={-7} r={1} fill={look.sparkle} opacity={0.7} />
           </g>
         </svg>
       )}

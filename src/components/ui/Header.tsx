@@ -2,7 +2,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
+import { menuStyle } from "../../domain/models/HeroTheme";
 import { AboutService } from "../../domain/services/AboutService";
+import { HeroThemeService } from "../../domain/services/HeroThemeService";
 import { ResumeService } from "../../domain/services/ResumeService";
 import { useHeaderTone } from "../../hooks/useHeaderTone";
 import { useScreenMode } from "../../hooks/useScreenMode";
@@ -93,6 +95,9 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
   const socials = AboutService.getSocialLinks();
   const pdf = ResumeService.getPdfUrl();
   const startY = useRef<number | null>(null);
+  // Over a case study the menu takes the project's palette and divider.
+  const projectId = location.pathname.match(/^\/project\/([^/]+)/)?.[1];
+  const project = projectId ? HeroThemeService.getByProjectId(projectId) : undefined;
 
   // Focus the panel and keep Tab inside it while open; Esc closes.
   useEffect(() => {
@@ -120,13 +125,17 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-[300] lg:hidden" data-theme="projects">
+        <div
+          className="fixed inset-0 z-[300] lg:hidden"
+          data-theme="projects"
+          style={project ? menuStyle(project.palette) : undefined}
+        >
           <motion.button
             type="button"
             aria-label="Close menu"
             tabIndex={-1}
             onClick={onClose}
-            className="absolute inset-0 bg-(--scrim) backdrop-blur-[8px]"
+            className="absolute inset-0 bg-(--scrim) backdrop-blur-(--menu-scrim-blur,8px)"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -156,13 +165,14 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 type="button"
                 onClick={onClose}
                 aria-label="Close menu"
-                className="flex size-11 items-center justify-center rounded-[10px] border border-line text-fg"
+                className="flex size-11 items-center justify-center rounded-[10px] border border-line bg-(--menu-close,transparent) text-fg"
               >
                 <Icon name="close" size={22} />
               </button>
-              {!location.pathname.startsWith("/project/") && (
-                <VineDivider className="absolute inset-x-[-20px] top-[60px]" />
-              )}
+              <VineDivider
+                className="absolute inset-x-[-20px] top-[60px]"
+                colors={project && { ...project.divider, fly: project.palette.primary }}
+              />
             </div>
 
             <nav className="mt-3" aria-label="Pages">
