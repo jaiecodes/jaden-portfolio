@@ -1166,16 +1166,16 @@
   },
   "mobile": {
    "scale": 0.56,
-   "x": -247,
-   "startX": -85
+   "startX": -46,
+   "x": -281
   },
   "layers": [
    {
     "src": "/svg/wireless-sensing/rings.png",
     "zIndex": 10,
     "position": {
-     "left": "-405.0px",
-     "top": "956.0px",
+     "left": "-535px",
+     "top": "944px",
      "width": "2736px"
     },
     "transforms": [
@@ -1187,7 +1187,7 @@
       ],
       "output": [
        "0px",
-       "-163.0px"
+       "1px"
       ]
      },
      {
@@ -1198,7 +1198,7 @@
       ],
       "output": [
        "0px",
-       "-542.0px"
+       "-496px"
       ]
      }
     ]
@@ -1207,8 +1207,8 @@
     "src": "/svg/wireless-sensing/signal-node.svg",
     "zIndex": 20,
     "position": {
-     "left": "1492px",
-     "top": "624px",
+     "left": "1526px",
+     "top": "658px",
      "width": "86px"
     },
     "transforms": []
@@ -1217,8 +1217,8 @@
     "src": "/svg/wireless-sensing/signal-3.svg",
     "zIndex": 30,
     "position": {
-     "left": "1448px",
-     "top": "583px",
+     "left": "1482px",
+     "top": "617px",
      "width": "174px"
     },
     "transforms": [
@@ -1239,15 +1239,15 @@
     "src": "/svg/wireless-sensing/signal-2.svg",
     "zIndex": 40,
     "position": {
-     "left": "1414px",
-     "top": "529px",
+     "left": "1448px",
+     "top": "563px",
      "width": "242px"
     },
     "transforms": [
      {
       "property": "opacity",
       "input": [
-       0.85,
+       0.88,
        1
       ],
       "output": [
@@ -1261,8 +1261,8 @@
     "src": "/svg/wireless-sensing/p-node.svg",
     "zIndex": 50,
     "position": {
-     "left": "548px",
-     "top": "340px",
+     "left": "484px",
+     "top": "374px",
      "width": "86px"
     },
     "transforms": [
@@ -1274,7 +1274,18 @@
       ],
       "output": [
        "0px",
-       "323px"
+       "421px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "0px"
       ]
      }
     ]
@@ -1283,8 +1294,8 @@
     "src": "/svg/wireless-sensing/person.svg",
     "zIndex": 60,
     "position": {
-     "left": "310px",
-     "top": "184px",
+     "left": "235px",
+     "top": "218px",
      "width": "324px"
     },
     "transforms": [
@@ -1296,7 +1307,18 @@
       ],
       "output": [
        "0px",
-       "312px"
+       "421px"
+      ]
+     },
+     {
+      "property": "y",
+      "input": [
+       0,
+       0.5
+      ],
+      "output": [
+       "0px",
+       "0px"
       ]
      }
     ]

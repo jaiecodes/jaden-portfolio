@@ -93,7 +93,8 @@ export const VineDivider = ({ className = "" }: { className?: string }) => {
   const path = vinePath(width);
 
   return (
-    <div ref={wrap} className={`pointer-events-none h-7 w-full ${className}`} aria-hidden>
+    // Width comes from the caller (e.g. absolute inset-x-0), so it can bleed past padding.
+    <div ref={wrap} className={`pointer-events-none h-7 ${className}`} aria-hidden>
       {width > 0 && (
         <svg width={width} height={28} viewBox={`0 0 ${width} 28`} overflow="visible">
           <defs>

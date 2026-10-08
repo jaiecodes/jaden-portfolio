@@ -63,15 +63,17 @@ export const HomePage = () => {
           </div>
 
           <div className="flex flex-col gap-3.5 lg:mt-[30px] lg:items-end">
-            <div className="flex gap-3 lg:flex-col lg:items-end">
-              <button type="button" onClick={enter} className={buttonClass("primary", "max-lg:flex-1")}>
+            <div className="flex flex-col gap-3 lg:items-end">
+              <button type="button" onClick={enter} className={buttonClass("primary")}>
                 {copy.enter} <Icon name="arrowDown" size={18} />
               </button>
-              <Link to="/projects" className={buttonClass("ghost", "max-lg:flex-1 bg-night/40")}>
+              <Link to="/projects" className={buttonClass("ghost", "bg-night/40")}>
                 {copy.skip}
               </Link>
             </div>
-            <p className="type-body-sm hidden text-faint lg:block">{copy.scrollHint}</p>
+            <p className="type-body-sm self-center rounded-full bg-night/70 px-3.5 py-1 text-muted backdrop-blur-md lg:self-end lg:bg-transparent lg:p-0 lg:text-faint lg:backdrop-blur-none">
+              {copy.scrollHint}
+            </p>
           </div>
         </motion.div>
       </div>

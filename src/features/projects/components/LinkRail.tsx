@@ -34,9 +34,10 @@ export const LinkRail = ({ links, visible }: { links: ProjectLink[]; visible: bo
             href={linkHref(l)}
             bare
             aria-label={l.label}
-            className={`group/link flex items-center gap-3 rounded-full outline-none ${l.primary ? "text-t-primary" : "text-fg"}`}
+            className={`group/link flex items-center rounded-full outline-none ${l.primary ? "text-t-primary" : "text-fg"}`}
           >
-            <span className="type-body-sm max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover/rail:max-w-[160px] group-hover/rail:pl-3.5 group-hover/rail:opacity-100 group-focus-within/rail:max-w-[160px] group-focus-within/rail:pl-3.5 group-focus-within/rail:opacity-100">
+            {/* No gap at rest, so the icons sit centred in the rail */}
+            <span className="type-body-sm max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover/rail:mr-3 group-hover/rail:max-w-[160px] group-hover/rail:pl-3.5 group-hover/rail:opacity-100 group-focus-within/rail:mr-3 group-focus-within/rail:max-w-[160px] group-focus-within/rail:pl-3.5 group-focus-within/rail:opacity-100">
               {l.label.replace(/\s*[↗↓]$/, "")}
             </span>
             <span

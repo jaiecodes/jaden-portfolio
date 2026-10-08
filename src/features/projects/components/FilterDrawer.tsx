@@ -147,12 +147,12 @@ export const FilterDrawer = ({ open, query, onApply, onClose }: FilterDrawerProp
             role="dialog"
             aria-modal
             aria-label="Filters"
+            // Anchored right and full height on desktop, to the bottom on phones.
             className={
               desktop
-                ? "stroke stroke-angular absolute inset-y-0 right-0 flex w-[560px] flex-col bg-[color-mix(in_srgb,var(--night-raised)_60%,transparent)] shadow-[-20px_0_60px_rgb(0_0_0/0.5)] backdrop-blur-[32px] outline-none"
-                : "stroke stroke-angular absolute inset-x-0 bottom-0 flex h-[700px] max-h-[88vh] flex-col rounded-t-[24px] bg-[color-mix(in_srgb,var(--night-raised)_60%,transparent)] shadow-[0_-16px_40px_rgb(0_0_0/0.35)] backdrop-blur-[32px] outline-none"
+                ? "absolute inset-y-0 right-0 w-[560px] max-w-full shadow-[-20px_0_60px_rgb(0_0_0/0.5)] outline-none"
+                : "absolute inset-x-0 bottom-0 h-[700px] max-h-[88vh] rounded-t-[24px] shadow-[0_-16px_40px_rgb(0_0_0/0.35)] outline-none"
             }
-            style={desktop ? ({ "--s-left": "1px" } as CSSProperties) : ({ "--s-top": "1px" } as CSSProperties)}
             initial={desktop ? { x: "100%" } : { y: "100%" }}
             animate={desktop ? { x: 0 } : { y: 0 }}
             exit={desktop ? { x: "100%" } : { y: "100%" }}
@@ -162,8 +162,14 @@ export const FilterDrawer = ({ open, query, onApply, onClose }: FilterDrawerProp
             dragElastic={{ top: 0, bottom: 0.6 }}
             onDragEnd={(_, info) => info.offset.y > 120 && onClose()}
           >
-            {!desktop && <div aria-hidden className="mx-auto mt-2.5 h-[5px] w-10 rounded-full bg-muted/60" />}
-            <Panel query={query} onApply={onApply} onClose={onClose} />
+            {/* The glass and its angular rim (on the edge facing the page) */}
+            <div
+              className={`stroke stroke-angular flex h-full flex-col bg-[color-mix(in_srgb,var(--night-raised)_60%,transparent)] backdrop-blur-[32px] ${desktop ? "" : "rounded-t-[24px]"}`}
+              style={desktop ? ({ "--s-left": "1px" } as CSSProperties) : ({ "--s-top": "1px" } as CSSProperties)}
+            >
+              {!desktop && <div aria-hidden className="mx-auto mt-2.5 h-[5px] w-10 shrink-0 rounded-full bg-muted/60" />}
+              <Panel query={query} onApply={onApply} onClose={onClose} />
+            </div>
           </motion.div>
         </div>
       )}

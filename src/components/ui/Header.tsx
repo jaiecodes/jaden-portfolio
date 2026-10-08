@@ -128,7 +128,9 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
               >
                 <Icon name="close" size={22} />
               </button>
-              <VineDivider className="absolute inset-x-[-20px] top-[60px] w-auto" />
+              {!location.pathname.startsWith("/project/") && (
+                <VineDivider className="absolute inset-x-[-20px] top-[60px]" />
+              )}
             </div>
 
             <nav className="mt-3" aria-label="Pages">

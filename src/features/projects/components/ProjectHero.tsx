@@ -1,14 +1,20 @@
 // src/features/projects/components/ProjectHero.tsx
 import { useEffect, useRef } from "react";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
+import { animate, motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import type { Project } from "../../../domain/models/Project";
 import type { HeroThemeData } from "../../../domain/models/HeroTheme";
 import { useViewport } from "../../../hooks/useViewport";
+import { useScrollLock } from "../../../hooks/useScrollLock";
 import { HeroScene, SCENE_H, SCENE_W } from "./HeroScene";
 
 /** Phone frame the mobile hero is drawn to (Figma: Hero, 390×560). */
 const PHONE_W = 390;
 const PHONE_H = 560;
+
+/** Timing (seconds): the art plays, a short pause, then the title rises in. */
+const ART_S = 2.6;
+const PAUSE_S = 0.25;
+const REVEAL_S = 0.7;
 
 interface ProjectHeroProps {
   project: Project;
@@ -18,20 +24,48 @@ interface ProjectHeroProps {
 }
 
 /**
- * The scroll-animated hero (Figma: Project Heroes — Start / End frames). The
- * art animates from its start frame to its end frame first; then, after a
- * short pause, the scrim (the seam into the page) and the title rise in. The
- * stage stays pinned while that plays, then the page scrolls on.
+ * The project hero (Figma: Project Heroes — Start / End frames). It plays by
+ * itself when the page opens: the art animates from its start frame to its
+ * end frame, then, after a short pause, the scrim (the seam into the page)
+ * and the title rise in. Scrolling is locked until it finishes, and the hero
+ * then holds its end frame; it plays again the next time the page is opened.
  */
 export const ProjectHero = ({ project, theme, onBehindHeader }: ProjectHeroProps) => {
   const section = useRef<HTMLElement>(null);
   const { width, height } = useViewport();
   const desktop = width >= 1024;
 
-  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
-  const art = useTransform(scrollYProgress, [0, 0.62], [0, 1], { clamp: true });
-  const reveal = useTransform(scrollYProgress, [0.7, 0.9], [0, 1], { clamp: true });
+  const art = useMotionValue(0);
+  const reveal = useMotionValue(0);
   const titleY = useTransform(reveal, [0, 1], [48, 0]);
+  const { lock, unlock } = useScrollLock();
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      art.set(1);
+      reveal.set(1);
+      return;
+    }
+    window.scrollTo(0, 0);
+    lock();
+    let cancelled = false;
+    const controls: { stop: () => void }[] = [];
+    (async () => {
+      const a = animate(art, 1, { duration: ART_S, ease: [0.45, 0, 0.2, 1] });
+      controls.push(a);
+      await a;
+      if (cancelled) return;
+      const r = animate(reveal, 1, { duration: REVEAL_S, delay: PAUSE_S, ease: "easeOut" });
+      controls.push(r);
+      await r;
+      if (!cancelled) unlock();
+    })();
+    return () => {
+      cancelled = true;
+      controls.forEach((c) => c.stop());
+      unlock();
+    };
+  }, [art, reveal, lock, unlock]);
 
   const { scrollY } = useScroll();
   const checkHeader = () => {
@@ -56,48 +90,43 @@ export const ProjectHero = ({ project, theme, onBehindHeader }: ProjectHeroProps
   return (
     <section
       ref={section}
-      className="relative"
-      style={{ height: desktop ? `max(240vh, ${stageH + 1400}px)` : stageH + 700 }}
+      className="relative isolate overflow-hidden"
+      style={{ height: stageH, background: theme.heroBackground }}
       aria-label={project.name}
     >
-      <div
-        className="sticky top-0 overflow-hidden"
-        style={{ height: stageH, background: theme.heroBackground }}
+      <HeroScene layers={theme.layers} progress={art} scale={scale} offsetX={offsetX} className="z-0" />
+      {/* Below the art on viewports taller than the scene */}
+      <div className="absolute inset-x-0 bottom-0 z-0" style={{ top: sceneH, background: theme.seam }} />
+
+      {/* Scrim → seam: rises in after the art settles; keeps the title at 4.5:1 */}
+      <motion.div
+        aria-hidden
+        className="absolute inset-x-0 z-10"
+        style={{
+          opacity: reveal,
+          top: (364 / SCENE_H) * sceneH,
+          height: (680 / SCENE_H) * sceneH + 2,
+          background: `linear-gradient(180deg, color-mix(in srgb, ${theme.seam} 0%, transparent) 0%, color-mix(in srgb, ${theme.seam} 82%, transparent) 55%, ${theme.seam} 100%)`,
+        }}
+      />
+
+      <motion.div
+        className="absolute z-20 flex flex-col gap-2.5 lg:gap-3.5"
+        style={{
+          opacity: reveal,
+          y: titleY,
+          left: desktop ? (200 / SCENE_W) * width : 20,
+          right: 20,
+          // Phone: clear of the sticky link bar (≈80px) at the bottom.
+          bottom: desktop ? Math.max(0, stageH - sceneH) + (120 / SCENE_H) * sceneH : project.links.length ? 104 : 40,
+        }}
       >
-        <HeroScene layers={theme.layers} progress={art} scale={scale} offsetX={offsetX} />
-        {/* Below the art on viewports taller than the scene */}
-        <div className="absolute inset-x-0 bottom-0" style={{ top: sceneH, background: theme.seam }} />
-
-        {/* Scrim → seam: rises in after the art settles; keeps the title at 4.5:1 */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-x-0"
-          style={{
-            opacity: reveal,
-            top: (364 / SCENE_H) * sceneH,
-            height: (680 / SCENE_H) * sceneH + 2,
-            background: `linear-gradient(180deg, color-mix(in srgb, ${theme.seam} 0%, transparent) 0%, color-mix(in srgb, ${theme.seam} 82%, transparent) 55%, ${theme.seam} 100%)`,
-          }}
-        />
-
-        <motion.div
-          className="absolute flex flex-col gap-2.5 lg:gap-3.5"
-          style={{
-            opacity: reveal,
-            y: titleY,
-            left: desktop ? (200 / SCENE_W) * width : 20,
-            right: 20,
-            // Phone: clear of the sticky link bar (≈80px) at the bottom.
-            bottom: desktop ? Math.max(0, stageH - sceneH) + (120 / SCENE_H) * sceneH : project.links.length ? 104 : 40,
-          }}
-        >
-          <p className={`${desktop ? "type-hero-label" : "type-label"} ${label}`}>{project.heroLabel}</p>
-          <h1 className={desktop ? "type-display text-fg" : "font-display text-[34px] leading-[1.15] font-medium tracking-[-0.01em] text-fg"}>
-            {project.name}
-          </h1>
-          <p className={`${desktop ? "type-lead" : "type-body"} max-w-[1120px] text-muted`}>{project.subtitle}</p>
-        </motion.div>
-      </div>
+        <p className={`${desktop ? "type-hero-label" : "type-label"} ${label}`}>{project.heroLabel}</p>
+        <h1 className={desktop ? "type-display text-fg" : "font-display text-[34px] leading-[1.15] font-medium tracking-[-0.01em] text-fg"}>
+          {project.name}
+        </h1>
+        <p className={`${desktop ? "type-lead" : "type-body"} max-w-[1120px] text-muted`}>{project.subtitle}</p>
+      </motion.div>
     </section>
   );
 };
