@@ -137,7 +137,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             role="dialog"
             aria-modal
             aria-label="Menu"
-            className="absolute inset-x-0 top-0 overflow-hidden rounded-b-[24px] border-b border-line bg-(--glass) px-5 pb-7 shadow-[0_16px_40px_rgb(0_0_0/0.35)] backdrop-blur-[32px]"
+            className="absolute inset-x-0 top-0 overflow-hidden rounded-b-[24px] border-b border-line bg-(--glass) px-5 pb-7 shadow-[0_16px_40px_rgb(0_0_0/0.35)] backdrop-blur-(--glass-blur)"
             initial={{ y: "-100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}

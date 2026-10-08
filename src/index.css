@@ -141,6 +141,7 @@
   --header-fade: rgb(3 10 17 / 0.2);
   --glass: color-mix(in srgb, var(--night-bg) 60%, transparent);
   --scrim: rgb(4 10 10 / 0.62);
+  --glass-blur: 32px;
   --card-rim: var(--paint-angular);
   --card-inner-rim: var(--paint-accent-secondary);
   --card-tab: var(--paint-accent-secondary);
@@ -160,8 +161,6 @@
   --menu-kicker: var(--color-primary);
   --drawer-rim: var(--paint-angular);
   --drawer-bg: color-mix(in srgb, var(--night-raised) 60%, transparent);
-  --drawer-blur: 32px;
-  --drawer-scrim: var(--scrim);
 }
 
 /* --- 2c. Day (light mode: the sakura garden) ---
@@ -217,8 +216,11 @@
 }
 :root[data-mode="day"] {
   --header-fade: rgb(251 245 238 / 0.6);
-  --glass: color-mix(in srgb, #f9f4ec 60%, transparent);
-  --scrim: rgb(249 244 236 / 0.62);
+  /* Menu and filter glass: thinner and less blurred than at night, since
+     light glass over a light page reads heavier. Faint blossom tint. */
+  --glass: rgb(251 236 239 / 0.4);
+  --glass-blur: 8px;
+  --scrim: rgb(249 244 236 / 0.45);
   --card-rim: conic-gradient(from 215deg at 50% 50%, #ea596e 0%, #f4abba 4%, #8cc3cb 47%, #f2b441 62%, #ea596e 100%);
   --card-inner-rim: linear-gradient(90deg, rgb(234 89 110 / 0.9), rgb(140 195 203 / 0.9), rgb(242 180 65 / 0.9));
   --card-tab: linear-gradient(90deg, #f4abba, #8cc3cb);
@@ -238,10 +240,7 @@
   --switch-on: #c42a57;
   --menu-kicker: #c42a57;
   --drawer-rim: #c42a57;
-  /* The drawer glass: 40% (light glass reads heavier than dark), faint blossom tint. */
-  --drawer-bg: rgb(251 236 239 / 0.4);
-  --drawer-blur: 8px;
-  --drawer-scrim: rgb(249 244 236 / 0.45);
+  --drawer-bg: var(--glass);
   --paint-underline: linear-gradient(90deg, rgb(234 89 110 / 0) 0%, #ea596e 25%, #f2b441 50%, #1f6b76 75%, rgb(31 107 118 / 0) 100%);
 }
 /* Day colours fade in rather than snap when the lantern is switched. */
