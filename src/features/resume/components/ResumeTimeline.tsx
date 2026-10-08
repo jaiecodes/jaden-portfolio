@@ -6,15 +6,18 @@ import greenLeaf from "../../../assets/svg/resume/leaf-green.svg";
 import autumnLeaf from "../../../assets/svg/resume/leaf-autumn.svg";
 import { STEPS, TRACK_PAINT } from "./steps";
 import { TimelineEntry } from "./TimelineEntry";
+import { useScreenMode } from "../../../hooks/useScreenMode";
 
 /**
  * Work and education on an orange → green track. The original leaf rides the
  * track with scroll progress, turning from autumn to green as it descends,
- * and each entry's node lights up once the leaf reaches it.
+ * and each entry's node lights up once the leaf reaches it. By day a cherry
+ * blossom rides a pink → teal track instead.
  */
 export const ResumeTimeline = () => {
   const track = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const { day } = useScreenMode();
   const { scrollYProgress } = useScroll({ target: track, offset: ["start 0.45", "end 0.6"] });
   const top = useTransform(scrollYProgress, (p) => `calc(${reduce ? 1 : p} * (100% - 58px))`);
   const green = useTransform(scrollYProgress, [0.15, 0.85], [0, 1]);
@@ -37,8 +40,18 @@ export const ResumeTimeline = () => {
     <div ref={track} className="relative pl-[48px] lg:pl-[70px]">
       <div aria-hidden className="absolute top-0 bottom-0 left-[6px] w-[2px] lg:left-[20px]" style={{ background: TRACK_PAINT }} />
       <motion.div aria-hidden className="absolute left-[-30px] z-10 h-[58px] w-[63px] lg:left-[-17px]" style={{ top }}>
-        <img src={autumnLeaf} alt="" className="absolute inset-0 size-full" />
-        <motion.img src={greenLeaf} alt="" className="absolute inset-0 size-full" style={{ opacity: reduce ? 1 : green }} />
+        {day ? (
+          <img
+            src="/v2/day/blossom.svg"
+            alt=""
+            className="absolute top-1/2 left-1/2 size-[34px] -translate-1/2 drop-shadow-[0_2px_6px_rgb(196_42_87/0.35)]"
+          />
+        ) : (
+          <>
+            <img src={autumnLeaf} alt="" className="absolute inset-0 size-full" />
+            <motion.img src={greenLeaf} alt="" className="absolute inset-0 size-full" style={{ opacity: reduce ? 1 : green }} />
+          </>
+        )}
       </motion.div>
 
       <div className="flex flex-col gap-12 py-12 lg:gap-[86px] lg:py-[67px]">

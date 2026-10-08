@@ -106,16 +106,144 @@
 }
 [data-theme="resume"] {
   --theme-primary: #dd8b2d;
+  /* (step colours are set below with the other resume tokens) */
   --theme-secondary: #c4c24a;
   --theme-highlight: #4db36f;
   --theme-accent: #4db36f;
   --theme-title: var(--paint-secondary-moss);
   --theme-stroke: var(--paint-card-angular);
 }
+[data-theme="resume"] {
+  /* The timeline ramp, orange → green: node / label colour, chip colour, ring. */
+  --step-1: #dd8b2d;
+  --step-1-chip: #dd8b2d;
+  --step-1-ring: #dd8b2d;
+  --step-2: #dd8b2d;
+  --step-2-chip: #d9a63a;
+  --step-2-ring: #dd8b2d;
+  --step-3: #c4c24a;
+  --step-3-chip: #a9b44a;
+  --step-3-ring: #c4c24a;
+  --step-4: #4db36f;
+  --step-4-chip: #4db36f;
+  --step-4-ring: #4db36f;
+  --step-track: linear-gradient(180deg, #dd8b2d 0%, #989e4c 50%, #4db36f 100%);
+}
 /* Text on a filled primary control defaults to the page background. */
 :root,
 [data-theme] {
   --theme-on-primary: var(--night-bg);
+}
+
+/* Component tokens: parts whose night look isn't a page colour. Day
+   overrides them below. */
+:root {
+  --header-fade: rgb(3 10 17 / 0.2);
+  --glass: color-mix(in srgb, var(--night-bg) 60%, transparent);
+  --scrim: rgb(4 10 10 / 0.62);
+  --card-rim: var(--paint-angular);
+  --card-inner-rim: var(--paint-accent-secondary);
+  --card-tab: var(--paint-accent-secondary);
+  --card-tab-v: linear-gradient(180deg, var(--color-accent), var(--color-secondary));
+  --card-glow: 0 0 14px rgb(239 193 57 / 0.4);
+  --card-glow-hover: 0 0 28px 2px rgb(239 193 57 / 0.55), 0 16px 60px rgb(221 139 45 / 0.3);
+  --card-glow-mobile: 0 0 14px rgb(239 193 57 / 0.3);
+  --card-vignette: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.35));
+  --year-bg: color-mix(in srgb, var(--color-ember) 30%, var(--night-bg));
+  --year-rim: var(--color-accent);
+  --year-text: var(--color-accent);
+  --tag-bg: color-mix(in srgb, var(--color-ember) 38%, var(--night-bg));
+  --tag-rim: var(--color-accent);
+  --tag-text: var(--text-primary);
+  --lantern-flame: var(--color-accent);
+  --switch-on: var(--color-primary);
+  --menu-kicker: var(--color-primary);
+  --drawer-rim: var(--paint-angular);
+}
+
+/* --- 2c. Day (light mode: the sakura garden) ---
+   Off-white surfaces and three core colours: pink #C42A57, teal #1F6B76 and
+   yellowish brown #8A5A1E (all AA). Project case studies keep their own
+   palettes in both modes. */
+:root[data-mode="day"],
+[data-mode="day"] [data-theme="projects"],
+[data-mode="day"] [data-theme="home"],
+[data-mode="day"] [data-theme="about"],
+[data-mode="day"] [data-theme="resume"] {
+  --night-bg: #f3ece3;
+  --night-raised: #f9f4ec;
+  --night-line: #e2d6cb;
+  --night-sunken: #f3ece3;
+  --text-primary: #2a2638;
+  --text-muted: #5a5466;
+  --text-faint: #6a6375;
+  --theme-primary: #c42a57;
+  --theme-secondary: #1f6b76;
+  --theme-highlight: #1f6b76;
+  --theme-accent: #8a5a1e;
+  --theme-title: linear-gradient(90deg, #c42a57, #1f6b76);
+  --theme-stroke: conic-gradient(from 215deg at 50% 50%, #ea596e 0%, #f4abba 4%, #8cc3cb 47%, #f2b441 62%, #ea596e 100%);
+}
+[data-mode="day"] [data-theme="about"] {
+  --theme-secondary: #806400;
+  --theme-highlight: #c42a57;
+  --theme-accent: #1f6b76;
+  --theme-stroke: conic-gradient(from 242deg at 50% 50%, #c42a57 0%, #806400 4%, #806400 47%, #c42a57 62%, #c42a57 100%);
+  --focus-title: linear-gradient(90deg, #8a5a1e, #8a5a1e);
+  --theme-title: linear-gradient(90deg, #8a5a1e, #c42a57);
+}
+[data-mode="day"] [data-theme="resume"] {
+  --theme-secondary: #806400;
+  --theme-highlight: #1f6b76;
+  --theme-accent: #1f6b76;
+  --theme-stroke: conic-gradient(from 215deg at 50% 50%, #8cc3cb 0%, #ea596e 4%, #ea596e 20%, #f2b441 52%, #8cc3cb 100%);
+  /* Pink → coral → brown → teal down the timeline. */
+  --step-1: #c42a57;
+  --step-1-chip: #ea596e;
+  --step-1-ring: #ea596e;
+  --step-2: #c42a57;
+  --step-2-chip: #faa3a3;
+  --step-2-ring: #ea596e;
+  --step-3: #806400;
+  --step-3-chip: #d9b47e;
+  --step-3-ring: #d9b47e;
+  --step-4: #1f6b76;
+  --step-4-chip: #8cc3cb;
+  --step-4-ring: #8cc3cb;
+  --step-track: linear-gradient(180deg, #ea596e 0%, #d9b47e 50%, #8cc3cb 100%);
+}
+:root[data-mode="day"] {
+  --header-fade: rgb(251 245 238 / 0.6);
+  --glass: color-mix(in srgb, #f9f4ec 60%, transparent);
+  --scrim: rgb(249 244 236 / 0.62);
+  --card-rim: conic-gradient(from 215deg at 50% 50%, #ea596e 0%, #f4abba 4%, #8cc3cb 47%, #f2b441 62%, #ea596e 100%);
+  --card-inner-rim: linear-gradient(90deg, rgb(234 89 110 / 0.9), rgb(140 195 203 / 0.9), rgb(242 180 65 / 0.9));
+  --card-tab: linear-gradient(90deg, #f4abba, #8cc3cb);
+  --card-tab-v: linear-gradient(180deg, #f4abba, #8cc3cb);
+  --card-glow: 0 0 14px rgb(234 89 110 / 0.24);
+  --card-glow-hover: 0 0 28px 2px rgb(234 89 110 / 0.33), 0 16px 60px rgb(234 89 110 / 0.18);
+  --card-glow-mobile: 0 0 14px rgb(234 89 110 / 0.18);
+  --card-vignette: radial-gradient(ellipse at center, transparent 60%, rgb(42 38 56 / 0.08));
+  --year-bg: #f8e1e4;
+  --year-rim: #ea596e;
+  --year-text: #c42a57;
+  --tag-bg: #e1ecea;
+  --tag-rim: #8cc3cb;
+  --tag-text: #1f6b76;
+  --card-kicker: #c42a57;
+  --lantern-flame: #f4abba;
+  --switch-on: #c42a57;
+  --menu-kicker: #c42a57;
+  --drawer-rim: #c42a57;
+  --paint-underline: linear-gradient(90deg, rgb(234 89 110 / 0) 0%, #ea596e 25%, #f2b441 50%, #1f6b76 75%, rgb(31 107 118 / 0) 100%);
+}
+/* Day colours fade in rather than snap when the lantern is switched. */
+html.mode-switching,
+html.mode-switching * {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease !important;
 }
 
 /* Paints: any background value, for fills, rims and gradient text. */
@@ -408,6 +536,10 @@
     --stroke-paint: var(--paint-card-angular);
     --stroke-fallback: var(--color-secondary);
   }
+  .stroke-drawer {
+    --stroke-paint: var(--drawer-rim);
+    --stroke-fallback: var(--color-accent);
+  }
   @supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
     .stroke::after {
       padding: 0;
@@ -442,6 +574,29 @@
   }
   50% {
     opacity: var(--o-hi);
+  }
+}
+/* Day petals: fall down and to the right, swaying, fading in and out. */
+@keyframes petal-fall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--o);
+  }
+  35% {
+    transform: translate(calc(var(--dx) * 0.3 + var(--sway)), calc(var(--dy) * 0.35)) rotate(calc(var(--rot) * 0.35));
+  }
+  65% {
+    transform: translate(calc(var(--dx) * 0.65 - var(--sway)), calc(var(--dy) * 0.65)) rotate(calc(var(--rot) * 0.65));
+  }
+  88% {
+    opacity: var(--o);
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+    opacity: 0;
   }
 }
 @keyframes lantern-swing {

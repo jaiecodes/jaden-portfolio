@@ -22,7 +22,7 @@ export const TimelineEntry = ({
   const step = STEPS[entry.step];
   const card = (
     <div
-      className={`stroke stroke-card-angular flex flex-col gap-3.5 rounded-[14px] bg-raised transition ${entry.href ? "hover:-translate-y-0.5 hover:brightness-110" : ""}`}
+      className={`stroke stroke-theme flex flex-col gap-3.5 rounded-[14px] bg-raised transition ${entry.href ? "hover:-translate-y-0.5 hover:brightness-110" : ""}`}
       style={strokeStyle({ stroke: 1.5, pad: { top: 20, bottom: 20, left: 24, right: 24 } })}
     >
       <p className="type-body text-muted">{entry.context}</p>
@@ -44,7 +44,7 @@ export const TimelineEntry = ({
         className="absolute top-[7px] left-[-63px] size-[17px] rounded-full border-[5px] transition-[opacity,box-shadow] duration-500 lg:top-[10px] lg:left-[-61px]"
         style={{
           background: step.accent,
-          borderColor: step.accent,
+          borderColor: step.ring,
           opacity: lit ? 1 : 0.35,
           boxShadow: lit ? `0 0 14px ${step.accent}` : "none",
         }}

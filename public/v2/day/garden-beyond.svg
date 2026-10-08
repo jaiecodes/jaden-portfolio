@@ -1,0 +1,68 @@
+<svg width="520" height="834" viewBox="0 0 520 834" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Home &#226;&#128;&#148; Garden Entry &#226;&#128;&#148; Desktop &#194;&#183; Day">
+<g id="Garden beyond the arch (3D: parallax layers)">
+<mask id="mask0_679_4032" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="834">
+<path id="Arch mask" d="M0 834V240C0 90 120 0 260 0C400 0 520 90 520 240V834H0Z" fill="#FBF5EE"/>
+</mask>
+<g mask="url(#mask0_679_4032)">
+<rect id="Bright sky beyond" x="-40" y="-10" width="600" height="850" fill="url(#paint0_linear_679_4032)"/>
+<ellipse id="Hill (far layer)" cx="130" cy="580" rx="210" ry="90" fill="#F6E3A6"/>
+<ellipse id="Hill (far layer)_2" cx="430" cy="580" rx="210" ry="100" fill="#EDBE4E"/>
+<ellipse id="Hill (far layer)_3" cx="280" cy="680" rx="300" ry="110" fill="#E9A92C"/>
+<circle id="Far sakura" opacity="0.85" cx="29.0853" cy="512.923" r="13.1166" fill="#F7C9D2"/>
+<circle id="Far sakura_2" opacity="0.85" cx="40.4215" cy="507.422" r="14.0855" fill="#F4ABBA"/>
+<circle id="Far sakura_3" opacity="0.85" cx="34.7606" cy="503.936" r="14.7226" fill="#FBE7EA"/>
+<circle id="Far sakura_4" opacity="0.85" cx="31.3766" cy="506.201" r="17.1358" fill="#F7C9D2"/>
+<circle id="Far sakura_5" opacity="0.85" cx="99.7939" cy="519.114" r="13.8264" fill="#F7C9D2"/>
+<circle id="Far sakura_6" opacity="0.85" cx="111.978" cy="523.831" r="17.3526" fill="#F4ABBA"/>
+<circle id="Far sakura_7" opacity="0.85" cx="103.397" cy="520.378" r="14.7874" fill="#FBE7EA"/>
+<circle id="Far sakura_8" opacity="0.85" cx="98.0403" cy="518.772" r="17.9622" fill="#F7C9D2"/>
+<circle id="Far sakura_9" opacity="0.85" cx="164.74" cy="523.942" r="10.1353" fill="#F7C9D2"/>
+<circle id="Far sakura_10" opacity="0.85" cx="157.845" cy="520.072" r="15.2211" fill="#F4ABBA"/>
+<circle id="Far sakura_11" opacity="0.85" cx="163.212" cy="524.144" r="19.5902" fill="#FBE7EA"/>
+<circle id="Far sakura_12" opacity="0.85" cx="172.738" cy="522.837" r="10.1873" fill="#F7C9D2"/>
+<circle id="Far sakura_13" opacity="0.85" cx="240.174" cy="507.748" r="11.667" fill="#F7C9D2"/>
+<circle id="Far sakura_14" opacity="0.85" cx="244.981" cy="505.684" r="17.3178" fill="#F4ABBA"/>
+<circle id="Far sakura_15" opacity="0.85" cx="227.106" cy="503.094" r="14.3144" fill="#FBE7EA"/>
+<circle id="Far sakura_16" opacity="0.85" cx="243.831" cy="506.119" r="10.2398" fill="#F7C9D2"/>
+<circle id="Far sakura_17" opacity="0.85" cx="283.023" cy="531.285" r="10.0129" fill="#F7C9D2"/>
+<circle id="Far sakura_18" opacity="0.85" cx="283.335" cy="525.1" r="15.4975" fill="#F4ABBA"/>
+<circle id="Far sakura_19" opacity="0.85" cx="277.444" cy="530.955" r="18.5306" fill="#FBE7EA"/>
+<circle id="Far sakura_20" opacity="0.85" cx="277.244" cy="529.326" r="19.9806" fill="#F7C9D2"/>
+<circle id="Far sakura_21" opacity="0.85" cx="329.403" cy="503.604" r="10.479" fill="#F7C9D2"/>
+<circle id="Far sakura_22" opacity="0.85" cx="336.574" cy="499.735" r="11.089" fill="#F4ABBA"/>
+<circle id="Far sakura_23" opacity="0.85" cx="339.49" cy="493.506" r="13.7666" fill="#FBE7EA"/>
+<circle id="Far sakura_24" opacity="0.85" cx="332.345" cy="500.045" r="13.7902" fill="#F7C9D2"/>
+<circle id="Far sakura_25" opacity="0.85" cx="410.523" cy="533.916" r="10.9847" fill="#F7C9D2"/>
+<circle id="Far sakura_26" opacity="0.85" cx="400.578" cy="525.173" r="17.7429" fill="#F4ABBA"/>
+<circle id="Far sakura_27" opacity="0.85" cx="402.519" cy="527.031" r="18.6117" fill="#FBE7EA"/>
+<circle id="Far sakura_28" opacity="0.85" cx="399.804" cy="523.592" r="13.058" fill="#F7C9D2"/>
+<circle id="Far sakura_29" opacity="0.85" cx="456.78" cy="508.004" r="19.1034" fill="#F7C9D2"/>
+<circle id="Far sakura_30" opacity="0.85" cx="469.832" cy="509.809" r="19.616" fill="#F4ABBA"/>
+<circle id="Far sakura_31" opacity="0.85" cx="461.976" cy="518.079" r="18.2646" fill="#FBE7EA"/>
+<circle id="Far sakura_32" opacity="0.85" cx="465.465" cy="509.011" r="14.8328" fill="#F7C9D2"/>
+<circle id="Far sakura_33" opacity="0.85" cx="500.307" cy="525.529" r="18.7334" fill="#F7C9D2"/>
+<circle id="Far sakura_34" opacity="0.85" cx="514.692" cy="521.01" r="13.4027" fill="#F4ABBA"/>
+<circle id="Far sakura_35" opacity="0.85" cx="494.5" cy="515.386" r="10.0089" fill="#FBE7EA"/>
+<circle id="Far sakura_36" opacity="0.85" cx="501.104" cy="526.237" r="15.5723" fill="#F7C9D2"/>
+<path id="Stone path" d="M240 550H280L440 834H80L240 550Z" fill="url(#paint1_linear_679_4032)"/>
+<circle id="Sun haze" cx="260" cy="370" r="200" fill="url(#paint2_radial_679_4032)"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_679_4032" x1="260" y1="-10" x2="260" y2="840" gradientUnits="userSpaceOnUse">
+<stop stop-color="#DDE8EE"/>
+<stop offset="0.6" stop-color="#F8EEE6"/>
+<stop offset="1" stop-color="#F4EBCF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_679_4032" x1="260" y1="550" x2="260" y2="834" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EFE3D6"/>
+<stop offset="1" stop-color="#E6D7C8"/>
+</linearGradient>
+<radialGradient id="paint2_radial_679_4032" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(260 370) scale(200)">
+<stop stop-color="#FBF5EE" stop-opacity="0.9"/>
+<stop offset="1" stop-color="#FBF5EE" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

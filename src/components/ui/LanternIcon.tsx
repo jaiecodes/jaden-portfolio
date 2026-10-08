@@ -3,7 +3,7 @@
 /**
  * The lantern from the header (Figma: Icon / Lantern). The body follows the
  * text colour; the flame is gold at night. It is the light / dark switch's
- * icon; light mode isn't designed yet, so for now it only shows the night.
+ * icon; the flame turns pink by day.
  */
 export const LanternIcon = ({ size = 28, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 28 28" aria-hidden className={className}>
@@ -14,7 +14,7 @@ export const LanternIcon = ({ size = 28, className = "" }: { size?: number; clas
     </g>
     <path
       d="M16.23 19.57a2.23 2.23 0 0 1-4.46 0c0-2.23 2.23-4.4 2.23-4.4s2.23 2.17 2.23 4.4Z"
-      fill="var(--color-accent)"
+      fill="var(--lantern-flame)"
     />
   </svg>
 );

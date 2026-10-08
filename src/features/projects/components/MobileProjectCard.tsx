@@ -14,8 +14,8 @@ export const MobileProjectCard = ({ project, search }: { project: Project; searc
   return (
     <Link
       to={{ pathname: `/project/${project.id}`, search }}
-      className="stroke stroke-angular relative flex min-h-[140px] flex-col gap-2 overflow-hidden rounded-[14px] bg-night shadow-[0_0_14px_rgb(239_193_57/0.3)] active:scale-[0.99]"
-      style={strokeStyle({ stroke: 2, pad: { top: 18, bottom: 18, left: 148, right: 16 } })}
+      className="stroke relative flex min-h-[140px] flex-col gap-2 overflow-hidden rounded-[14px] bg-night shadow-(--card-glow-mobile) active:scale-[0.99]"
+      style={strokeStyle({ stroke: 2, pad: { top: 18, bottom: 18, left: 148, right: 16 }, paint: "var(--card-rim)" })}
     >
       <img
         src={art.src}
@@ -25,9 +25,9 @@ export const MobileProjectCard = ({ project, search }: { project: Project; searc
         className="absolute top-1/2 left-[-25px] h-[193px] w-[296px] max-w-none -translate-y-1/2 object-cover"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_12%,color-mix(in_srgb,var(--night-bg)_88%,transparent)_42%,var(--night-bg)_60%)]" />
-      <div className="absolute inset-y-0 left-0 w-2.5 bg-[image:linear-gradient(180deg,var(--color-accent),var(--color-secondary))]" />
+      <div className="absolute inset-y-0 left-0 w-2.5 bg-(image:--card-tab-v)" />
 
-      <p className="type-label relative text-t-primary">{project.shortLabel}</p>
+      <p className="type-label relative text-[var(--card-kicker,var(--theme-primary))]">{project.shortLabel}</p>
       <h2 className="type-card-title relative text-fg">{project.name}</h2>
       <ul className="relative flex flex-wrap gap-1.5">
         {project.tags.slice(0, 2).map((tag) => (

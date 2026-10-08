@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="11" height="8.84229" viewBox="0 0 11 8.84229" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="petal" d="M0 4.47216C1.5 -0.0278415 7 -1.32784 11 1.47216C9.6 3.07216 9.6 5.07216 11 7.07216C7 10.2722 1.5 8.97216 0 4.47216Z" fill="url(#paint0_linear_0_4)"/>
+<defs>
+<linearGradient id="paint0_linear_0_4" x1="0" y1="4.42114" x2="11" y2="4.42114" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F4ABBA"/>
+<stop offset="1" stop-color="#EA596E"/>
+</linearGradient>
+</defs>
+</svg>

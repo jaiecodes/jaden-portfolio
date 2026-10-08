@@ -15,7 +15,7 @@ export const FocusAreas = () => {
         <Text
           variant="h1"
           as="h2"
-          className="text-gradient bg-[image:linear-gradient(90deg,var(--theme-primary),var(--theme-secondary)_60%)] pb-1 max-lg:text-[28px]"
+          className="text-gradient bg-[image:var(--focus-title,linear-gradient(90deg,var(--theme-primary),var(--theme-secondary)_60%))] pb-1 max-lg:text-[28px]"
         >
           {f.title}
         </Text>

@@ -6,7 +6,7 @@ import { Text } from "../../../components/ui/Text";
 /** A focus area: themed kicker, title and a line of detail, in the About rim. */
 export const FocusCard = ({ area }: { area: FocusAreaData }) => (
   <article
-    className="stroke stroke-primary-angular flex flex-col gap-3.5 rounded-2xl bg-raised"
+    className="stroke stroke-theme flex flex-col gap-3.5 rounded-2xl bg-raised"
     style={strokeStyle({ stroke: 1.5, pad: 30 })}
   >
     <Text variant="label" tone={area.tone} as="p">

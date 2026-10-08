@@ -2,6 +2,23 @@
 import { useRef, useState } from "react";
 import { motion, useSpring } from "motion/react";
 import { AboutService } from "../../../domain/services/AboutService";
+import { useScreenMode } from "../../../hooks/useScreenMode";
+
+const NIGHT = {
+  halo: "/v2/about/moonlight-halo.svg",
+  lantern: "/v2/about/lantern-key.svg",
+  glow: "/v2/about/lantern-glow.svg",
+  rock: "/v2/about/mossy-rock.svg",
+  model: "/v2/about/model-placeholder.svg",
+};
+/** Day: a sun halo, blossoming rock and a daylit lantern (Figma: 3D model stage, Day). */
+const DAY = {
+  halo: "/v2/day/about-halo.svg",
+  lantern: "/v2/day/about-lantern.svg",
+  glow: "/v2/day/about-glow.svg",
+  rock: "/v2/day/about-rock.svg",
+  model: "/v2/day/about-model.svg",
+};
 
 /**
  * The self-model on its mossy rock, rim-lit by a lantern (Figma: 3D model
@@ -13,27 +30,29 @@ export const ModelStage = () => {
   const rotate = useSpring(0, { stiffness: 120, damping: 14 });
   const drag = useRef<{ x: number; start: number } | null>(null);
   const [grabbing, setGrabbing] = useState(false);
+  const { day } = useScreenMode();
+  const art = day ? DAY : NIGHT;
 
   return (
     <div className="relative mx-auto aspect-[760/860] w-full max-w-[760px] select-none">
       <div className="absolute inset-0 origin-top-left" style={{ containerType: "inline-size" }}>
         {/* Positions are percentages of the 760×860 stage */}
-        <img src="/v2/about/moonlight-halo.svg" alt="" aria-hidden className="absolute top-[7%] left-[3.9%] w-[92%]" />
+        <img src={art.halo} alt="" aria-hidden className="absolute top-[7%] left-[3.9%] w-[92%]" />
         <div
           aria-hidden
           className="absolute top-[-7%] left-[73.7%] w-[7.9%] origin-top"
           style={{ animation: "lantern-swing 5s ease-in-out infinite" }}
         >
-          <img src="/v2/about/lantern-key.svg" alt="" className="w-full" />
+          <img src={art.lantern} alt="" className="w-full" />
         </div>
         <img
-          src="/v2/about/lantern-glow.svg"
+          src={art.glow}
           alt=""
           aria-hidden
-          className="absolute top-[4.7%] left-[57.9%] w-[39.5%] mix-blend-screen"
+          className={`absolute top-[4.7%] left-[57.9%] w-[39.5%] ${day ? "" : "mix-blend-screen"}`}
           style={{ animation: "lantern-flicker 3.2s ease-in-out infinite" }}
         />
-        <img src="/v2/about/mossy-rock.svg" alt="" aria-hidden className="absolute top-[74.4%] left-[13.2%] w-[73.7%]" />
+        <img src={art.rock} alt="" aria-hidden className="absolute top-[74.4%] left-[13.2%] w-[73.7%]" />
 
         <motion.div
           role="img"
@@ -55,7 +74,7 @@ export const ModelStage = () => {
           }}
         >
           <img
-            src="/v2/about/model-placeholder.svg"
+            src={art.model}
             alt=""
             draggable={false}
             className="w-full"

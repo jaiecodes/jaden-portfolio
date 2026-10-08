@@ -4,15 +4,12 @@ import type { Project } from "../../../domain/models/Project";
 import { strokeStyle } from "../../../components/ui/stroke";
 import { CardTag } from "./CardTag";
 
-const GLOW = "shadow-[0_0_14px_rgb(239_193_57/0.4)]";
-const GLOW_HOVER =
-  "group-hover:shadow-[0_0_28px_2px_rgb(239_193_57/0.55),0_16px_60px_rgb(221_139_45/0.3)] group-focus-visible:shadow-[0_0_28px_2px_rgb(239_193_57/0.55),0_16px_60px_rgb(221_139_45/0.3)]";
-
 /**
  * The desktop project card (Figma: Player Card): the original layout — glow
  * rim, top tab, year, centred caps title, description panel, 2×2 tags — with
  * the hero art in place of the icon, fading into the card. Hover lifts it
- * 6px, brightens the glow and zooms the art 6%.
+ * 6px, brightens the glow and zooms the art 6%. Rim, tab, glow and tags take
+ * the --card-* tokens, so the card reads gold at night and blossom by day.
  */
 export const PlayerCard = ({ project, search }: { project: Project; search: string }) => {
   const art = project.cardArt;
@@ -23,12 +20,12 @@ export const PlayerCard = ({ project, search }: { project: Project; search: stri
       aria-label={project.name}
     >
       <article
-        className={`stroke stroke-angular rounded-2xl bg-night transition duration-300 group-hover:-translate-y-1.5 group-focus-visible:-translate-y-1.5 ${GLOW} ${GLOW_HOVER}`}
-        style={strokeStyle({ stroke: 2, pad: 8 })}
+        className="stroke rounded-2xl bg-night shadow-(--card-glow) transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-(--card-glow-hover) group-focus-visible:-translate-y-1.5 group-focus-visible:shadow-(--card-glow-hover)"
+        style={strokeStyle({ stroke: 2, pad: 8, paint: "var(--card-rim)" })}
       >
         <div
           className="stroke overflow-hidden rounded-lg bg-night"
-          style={strokeStyle({ stroke: 1, paint: "var(--paint-accent-secondary)" })}
+          style={strokeStyle({ stroke: 1, paint: "var(--card-inner-rim)" })}
         >
           {/* Art under the top tab */}
           <div className="relative h-[206px] overflow-hidden rounded-t-lg">
@@ -40,11 +37,11 @@ export const PlayerCard = ({ project, search }: { project: Project; search: stri
                 loading="lazy"
                 className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
               />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgb(0_0_0/0.35))]" />
+              <div className="absolute inset-0 bg-(image:--card-vignette)" />
               <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-night" />
             </div>
-            <div className="absolute inset-x-0 top-0 h-2.5 rounded-t-[5px] bg-[image:var(--paint-accent-secondary)]" />
-            <span className="type-chip absolute top-[22px] right-[10px] rounded-[6px] border border-accent bg-[color-mix(in_srgb,var(--color-ember)_30%,var(--night-bg))] px-3 py-1 text-accent">
+            <div className="absolute inset-x-0 top-0 h-2.5 rounded-t-[5px] bg-(image:--card-tab)" />
+            <span className="type-chip absolute top-[22px] right-[10px] rounded-[6px] border border-(--year-rim) bg-(--year-bg) px-3 py-1 text-(--year-text)">
               {project.year}
             </span>
           </div>

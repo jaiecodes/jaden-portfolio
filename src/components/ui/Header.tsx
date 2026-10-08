@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { AboutService } from "../../domain/services/AboutService";
 import { ResumeService } from "../../domain/services/ResumeService";
 import { useHeaderTone } from "../../hooks/useHeaderTone";
+import { useScreenMode } from "../../hooks/useScreenMode";
 import { ActionLink } from "./ActionLink";
 import { Icon } from "./Icon";
 import { LanternIcon } from "./LanternIcon";
@@ -27,21 +28,29 @@ const Underline = ({ show }: { show: boolean }) => (
   />
 );
 
-/**
- * The light / dark switch. Light mode (lantern lit) isn't designed for every
- * page yet, so the switch shows the night state and says so.
- */
-const LanternButton = ({ className = "" }: { className?: string }) => (
-  <button
-    type="button"
-    aria-disabled
-    aria-label="Light mode, coming soon"
-    title="Light mode is coming soon"
-    className={`flex size-11 items-center justify-center rounded-full ${className}`}
-  >
-    <LanternIcon size={26} />
-  </button>
-);
+const NIGHT_HEADER = {
+  "--text-primary": "#eeebe2",
+  "--header-fade": "rgb(3 10 17 / 0.2)",
+  "--lantern-flame": "var(--color-accent)",
+  "--paint-underline": "linear-gradient(90deg, rgb(69 161 99 / 0), #45a163 25%, #efc139 50%, #c27927 75%, rgb(194 121 39 / 0))",
+} as CSSProperties;
+
+/** The screen-mode switch: lighting the lantern turns the garden to day. */
+const LanternButton = ({ className = "" }: { className?: string }) => {
+  const { day, toggle } = useScreenMode();
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={day}
+      aria-label={day ? "Switch to night mode" : "Switch to day mode"}
+      title={day ? "Night mode" : "Day mode"}
+      className={`flex size-11 items-center justify-center rounded-full transition-transform hover:scale-110 ${className}`}
+    >
+      <LanternIcon size={26} />
+    </button>
+  );
+};
 
 /** Header with a fade-and-blur backdrop that's strongest at the top. */
 const Backdrop = () => (
@@ -50,9 +59,32 @@ const Backdrop = () => (
       aria-hidden
       className="absolute inset-0 backdrop-blur-[20px] [mask-image:linear-gradient(#000,transparent)]"
     />
-    <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-[rgb(3_10_17/0.2)] to-transparent" />
+    <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-(--header-fade) to-transparent" />
   </>
 );
+
+/** Night / Day segmented switch in the menu. */
+const ModeSwitch = () => {
+  const { mode, setMode } = useScreenMode();
+  return (
+    <div className="flex rounded-full border border-line p-1" role="radiogroup" aria-label="Screen Mode">
+      {(["night", "day"] as const).map((m) => (
+        <button
+          key={m}
+          type="button"
+          role="radio"
+          aria-checked={mode === m}
+          onClick={() => setMode(m)}
+          className={`type-button rounded-full px-4 py-2 capitalize transition-colors ${
+            mode === m ? "bg-(--switch-on) text-night" : "text-muted hover:text-fg"
+          }`}
+        >
+          {m}
+        </button>
+      ))}
+    </div>
+  );
+};
 
 /** Mobile menu: a glass panel that drops from under the header. */
 const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
@@ -94,7 +126,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             aria-label="Close menu"
             tabIndex={-1}
             onClick={onClose}
-            className="absolute inset-0 bg-[rgb(2_6_6/0.55)] backdrop-blur-[8px]"
+            className="absolute inset-0 bg-(--scrim) backdrop-blur-[8px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -105,7 +137,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             role="dialog"
             aria-modal
             aria-label="Menu"
-            className="absolute inset-x-0 top-0 overflow-hidden rounded-b-[24px] border-b border-line bg-[rgb(4_10_10/0.6)] px-5 pb-7 shadow-[0_16px_40px_rgb(0_0_0/0.35)] backdrop-blur-[32px]"
+            className="absolute inset-x-0 top-0 overflow-hidden rounded-b-[24px] border-b border-line bg-(--glass) px-5 pb-7 shadow-[0_16px_40px_rgb(0_0_0/0.35)] backdrop-blur-[32px]"
             initial={{ y: "-100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
@@ -153,7 +185,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
               })}
             </nav>
 
-            <p className="type-label mt-6 text-primary">Elsewhere</p>
+            <p className="type-label mt-6 text-(--menu-kicker)">Elsewhere</p>
             <div className="mt-3 flex flex-wrap gap-2.5">
               {socials.map((s) => (
                 <ActionLink key={s.url} href={s.url}>
@@ -168,12 +200,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 <LanternIcon size={26} className="text-fg" />
                 Screen Mode
               </span>
-              <div className="flex rounded-full border border-line p-1" role="group" aria-label="Screen Mode">
-                <span className="type-button rounded-full bg-primary px-4 py-2 text-night">Night</span>
-                <span className="type-button px-4 py-2 text-muted opacity-60" title="Day mode is coming soon">
-                  Day
-                </span>
-              </div>
+              <ModeSwitch />
             </div>
           </motion.div>
         </div>
@@ -201,7 +228,12 @@ export const Header = () => {
     setMenuOpen(false);
   }
 
-  const style = { color: tone ?? "var(--text-primary)" } as CSSProperties;
+  // Case studies keep their night palettes in both modes, so the header over
+  // them keeps its night look too.
+  const style = {
+    ...(location.pathname.startsWith("/project/") ? NIGHT_HEADER : {}),
+    color: tone ?? "var(--text-primary)",
+  } as CSSProperties;
 
   return (
     <>
