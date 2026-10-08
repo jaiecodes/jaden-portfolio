@@ -222,7 +222,6 @@
      light glass over a light page reads heavier. Faint blossom tint. */
   --glass: rgb(251 236 239 / 0.4);
   --glass-blur: 8px;
-  --menu-blur: 16px;
   /* The menu's bottom edge, pink like the drawer rim. */
   --menu-rim: #c42a57;
   --scrim: rgb(249 244 236 / 0.45);
