@@ -39,20 +39,21 @@ export const ResumeTimeline = () => {
   return (
     <div ref={track} className="relative pl-[48px] lg:pl-[70px]">
       <div aria-hidden className="absolute top-0 bottom-0 left-[6px] w-[2px] lg:left-[20px]" style={{ background: TRACK_PAINT }} />
-      <motion.div aria-hidden className="absolute left-[-30px] z-10 h-[58px] w-[63px] lg:left-[-17px]" style={{ top }}>
-        {day ? (
+      {day ? (
+        // Centred on the track line (its centre is 7px / 21px in).
+        <motion.div aria-hidden className="absolute left-[7px] z-10 h-[58px] w-10 -translate-x-1/2 lg:left-[21px]" style={{ top }}>
           <img
             src="/v2/day/blossom.svg"
             alt=""
-            className="absolute top-1/2 left-1/2 size-[34px] -translate-1/2 drop-shadow-[0_2px_6px_rgb(196_42_87/0.35)]"
+            className="absolute top-1/2 left-0 size-10 -translate-y-1/2 drop-shadow-[0_2px_6px_rgb(196_42_87/0.35)]"
           />
-        ) : (
-          <>
-            <img src={autumnLeaf} alt="" className="absolute inset-0 size-full" />
-            <motion.img src={greenLeaf} alt="" className="absolute inset-0 size-full" style={{ opacity: reduce ? 1 : green }} />
-          </>
-        )}
-      </motion.div>
+        </motion.div>
+      ) : (
+        <motion.div aria-hidden className="absolute left-[-30px] z-10 h-[58px] w-[63px] lg:left-[-17px]" style={{ top }}>
+          <img src={autumnLeaf} alt="" className="absolute inset-0 size-full" />
+          <motion.img src={greenLeaf} alt="" className="absolute inset-0 size-full" style={{ opacity: reduce ? 1 : green }} />
+        </motion.div>
+      )}
 
       <div className="flex flex-col gap-12 py-12 lg:gap-[86px] lg:py-[67px]">
         {sections.map((section, si) => (

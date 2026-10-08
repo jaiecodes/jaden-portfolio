@@ -37,7 +37,7 @@ export const TimelineEntry = ({
   );
 
   return (
-    <li ref={itemRef} className="relative grid gap-4 lg:grid-cols-[minmax(0,1fr)_140px_minmax(400px,560px)] min-[1700px]:grid-cols-[520px_280px_671px] min-[1700px]:justify-between lg:gap-x-10">
+    <li ref={itemRef} className="relative grid gap-4 lg:grid-cols-[minmax(0,360px)_minmax(140px,1fr)_minmax(400px,560px)] min-[1700px]:grid-cols-[minmax(0,360px)_minmax(140px,1fr)_671px] lg:gap-x-10">
       {/* Node on the track */}
       <span
         aria-hidden
@@ -58,7 +58,8 @@ export const TimelineEntry = ({
           <span className="type-body-sm text-faint lg:hidden">{entry.date}</span>
         </p>
       </div>
-      <p className="type-body hidden pt-1 text-faint lg:block">{entry.date}</p>
+      {/* A fixed box centred between the role and the card, so dates line up */}
+      <p className="type-body hidden w-[140px] justify-self-center whitespace-nowrap pt-1 text-faint lg:block">{entry.date}</p>
       {entry.href ? (
         entry.isExternal ? (
           <a href={entry.href} target="_blank" rel="noopener noreferrer" aria-label={`${entry.title}, open`}>
