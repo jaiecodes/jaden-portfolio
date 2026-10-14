@@ -103,4 +103,4 @@ Tailwind is loaded via the `@tailwindcss/vite` Vite plugin — there is no `tail
 
 Deployed to Vercel. `vercel.json` rewrites every path to `index.html` so `BrowserRouter` deep links (`/about`, `/project/:id`) load instead of 404ing; static files in `public/` are still served first.
 
-`main` is design 2.0 and is the live site: the Vercel project `jaden-portfolio-b` (https://jaden-portfolio-b.vercel.app) deploys `main` to production, so pushing `main` redeploys it. Other branches get preview deployments. Design 1.0 is kept on the `version-a` branch, deployed by the `jaden-portfolio-a` project.
+`main` is design 2.0 and the only deployed branch: the Vercel project `jaden-portfolio-b` (https://jaden-portfolio-b.vercel.app) builds `main` to production, so pushing `main` redeploys it. The project's Ignored Build Step (`[ "$VERCEL_GIT_COMMIT_REF" != "main" ]`) skips every other branch, so they get no previews. Design 1.0 is archived on the `version-a` branch and isn't deployed.
