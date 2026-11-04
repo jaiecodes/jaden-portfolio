@@ -34,7 +34,15 @@ export interface Visual {
   caption: string;
   /** Image, GIF or video for the slot; the slot shows its caption until set. */
   src?: string;
+  /** Still shown before a video starts, and instead of it with reduced motion. */
+  poster?: string;
+  /** "contain" shows all of a diagram or plot; "cover" (default) fills the slot. */
+  fit?: "cover" | "contain";
+  /** The video has an audio track worth offering. */
+  hasSound?: boolean;
 }
+
+export const isVideoSrc = (src: string): boolean => /\.(mp4|webm|mov)$/i.test(src);
 
 export interface Highlight {
   title: string;

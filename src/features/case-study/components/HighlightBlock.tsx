@@ -2,6 +2,8 @@
 import { motion } from "motion/react";
 import type { Highlight } from "../../../domain/models/Project";
 import { Text } from "../../../components/ui/Text";
+import { useViewport } from "../../../hooks/useViewport";
+import { Media } from "./Media";
 
 const Step = ({ label, children, result }: { label: string; children: string; result?: boolean }) => (
   <div className="flex flex-col gap-1">
@@ -14,23 +16,26 @@ const Step = ({ label, children, result }: { label: string; children: string; re
   </div>
 );
 
-/** The one visual that proves the highlight; its caption fills the slot until it exists. */
-const VisualSlot = ({ visual }: { visual: Highlight["visual"] }) => (
-  <figure className="flex w-full flex-col gap-3 lg:w-[680px] lg:shrink-0">
-    <div className="relative flex aspect-[680/400] items-center justify-center overflow-hidden rounded-[14px] border border-dashed border-line bg-sunken">
-      {visual.src ? (
-        /\.(mp4|webm)$/.test(visual.src) ? (
-          <video src={visual.src} autoPlay muted loop playsInline className="size-full object-cover" />
+/** The one visual that proves the highlight; its caption fills the dashed slot until it exists. */
+const VisualSlot = ({ visual }: { visual: Highlight["visual"] }) => {
+  const { src } = visual;
+  return (
+    <figure className="flex w-full flex-col gap-3 lg:w-[680px] lg:shrink-0">
+      <div
+        className={`relative flex aspect-[680/400] items-center justify-center overflow-hidden rounded-[14px] border border-line bg-sunken ${
+          src ? "" : "border-dashed"
+        }`}
+      >
+        {src ? (
+          <Media visual={{ ...visual, src }} />
         ) : (
-          <img src={visual.src} alt={visual.caption} loading="lazy" className="size-full object-cover" />
-        )
-      ) : (
-        <p className="type-body-sm max-w-[616px] px-8 text-center text-faint">{visual.caption}</p>
-      )}
-    </div>
-    <figcaption className="type-body-sm text-faint">{visual.caption}</figcaption>
-  </figure>
-);
+          <p className="type-body-sm max-w-[616px] px-8 text-center text-faint">{visual.caption}</p>
+        )}
+      </div>
+      <figcaption className="type-body-sm text-faint">{visual.caption}</figcaption>
+    </figure>
+  );
+};
 
 /**
  * One thing built (Figma: Highlight Block): Challenge → Approach → Result
@@ -39,6 +44,7 @@ const VisualSlot = ({ visual }: { visual: Highlight["visual"] }) => (
  */
 export const HighlightBlock = ({ highlight, index }: { highlight: Highlight; index: number }) => {
   const flip = index % 2 === 1;
+  const desktop = useViewport().width >= 1024;
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -54,18 +60,14 @@ export const HighlightBlock = ({ highlight, index }: { highlight: Highlight; ind
         <Text variant="h2" as="h3" className="text-fg max-lg:text-[24px]">
           {highlight.title}
         </Text>
-        <div className="lg:hidden">
-          <VisualSlot visual={highlight.visual} />
-        </div>
+        {!desktop && <VisualSlot visual={highlight.visual} />}
         <Step label="Challenge">{highlight.challenge}</Step>
         <Step label="Approach">{highlight.approach}</Step>
         <Step label="Result" result>
           {highlight.result}
         </Step>
       </div>
-      <div className="hidden lg:block">
-        <VisualSlot visual={highlight.visual} />
-      </div>
+      {desktop && <VisualSlot visual={highlight.visual} />}
     </motion.article>
   );
 };

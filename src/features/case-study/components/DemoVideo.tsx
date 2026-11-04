@@ -1,39 +1,33 @@
 // src/features/case-study/components/DemoVideo.tsx
-import { useRef, useState, type ReactNode } from "react";
-import type { Visual } from "../../../domain/models/Project";
+import { useState, type ReactNode } from "react";
+import { isVideoSrc, type Visual } from "../../../domain/models/Project";
 import { Icon } from "../../../components/ui/Icon";
+import { Media } from "./Media";
 
 interface DemoVideoProps {
   video: Visual;
-  /** Shown until the video exists: the hero's end frame. */
+  /** Shown until the demo exists: the hero's end frame. */
   poster: ReactNode;
 }
 
 /**
- * The demo (Figma: Demo video). With a source it autoplays muted on a loop
- * and a click turns the sound on; without one it shows the hero's end frame
- * under the play button and its caption, so the slot reads as intended.
+ * The demo (Figma: Demo video). A video loops silently while on screen, with
+ * a sound button if it has audio; an image just fills the frame. Without a
+ * source it shows the hero's end frame under the play button and its caption,
+ * so the slot reads as intended.
  */
 export const DemoVideo = ({ video, poster }: DemoVideoProps) => {
-  const ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  const { src } = video;
+  const isVideo = !!src && isVideoSrc(src);
 
   return (
     <figure
       id="demo"
       className="relative aspect-video w-full scroll-mt-32 overflow-hidden rounded-[20px] border border-line bg-sunken"
     >
-      {video.src ? (
-        <video
-          ref={ref}
-          src={video.src}
-          autoPlay
-          muted={muted}
-          loop
-          playsInline
-          onClick={() => setMuted((m) => !m)}
-          className="size-full cursor-pointer object-cover"
-        />
+      {src ? (
+        <Media visual={{ ...video, src }} muted={muted} />
       ) : (
         <>
           <div className="absolute inset-0">{poster}</div>
@@ -45,13 +39,22 @@ export const DemoVideo = ({ video, poster }: DemoVideoProps) => {
           </span>
         </>
       )}
-      {video.src && muted && (
-        <span className="type-label pointer-events-none absolute top-4 right-4 rounded-full bg-night/70 px-3 py-1.5 text-fg">
-          Click for sound
-        </span>
+      {isVideo && video.hasSound && (
+        <button
+          type="button"
+          onClick={() => setMuted((m) => !m)}
+          aria-pressed={!muted}
+          className="type-label absolute top-4 right-4 rounded-full bg-night/70 px-3 py-1.5 text-fg backdrop-blur-sm"
+        >
+          {muted ? "Turn sound on" : "Mute"}
+        </button>
       )}
-      <figcaption className="absolute bottom-0 left-0 hidden items-baseline gap-4 px-8 pb-7 lg:flex">
-        <span className="type-label text-fg">Video</span>
+      <figcaption
+        className={`pointer-events-none absolute inset-x-0 bottom-0 hidden items-baseline gap-4 px-8 pt-16 pb-7 lg:flex ${
+          src ? "bg-gradient-to-t from-sunken to-transparent" : ""
+        }`}
+      >
+        <span className="type-label text-fg">{src && !isVideo ? "Image" : "Video"}</span>
         <span className="type-body-sm text-muted">{video.caption}</span>
       </figcaption>
     </figure>
