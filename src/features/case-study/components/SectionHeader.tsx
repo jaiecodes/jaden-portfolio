@@ -1,4 +1,4 @@
-// src/features/projects/components/SectionHeader.tsx
+// src/features/case-study/components/SectionHeader.tsx
 import { Text } from "../../../components/ui/Text";
 
 /** A kicker over a section title ("What I built" / "Results"). */

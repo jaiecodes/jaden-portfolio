@@ -1,16 +1,15 @@
-// src/features/projects/ProjectDetail.tsx
+// src/features/case-study/CaseStudyPage.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { motionValue } from "motion/react";
 import { ProjectService } from "../../domain/services/ProjectService";
 import { HeroThemeService } from "../../domain/services/HeroThemeService";
-import { paletteStyle, type HeroThemeData } from "../../domain/models/HeroTheme";
-import { prefersDarkText } from "../../domain/models/Color";
+import { heroHeaderTone } from "../../domain/models/HeroTheme";
 import { readQuery } from "../../hooks/useProjectFilters";
 import { setHeaderTone } from "../../hooks/useHeaderTone";
 import { buttonClass } from "../../components/ui/buttonStyles";
+import { paletteStyle } from "../../components/ui/palette";
 import { ProjectHero } from "./components/ProjectHero";
-import { HeroScene, SCENE_W } from "./components/HeroScene";
+import { PosterScene } from "./components/PosterScene";
 import { SnapshotStrip } from "./components/SnapshotStrip";
 import { DemoVideo } from "./components/DemoVideo";
 import { ProblemSection } from "./components/ProblemSection";
@@ -21,40 +20,12 @@ import { UpNext } from "./components/UpNext";
 import { LinkRail } from "./components/LinkRail";
 import { MobileLinkBar } from "./components/MobileLinkBar";
 
-const END_FRAME = motionValue(1);
-
-/** The hero's end frame, filling its box: the demo's poster until a video exists. */
-const PosterScene = ({ theme }: { theme: HeroThemeData }) => {
-  const box = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([e]) => setWidth(e.contentRect.width));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  return (
-    <div ref={box} className="absolute inset-0" style={{ background: theme.heroBackground }}>
-      {width > 0 && <HeroScene layers={theme.layers} progress={END_FRAME} scale={width / SCENE_W} />}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--night-sunken)_30%,transparent)_0%,color-mix(in_srgb,var(--night-sunken)_40%,transparent)_55%,color-mix(in_srgb,var(--night-sunken)_85%,transparent))]" />
-    </div>
-  );
-};
-
-/** Header text that reads on the hero art: dark on pale heroes. */
-function heroHeaderTone(theme: HeroThemeData): string {
-  const { bg, text } = theme.palette;
-  if (!prefersDarkText(theme.heroBackground)) return text;
-  return prefersDarkText(bg) ? text : bg;
-}
-
 /**
  * A project case study (Figma: Project Detail — … — Desktop 2.0). Each page
  * takes its colours from its hero art, and the page background continues
  * from the bottom of the hero's end frame.
  */
-export const ProjectDetail = () => {
+export const CaseStudyPage = () => {
   const { id = "" } = useParams();
   const { search } = useLocation();
   const project = ProjectService.getById(id);

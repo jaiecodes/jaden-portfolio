@@ -1,4 +1,4 @@
-// src/features/projects/components/DemoVideo.tsx
+// src/features/case-study/components/DemoVideo.tsx
 import { useRef, useState, type ReactNode } from "react";
 import type { Visual } from "../../../domain/models/Project";
 import { Icon } from "../../../components/ui/Icon";

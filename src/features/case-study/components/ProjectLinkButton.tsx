@@ -1,4 +1,4 @@
-// src/features/projects/components/ProjectLinkButton.tsx
+// src/features/case-study/components/ProjectLinkButton.tsx
 import { linkHref, type ProjectLink } from "../../../domain/models/Project";
 import { ActionLink } from "../../../components/ui/ActionLink";
 

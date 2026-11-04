@@ -1,4 +1,4 @@
-// src/features/projects/components/MobileLinkBar.tsx
+// src/features/case-study/components/MobileLinkBar.tsx
 import type { ProjectLink } from "../../../domain/models/Project";
 import { ProjectLinkButton } from "./ProjectLinkButton";
 

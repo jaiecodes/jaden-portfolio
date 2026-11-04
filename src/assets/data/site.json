@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "side": [
+      { "name": "about", "path": "/about" },
+      { "name": "resume", "path": "/resume" }
+    ],
+    "menu": [
+      { "name": "projects", "path": "/projects" },
+      { "name": "about", "path": "/about" },
+      { "name": "resume", "path": "/resume" }
+    ]
+  },
+  "menu": {
+    "elsewhere": "Elsewhere",
+    "resumePdf": "Résumé PDF ↓",
+    "screenMode": "Screen Mode"
+  }
+}

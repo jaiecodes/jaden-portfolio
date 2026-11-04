@@ -1,4 +1,4 @@
-// src/features/projects/components/HeroScene.tsx
+// src/features/case-study/components/HeroScene.tsx
 import { motion, useTransform, type MotionValue } from "motion/react";
 import type { CSSProperties } from "react";
 import type { HeroLayer, TransformProperty } from "../../../domain/models/HeroTheme";

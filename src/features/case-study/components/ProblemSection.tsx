@@ -1,4 +1,4 @@
-// src/features/projects/components/ProblemSection.tsx
+// src/features/case-study/components/ProblemSection.tsx
 import type { Project } from "../../../domain/models/Project";
 import { Chip } from "../../../components/ui/Chip";
 import { Text } from "../../../components/ui/Text";

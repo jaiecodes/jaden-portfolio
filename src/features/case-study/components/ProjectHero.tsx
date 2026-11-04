@@ -1,4 +1,4 @@
-// src/features/projects/components/ProjectHero.tsx
+// src/features/case-study/components/ProjectHero.tsx
 import { useEffect, useRef } from "react";
 import { animate, motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import type { Project } from "../../../domain/models/Project";

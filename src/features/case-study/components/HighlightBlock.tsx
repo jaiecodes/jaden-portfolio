@@ -1,4 +1,4 @@
-// src/features/projects/components/HighlightBlock.tsx
+// src/features/case-study/components/HighlightBlock.tsx
 import { motion } from "motion/react";
 import type { Highlight } from "../../../domain/models/Project";
 import { Text } from "../../../components/ui/Text";

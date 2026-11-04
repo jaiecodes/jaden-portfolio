@@ -25,13 +25,13 @@ The project follows the layered modularization pattern from [Modularizing React 
 |---|---|---|
 | Domain models | `src/domain/models/` | Pure data shapes + filtering logic (no React) |
 | Domain services | `src/domain/services/` | Loads JSON, exposes query methods |
-| Data | `src/assets/data/*.json` | Content: `projects.json`, `heroThemes.json`, `home.json`, `about.json`, `resume.json` |
+| Data | `src/assets/data/*.json` | Content: `projects.json`, `heroThemes.json`, `home.json`, `about.json`, `resume.json`, `site.json` (header and menu) |
 | Hooks | `src/hooks/` | State and side effects (URL-synced filters, layout measurement) |
 | Features | `src/features/<feature>/` | `<Feature>Page.tsx` composes the page from `components/` and services |
 | UI kit | `src/components/ui/` | Shared primitives and the design system (see below) |
 | Utils | `src/components/utils/` | Utility components (e.g. ScrollToTop) |
 
-Every feature follows the same shape — `home/`, `projects/`, `about/`, `resume/`:
+Every feature follows the same shape — `home/`, `projects/` (the gallery), `case-study/` (a project's page), `about/`, `resume/`:
 
 ```
 src/features/about/
@@ -45,15 +45,15 @@ Page content never lives in components: it goes in a JSON file with an interface
 
 - `/` → `HomePage` — the garden entry; scrolling dollies through the arch and lands on `/projects`
 - `/projects` → `ProjectPage` — filterable project gallery
-- `/project/:id` → `ProjectDetail` — project case study
+- `/project/:id` → `CaseStudyPage` — project case study
 - `/about` → `AboutPage` — content from `about.json` via `AboutService`
 - `/resume` → `ResumePage` — content from `resume.json` via `ResumeService`. Entries link to a case study with `projectId`; ids that don't match a project are dropped, so cards never link to a blank page.
 
 ### Project data flow
 
-`projects.json` → `ProjectService` (loads + queries) → `useProjectFilters` hook (syncs state to URL search params) → `ProjectPage` / `ProjectDetail`
+`projects.json` → `ProjectService` (loads + queries) → `useProjectFilters` hook (syncs state to URL search params) → `ProjectPage` / `CaseStudyPage`
 
-Filter state lives entirely in URL query params (`?q=`, `?cat=`, `?tech=`, `?year=`, `?sort=`), making filters bookmarkable. `ProjectDetail` reads the same params to pick the "Up next" project within the current filtered set.
+Filter state lives entirely in URL query params (`?q=`, `?cat=`, `?tech=`, `?year=`, `?sort=`), making filters bookmarkable. `CaseStudyPage` reads the same params to pick the "Up next" project within the current filtered set.
 
 **To add a project:** add an entry to `src/assets/data/projects.json` matching `ProjectData` in `src/domain/models/Project.ts`, add its hero (with its menu `divider` colours) to `heroThemes.json`, and put its card art in `public/v2/card-art/` as `<name>.webp` (720×440) and `<name>@2x.webp` (1440×880). No code changes needed. A link with an empty `url` renders as "coming soon"; `video` links jump to the demo on the page. Highlight visuals and the demo video show their caption until given a `src`.
 
@@ -93,7 +93,7 @@ This is design kit 2.0 (Figma page "Designs 2.0", section "Components 2.0").
 | `script` | 120 / 72 | Borel | "hi, i'm jaden" |
 | `wordmark` | 36 / 26 | Borel | Header logo |
 
-**Components.** `PageFrame` (theme, fireflies, gutters), `Header` (vine, nav, mobile menu), `VineDivider`, `Fireflies`, `Text`, `Button` / `buttonClass()` (`primary`, `ghost`), `ActionLink` (picks `<Link>` / `<a>`, shows empty links as pending), `FilterChip`, `Chip` (tech tag; `color` overrides the primary), `Icon`, `LanternIcon`, `StrokeFrame` / `strokeStyle()` (gradient rims on any sides).
+**Components.** `PageFrame` (theme, fireflies, gutters), `header/` (`Header`, `MobileMenu`, `ModeSwitch`, `LanternButton`, `NavUnderline`), `VineDivider` (its geometry and colours are in `vine.ts`), `palette.ts` (`paletteStyle()` / `menuStyle()`, palettes to CSS variables), `Fireflies`, `Text`, `Button` / `buttonClass()` (`primary`, `ghost`), `ActionLink` (picks `<Link>` / `<a>`, shows empty links as pending), `FilterChip`, `Chip` (tech tag; `color` overrides the primary), `Icon`, `LanternIcon`, `StrokeFrame` / `strokeStyle()` (gradient rims on any sides).
 
 ### Tailwind CSS v4
 

@@ -1,4 +1,4 @@
-// src/features/projects/components/UpNext.tsx
+// src/features/case-study/components/UpNext.tsx
 import { Link } from "react-router-dom";
 import type { Project } from "../../../domain/models/Project";
 import { Text } from "../../../components/ui/Text";

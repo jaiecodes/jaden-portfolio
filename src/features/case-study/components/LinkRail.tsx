@@ -1,4 +1,4 @@
-// src/features/projects/components/LinkRail.tsx
+// src/features/case-study/components/LinkRail.tsx
 import { AnimatePresence, motion } from "motion/react";
 import { linkHref, type LinkKind, type ProjectLink } from "../../../domain/models/Project";
 import { ActionLink } from "../../../components/ui/ActionLink";

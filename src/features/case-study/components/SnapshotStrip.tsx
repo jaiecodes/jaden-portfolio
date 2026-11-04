@@ -1,4 +1,4 @@
-// src/features/projects/components/SnapshotStrip.tsx
+// src/features/case-study/components/SnapshotStrip.tsx
 import { forwardRef } from "react";
 import type { Project, SnapshotFact } from "../../../domain/models/Project";
 import { Chip } from "../../../components/ui/Chip";

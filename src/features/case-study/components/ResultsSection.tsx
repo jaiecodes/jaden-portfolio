@@ -1,4 +1,4 @@
-// src/features/projects/components/ResultsSection.tsx
+// src/features/case-study/components/ResultsSection.tsx
 import type { Project } from "../../../domain/models/Project";
 import { Text } from "../../../components/ui/Text";
 import { SectionHeader } from "./SectionHeader";
