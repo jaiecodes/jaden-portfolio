@@ -58,13 +58,13 @@ export const Media = ({ visual, muted = true }: { visual: Visual & { src: string
         className={`group/expand absolute ${hasControls ? "top-3 left-3" : "inset-0 cursor-zoom-in"}`}
       >
         <span
-          className={`z-10 flex size-9 items-center justify-center rounded-full bg-night/70 text-fg backdrop-blur-sm transition-opacity ${
+          className={`z-10 flex size-7 items-center justify-center rounded-full bg-night/70 text-fg backdrop-blur-sm transition-opacity lg:size-9 ${
             hasControls
               ? ""
-              : "absolute right-3 bottom-3 lg:opacity-0 lg:group-hover/expand:opacity-100 lg:group-focus-visible/expand:opacity-100"
+              : "absolute right-1.5 bottom-1.5 lg:right-3 lg:bottom-3 lg:opacity-0 lg:group-hover/expand:opacity-100 lg:group-focus-visible/expand:opacity-100"
           }`}
         >
-          <Icon name="expand" size={18} />
+          <Icon name="expand" size={18} className="size-3.5 lg:size-[18px]" />
         </span>
       </button>
       <AnimatePresence>

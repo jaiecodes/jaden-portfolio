@@ -106,7 +106,7 @@
           "approach": "I designed and documented the WebSocket events that pass state between them in week one, then debugged the 3D map (another intern’s task) and linked it to those events.",
           "result": "The dashboard, map and world moved together as one experience.",
           "visual": {
-            "caption": "An earlier test run in 2024: dashboard, tablet map and projected world moving together.",
+            "caption": "An earlier test run: dashboard, tablet map and projected world moving together.",
             "src": "/media/ces-helm-sim/event-stream.mp4",
             "poster": "/media/ces-helm-sim/event-stream-poster.webp"
           }
@@ -822,7 +822,10 @@
     ],
     "demos": [
       {
-        "caption": "Gameplay capture from the final build"
+        "caption": "Gameplay capture from the final build",
+        "src": "/media/ajo/demo.mp4",
+        "poster": "/media/ajo/demo-poster.webp",
+        "hasSound": true
       }
     ],
     "problem": {
@@ -844,7 +847,9 @@
           "approach": "I painted the wind effects and their level-specific variations in Photoshop, then worked with the programmers on the logic that picks the right animation for the current level.",
           "result": "One wind power, with the right version showing up in every level.",
           "visual": {
-            "caption": "The wind variations side by side, plus a clip of it in play."
+            "caption": "The wind effect and its underwater variation, looped from the painted frames.",
+            "src": "/media/ajo/wind.mp4",
+            "poster": "/media/ajo/wind-poster.webp"
           }
         },
         {
@@ -853,7 +858,9 @@
           "approach": "I worked with the programmers to tune the recognizer’s corner detection, adjusting the angle threshold that decides whether a turn in the stroke counts as a corner.",
           "result": "Sloppy triangles still register three corners and reliably cast the Earth rock.",
           "visual": {
-            "caption": "A drawn triangle with its detected corners marked, next to a circle."
+            "caption": "Illustration of the fix: the same rounded triangle, before and after tuning corner detection.",
+            "src": "/media/ajo/gesture-corners.svg",
+            "fit": "contain"
           }
         }
       ]
