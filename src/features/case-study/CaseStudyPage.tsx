@@ -59,7 +59,7 @@ export const CaseStudyPage = () => {
   const heroTone = heroHeaderTone(theme);
 
   return (
-    <article className="relative bg-night pb-[calc(110px+env(safe-area-inset-bottom))] text-fg lg:pb-[120px]" style={paletteStyle(theme.palette)}>
+    <article id="case-study" className="relative bg-night pb-[calc(110px+env(safe-area-inset-bottom))] text-fg lg:pb-[120px]" style={paletteStyle(theme.palette)}>
       <ProjectHero
         project={project}
         theme={theme}

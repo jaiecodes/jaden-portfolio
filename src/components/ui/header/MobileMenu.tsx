@@ -1,11 +1,12 @@
 // src/components/ui/header/MobileMenu.tsx
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { AboutService } from "../../../domain/services/AboutService";
 import { HeroThemeService } from "../../../domain/services/HeroThemeService";
 import { ResumeService } from "../../../domain/services/ResumeService";
 import { SiteService } from "../../../domain/services/SiteService";
+import { useDialogFocus } from "../../../hooks/useDialogFocus";
 import { ActionLink } from "../ActionLink";
 import { Icon } from "../Icon";
 import { LanternIcon } from "../LanternIcon";
@@ -26,28 +27,7 @@ export const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => vo
   const projectId = location.pathname.match(/^\/project\/([^/]+)/)?.[1];
   const project = projectId ? HeroThemeService.getByProjectId(projectId) : undefined;
 
-  // Focus the panel and keep Tab inside it while open; Esc closes.
-  useEffect(() => {
-    if (!open) return;
-    const root = panel.current;
-    root?.querySelector<HTMLElement>("a, button")?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key !== "Tab" || !root) return;
-      const items = [...root.querySelectorAll<HTMLElement>("a[href], button:not([aria-disabled])")];
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  useDialogFocus(panel, open, onClose);
 
   return (
     <AnimatePresence>

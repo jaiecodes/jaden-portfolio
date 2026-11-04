@@ -11,6 +11,7 @@ const PATHS = {
   arrowDown: "M12 5v14m-6-6 6 6 6-6",
   arrowUpRight: "M7 17 17 7M8 7h9v9",
   play: "M8 5.5v13l10-6.5-10-6.5Z",
+  expand: "M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5",
   video: "M15 10l5-3v10l-5-3M4 6h11v12H4z",
   globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3 12h18M12 3c2.5 2.5 2.5 15.5 0 18-2.5-2.5-2.5-15.5 0-18",
   github:
