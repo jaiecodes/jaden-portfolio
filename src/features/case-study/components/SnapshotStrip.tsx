@@ -1,7 +1,8 @@
 // src/features/case-study/components/SnapshotStrip.tsx
 import { forwardRef } from "react";
-import type { Project, SnapshotFact } from "../../../domain/models/Project";
+import { isPress, type Project, type SnapshotFact } from "../../../domain/models/Project";
 import { Chip } from "../../../components/ui/Chip";
+import { ActionLink } from "../../../components/ui/ActionLink";
 import { ProjectLinkButton } from "./ProjectLinkButton";
 
 const Kicker = ({ children }: { children: string }) => <p className="type-label text-faint">{children}</p>;
@@ -26,11 +27,28 @@ const CompactFact = ({ label, fact, highlight }: { label: string; fact: Snapshot
 
 /**
  * The facts at a glance under the hero (Figma: Snapshot strip): role, team
- * and timeline, stack, outcome and links. On phones it stacks, and the links
- * move to the sticky bar at the bottom of the screen.
+ * and timeline, stack, outcome, links and press. On phones it stacks, and the
+ * project's own links move to the sticky bar at the bottom of the screen.
  */
 export const SnapshotStrip = forwardRef<HTMLElement, { project: Project }>(({ project }, ref) => {
   const s = project.snapshot;
+  const own = project.links.filter((l) => !isPress(l));
+  const press = project.links.filter(isPress);
+  const pressList = press.length > 0 && (
+    <div className="flex flex-col gap-1.5">
+      <Kicker>Press</Kicker>
+      {press.map((l) => (
+        <ActionLink
+          key={l.label}
+          href={l.url}
+          bare
+          className="type-body-sm text-t-primary underline-offset-4 hover:underline lg:whitespace-nowrap"
+        >
+          {l.label}
+        </ActionLink>
+      ))}
+    </div>
+  );
   const stack = (
     <div className="flex flex-wrap gap-1.5">
       {s.stack.map((t) => (
@@ -50,10 +68,11 @@ export const SnapshotStrip = forwardRef<HTMLElement, { project: Project }>(({ pr
         <Fact label="Outcome" fact={s.outcome} highlight />
         {project.links.length > 0 && (
           <div className="flex shrink-0 flex-col items-start gap-2.5 pr-6">
-            <Kicker>Links</Kicker>
-            {project.links.map((l) => (
+            {own.length > 0 && <Kicker>Links</Kicker>}
+            {own.map((l) => (
               <ProjectLinkButton key={l.label} link={l} />
             ))}
+            {pressList}
           </div>
         )}
       </div>
@@ -62,6 +81,7 @@ export const SnapshotStrip = forwardRef<HTMLElement, { project: Project }>(({ pr
         <CompactFact label="Team & timeline" fact={s.team} />
         <CompactFact label="Outcome" fact={s.outcome} highlight />
         {stack}
+        {pressList}
       </div>
     </section>
   );

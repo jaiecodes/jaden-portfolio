@@ -41,11 +41,40 @@
         "label": "Watch video",
         "url": "",
         "primary": true
+      },
+      {
+        "kind": "article",
+        "label": "Unreal Engine: CES 2026 ↗",
+        "url": "https://www.unrealengine.com/en-US/news/unreal-engine-is-everywhere-at-ces-2026-from-hmis-to-simulation-and-beyond"
+      },
+      {
+        "kind": "article",
+        "label": "Brunswick: CES 2026 ↗",
+        "url": "https://www.brunswick.com/news/press-releases/detail/956/brunswick-corporation-unveils-its-largest-ever-showcase-of"
+      },
+      {
+        "kind": "article",
+        "label": "Interesting Engineering: CES 2026 ↗",
+        "url": "https://interestingengineering.com/ces-2026/ai-powered-boats-steal-the-spotlight"
+      },
+      {
+        "kind": "article",
+        "label": "Brunswick: CES 2025 ↗",
+        "url": "https://www.brunswick.com/news/press-releases/detail/888/brunswick-corporation-adds-boating-intelligence-to"
       }
     ],
-    "video": {
-      "caption": "Promo footage of the CES 2026 exhibit"
-    },
+    "demos": [
+      {
+        "label": "CES 2026",
+        "caption": "Unreal Engine’s video on the Future Helm and Fliteboard simulators",
+        "src": "https://www.youtube.com/watch?v=iJhrmrRcLtY"
+      },
+      {
+        "label": "CES 2025",
+        "caption": "Unreal Engine’s video on Brunswick’s simulators at CES 2025",
+        "src": "https://www.youtube.com/watch?v=uOdFv7ftb_U"
+      }
+    ],
     "problem": {
       "heading": "Two separate projects had to feel like one boat.",
       "body": "The exhibit paired an Unreal environment (boat, water, world) with a separate Unreal dashboard and 3D map, both driven by a real helm. Every turn of the wheel had to land in both at once, while a team of interns kept shipping new screens. This was the exhibit’s third iteration; I’d worked on versions since 2023.",
@@ -65,7 +94,10 @@
           "approach": "I rebuilt the dashboard on CommonUI with MVVM. View models hold the live data (speed, heading, steering, weather, distance) and screens just bind to them, while CommonUI handles stacking and input focus.",
           "result": "New screens dropped from 2 weeks to 3–4 days, and the intern I mentored could build screens by binding to existing view models.",
           "visual": {
-            "caption": "Helm and game events → view models → bound widgets."
+            "caption": "The dashboard’s architecture, from the boat’s CAN bus to the screens.",
+            "src": "/media/ces-helm-sim/ui-architecture.webp",
+            "mobileSrc": "/media/ces-helm-sim/ui-architecture-mobile.webp",
+            "fit": "contain"
           }
         },
         {
@@ -74,7 +106,9 @@
           "approach": "I designed and documented the WebSocket events that pass state between them in week one, then debugged the 3D map (another intern’s task) and linked it to those events.",
           "result": "The dashboard, map and world moved together as one experience.",
           "visual": {
-            "caption": "Helm → CAN bus → environment ↔ WebSocket events ↔ UI and 3D map (redrawn)."
+            "caption": "An earlier test run in 2024: dashboard, tablet map and projected world moving together.",
+            "src": "/media/ces-helm-sim/event-stream.mp4",
+            "poster": "/media/ces-helm-sim/event-stream-poster.webp"
           }
         },
         {
@@ -83,7 +117,8 @@
           "approach": "I learned to read the helm’s CAN bus data and fed speed, direction and steering angle into the view models, then added simulated weather, time of day, and distance traveled from in-game speed.",
           "result": "The gauges responded to the real wheel and throttle, and the dashboard told the story of a trip.",
           "visual": {
-            "caption": "Dashboard with helm-driven and simulated data called out."
+            "caption": "The dashboard and side tablet at the helm of the simulator.",
+            "src": "/media/ces-helm-sim/helm.webp"
           }
         }
       ]
@@ -151,9 +186,11 @@
         "primary": true
       }
     ],
-    "video": {
-      "caption": "Promo footage of the Fliteboard experience"
-    },
+    "demos": [
+      {
+        "caption": "Promo footage of the Fliteboard experience"
+      }
+    ],
     "problem": {
       "heading": "An inherited simulator held together by magic numbers.",
       "body": "Board movement came from hand-tuned constants, the UI couldn’t track more than one rider, and the Bluetooth controller only worked through a script running outside the game. Brunswick wanted a competitive race mode with a takeaway for every rider.",
@@ -259,9 +296,11 @@
         "primary": true
       }
     ],
-    "video": {
-      "caption": "Gameplay capture from the packaged build"
-    },
+    "demos": [
+      {
+        "caption": "Gameplay capture from the packaged build"
+      }
+    ],
     "problem": {
       "heading": "Four people, four realms, one game that has to feel like one game.",
       "body": "Each teammate owned a realm (Earth, Air, Water, Fire), but every realm needed the same player, abilities, checkpoints and progress tracking. Without shared systems, we’d have shipped four games stitched together.",
@@ -372,9 +411,11 @@
         "url": ""
       }
     ],
-    "video": {
-      "caption": "Before and after: the Sea Ray SLX 280 hull"
-    },
+    "demos": [
+      {
+        "caption": "Before and after: the Sea Ray SLX 280 hull"
+      }
+    ],
     "problem": {
       "heading": "Engineering CAD is built to manufacture a boat, not to render one at 60 fps.",
       "body": "Boat CAD models every bolt, bracket and interior part. Exported, one hull runs to millions of triangles with overlapping, non-manifold geometry, and an artist spent weeks remodeling each boat by hand. I built this as an exploratory project while CES Helm was still in ideation.",
@@ -471,9 +512,11 @@
         "primary": true
       }
     ],
-    "video": {
-      "caption": "Walkthrough of the live storefront, in English and Spanish"
-    },
+    "demos": [
+      {
+        "caption": "Walkthrough of the live storefront, in English and Spanish"
+      }
+    ],
     "problem": {
       "heading": "A bakery whose menu changes every Friday can’t wait on a developer.",
       "body": "Patito’s sells small-batch, Mexican-inspired cookies (horchata, Abuelita hot chocolate, churro) baked to order, with a new batch every Friday. The owner needed a site that felt like the brand, worked in English and Spanish, and could change week to week without anyone touching code.",
@@ -570,9 +613,11 @@
         "primary": true
       }
     ],
-    "video": {
-      "caption": "Recreated offline demo: prompt → matched playlist"
-    },
+    "demos": [
+      {
+        "caption": "Recreated offline demo: prompt → matched playlist"
+      }
+    ],
     "problem": {
       "heading": "Public spaces play one person’s playlist to a room full of people.",
       "body": "Gyms, cafés and shops pick a playlist and hope. Mix Space lets everyone in the room shape it without installing anything: scan a code, log in with Spotify, and your top tracks join the pool. The host sets the mood in plain words, like “hype workout” or “coffeehouse acoustics.”",
@@ -674,9 +719,11 @@
         "url": ""
       }
     ],
-    "video": {
-      "caption": "Day 1 RSSI-vs-position plot"
-    },
+    "demos": [
+      {
+        "caption": "Day 1 RSSI-vs-position plot"
+      }
+    ],
     "problem": {
       "heading": "A camera is hidden in the room. All you have is its Wi-Fi traffic.",
       "body": "A Raspberry Pi “spy camera” was hidden somewhere in a zoned room. We had to find it with our own Pi, using only the signal strength (RSSI) of its packets and the Sense HAT’s motion sensors. On Day 2 the camera only transmitted when it detected motion, and decoys were added.",
@@ -773,9 +820,11 @@
         "primary": true
       }
     ],
-    "video": {
-      "caption": "Gameplay capture from the final build"
-    },
+    "demos": [
+      {
+        "caption": "Gameplay capture from the final build"
+      }
+    ],
     "problem": {
       "heading": "Two weeks to turn a pitch into a game nobody had seen before.",
       "body": "Faculty formed new teams to build original games. We pitched three ideas and they picked AJO: a puzzle platformer where Ajo, a boy who lost his memory, recovers it level by level. Every power is cast by drawing a shape: swipe for Wind, circle for Fire, triangle for Earth, rectangle for Water.",

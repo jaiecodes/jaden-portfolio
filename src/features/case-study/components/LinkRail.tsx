@@ -9,6 +9,7 @@ const ICON: Record<LinkKind, IconName> = {
   site: "globe",
   source: "github",
   download: "file",
+  article: "article",
 };
 
 /**
@@ -37,7 +38,7 @@ export const LinkRail = ({ links, visible }: { links: ProjectLink[]; visible: bo
             className={`group/link flex items-center rounded-full outline-none ${l.primary ? "text-t-primary" : "text-fg"}`}
           >
             {/* No gap at rest, so the icons sit centred in the rail */}
-            <span className="type-body-sm max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover/rail:mr-3 group-hover/rail:max-w-[160px] group-hover/rail:pl-3.5 group-hover/rail:opacity-100 group-focus-within/rail:mr-3 group-focus-within/rail:max-w-[160px] group-focus-within/rail:pl-3.5 group-focus-within/rail:opacity-100">
+            <span className="type-body-sm max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover/rail:mr-3 group-hover/rail:max-w-[300px] group-hover/rail:pl-3.5 group-hover/rail:opacity-100 group-focus-within/rail:mr-3 group-focus-within/rail:max-w-[300px] group-focus-within/rail:pl-3.5 group-focus-within/rail:opacity-100">
               {l.label.replace(/\s*[↗↓]$/, "")}
             </span>
             <span

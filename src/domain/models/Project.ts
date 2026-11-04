@@ -1,8 +1,8 @@
 // src/domain/models/Project.ts
 
 /** What a project link does: plays the demo on the page, opens a site, the
- *  source, or a file. Decides the link rail icon. */
-export type LinkKind = "video" | "site" | "source" | "download";
+ *  source, a file, or press coverage. Decides the link rail icon. */
+export type LinkKind = "video" | "site" | "source" | "download" | "article";
 
 export interface ProjectLink {
   kind: LinkKind;
@@ -16,6 +16,9 @@ export interface ProjectLink {
 
 /** Where a project link points: video links play the demo on the page. */
 export const linkHref = (link: ProjectLink): string => (link.kind === "video" ? "#demo" : link.url);
+
+/** Press coverage sits apart from the project's own links on the page and on phones. */
+export const isPress = (link: ProjectLink): boolean => link.kind === "article";
 
 /** A labelled fact in the snapshot strip: a value and a quieter detail. */
 export interface SnapshotFact {
@@ -32,8 +35,12 @@ export interface ProjectSnapshot {
 
 export interface Visual {
   caption: string;
-  /** Image, GIF or video for the slot; the slot shows its caption until set. */
+  /** Names it in a demo switch, e.g. "CES 2026". */
+  label?: string;
+  /** Image, GIF, video or YouTube link for the slot; the slot shows its caption until set. */
   src?: string;
+  /** An image redrawn for phones, e.g. a simpler diagram. */
+  mobileSrc?: string;
   /** Still shown before a video starts, and instead of it with reduced motion. */
   poster?: string;
   /** "contain" shows all of a diagram or plot; "cover" (default) fills the slot. */
@@ -43,6 +50,10 @@ export interface Visual {
 }
 
 export const isVideoSrc = (src: string): boolean => /\.(mp4|webm|mov)$/i.test(src);
+
+/** The video id in a YouTube link, or null for anything else. */
+export const youtubeId = (src: string): string | null =>
+  src.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/)?.[1] ?? null;
 
 export interface Highlight {
   title: string;
@@ -74,7 +85,8 @@ export interface ProjectData {
   subtitle: string;
   snapshot: ProjectSnapshot;
   links: ProjectLink[];
-  video: Visual;
+  /** The demo videos; more than one gets a switch. */
+  demos: Visual[];
   problem: { heading: string; body: string; constraints: string[] };
   highlights: { heading: string; items: Highlight[] };
   stats: Stat[];
@@ -108,7 +120,7 @@ export class Project {
   readonly subtitle: string;
   readonly snapshot: ProjectSnapshot;
   readonly links: ProjectLink[];
-  readonly video: Visual;
+  readonly demos: Visual[];
   readonly problem: ProjectData["problem"];
   readonly highlights: ProjectData["highlights"];
   readonly stats: Stat[];
@@ -126,7 +138,7 @@ export class Project {
     this.subtitle = data.subtitle;
     this.snapshot = data.snapshot;
     this.links = data.links;
-    this.video = data.video;
+    this.demos = data.demos;
     this.problem = data.problem;
     this.highlights = data.highlights;
     this.stats = data.stats;

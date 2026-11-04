@@ -30,6 +30,9 @@ export const Media = ({ visual, muted = true }: { visual: Visual & { src: string
       className={`size-full ${fit}`}
     />
   ) : (
-    <img src={visual.src} alt={visual.caption} loading="lazy" className={`size-full ${fit}`} />
+    <picture className="contents">
+      {visual.mobileSrc && <source media="(max-width: 1023px)" srcSet={visual.mobileSrc} />}
+      <img src={visual.src} alt={visual.caption} loading="lazy" className={`size-full ${fit}`} />
+    </picture>
   );
 };

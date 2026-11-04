@@ -22,7 +22,7 @@ const VisualSlot = ({ visual }: { visual: Highlight["visual"] }) => {
   return (
     <figure className="flex w-full flex-col gap-3 lg:w-[680px] lg:shrink-0">
       <div
-        className={`relative flex aspect-[680/400] items-center justify-center overflow-hidden rounded-[14px] border border-line bg-sunken ${
+        className={`relative flex aspect-[350/210] items-center lg:aspect-[680/400] justify-center overflow-hidden rounded-[14px] border border-line bg-sunken ${
           src ? "" : "border-dashed"
         }`}
       >

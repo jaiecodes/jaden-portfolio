@@ -75,7 +75,7 @@ export const CaseStudyPage = () => {
         />
         <div className="relative mx-auto flex max-w-[1440px] flex-col gap-10 px-5 pt-[30px] lg:-mt-2.5 lg:gap-[140px] lg:px-5 lg:pt-0">
           <SnapshotStrip ref={snapshot} project={project} />
-          <DemoVideo video={project.video} poster={<PosterScene theme={theme} />} />
+          <DemoVideo demos={project.demos} poster={<PosterScene theme={theme} />} />
           <ProblemSection problem={project.problem} />
           <section className="flex flex-col gap-10 lg:gap-20" aria-label="Highlights">
             <SectionHeader kicker="What I built" title={project.highlights.heading} />
