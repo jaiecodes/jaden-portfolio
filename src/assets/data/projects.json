@@ -402,18 +402,23 @@
       {
         "kind": "source",
         "label": "Source code ↗",
-        "url": "",
+        "url": "https://github.com/jaiecodes/CADSimplifyApp",
         "primary": true
-      },
-      {
-        "kind": "download",
-        "label": "Download",
-        "url": ""
       }
     ],
     "demos": [
       {
-        "caption": "Before and after: the Sea Ray SLX 280 hull"
+        "label": "The app",
+        "caption": "A full run on the Sea Ray SLX 280, sped up: 7.4M triangles in, 26,938 out.",
+        "src": "/media/cad-simplifier/run.mp4",
+        "poster": "/media/cad-simplifier/run-poster.webp"
+      },
+      {
+        "label": "On Android",
+        "caption": "A quick test app I built, with the simplified SLX 280 running live.",
+        "src": "/media/cad-simplifier/android.mp4",
+        "poster": "/media/cad-simplifier/android-poster.webp",
+        "fit": "contain"
       }
     ],
     "problem": {
@@ -435,7 +440,9 @@
           "approach": "I wrote a small C++ tool on CGAL’s 3D Alpha Wrapping that shrink-wraps the model in a clean, watertight surface. Alpha and offset scale with the model’s size, and a second, coarser pass tightens it further.",
           "result": "7,374,479 → 1,260,118 → 410,694 triangles from the wraps, then 26,938 after Blender decimation.",
           "visual": {
-            "caption": "Alpha and offset comparison."
+            "caption": "The SLX 280 after the pipeline, at 26,938 triangles.",
+            "src": "/media/cad-simplifier/result.mp4",
+            "poster": "/media/cad-simplifier/result-poster.webp"
           }
         },
         {
@@ -444,7 +451,8 @@
           "approach": "A Python orchestrator runs each step as a subprocess and finds the installs automatically; headless Blender converts to quads, decimates and exports FBX; a Toga app exposes three sliders and a live log, packaged as a native installer.",
           "result": "The sim’s graphics team went from weeks of remodeling to minutes, and spent that time retexturing instead.",
           "visual": {
-            "caption": "Desktop app and output log."
+            "caption": "The final app mid-run, with its early Mac prototype inset.",
+            "src": "/media/cad-simplifier/app.webp"
           }
         }
       ]
