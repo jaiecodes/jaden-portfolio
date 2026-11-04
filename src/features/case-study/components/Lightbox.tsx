@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { isVideoSrc, type Visual } from "../../../domain/models/Project";
 import { Icon } from "../../../components/ui/Icon";
 import { useDialogFocus } from "../../../hooks/useDialogFocus";
+import { Picture } from "./Picture";
 
 interface LightboxProps {
   visual: Visual & { src: string };
@@ -17,9 +18,8 @@ interface LightboxProps {
 /**
  * The expanded view of a case study image or video: as large as fits, with its
  * caption, over the dimmed page. Esc, the close button or a click outside
- * closes it. Phones get the full image here rather than their `mobileSrc`.
- * Rendered into the page's <article> so it keeps the project's palette, and
- * outside the animated blocks so `fixed` means the screen.
+ * closes it. Rendered into the page's <article> so it keeps the project's
+ * palette, and outside the animated blocks so `fixed` means the screen.
  */
 export const Lightbox = ({ visual, startAt, muted, onClose }: LightboxProps) => {
   const panel = useRef<HTMLDivElement>(null);
@@ -77,13 +77,8 @@ export const Lightbox = ({ visual, startAt, muted, onClose }: LightboxProps) => 
           controls
           className={fit}
         />
-      ) : visual.mobileSrc ? (
-        // The full diagram is unreadable at an upright phone's width, so it pans there instead.
-        <div onClick={stop} className="max-h-[calc(100dvh-136px)] max-w-full overflow-auto rounded-[14px]">
-          <img src={visual.src} alt={visual.caption} className="block max-h-[calc(100dvh-136px)] max-w-full object-contain max-lg:portrait:h-auto max-lg:portrait:max-h-none max-lg:portrait:w-[860px] max-lg:portrait:max-w-none" />
-        </div>
       ) : (
-        <img src={visual.src} alt={visual.caption} onClick={stop} className={fit} />
+        <Picture visual={visual} onClick={stop} className={fit} />
       )}
       <p onClick={stop} className="type-body-sm max-w-[760px] text-center text-muted">
         {visual.caption}

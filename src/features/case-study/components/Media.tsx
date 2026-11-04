@@ -5,6 +5,7 @@ import { isVideoSrc, type Visual } from "../../../domain/models/Project";
 import { useAutoplayInView } from "../../../hooks/useAutoplayInView";
 import { Icon } from "../../../components/ui/Icon";
 import { Lightbox } from "./Lightbox";
+import { Picture } from "./Picture";
 
 /**
  * A case study image, GIF or video filling its slot; clicking it opens the
@@ -48,10 +49,7 @@ export const Media = ({ visual, muted = true }: { visual: Visual & { src: string
           className={`size-full ${fit}`}
         />
       ) : (
-        <picture className="contents">
-          {visual.mobileSrc && <source media="(max-width: 1023px)" srcSet={visual.mobileSrc} />}
-          <img src={visual.src} alt={visual.caption} loading="lazy" className={`size-full ${fit}`} />
-        </picture>
+        <Picture visual={visual} loading="lazy" className={`size-full ${fit}`} />
       )}
       <button
         type="button"
