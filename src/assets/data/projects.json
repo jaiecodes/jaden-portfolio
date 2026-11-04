@@ -395,7 +395,7 @@
       ],
       "outcome": {
         "value": "Weeks of remodeling → minutes",
-        "detail": "7.4M → 27K triangles on a Sea Ray SLX 280"
+        "detail": "7.4M → 27K triangles on a full boat"
       }
     },
     "links": [
@@ -409,16 +409,15 @@
     "demos": [
       {
         "label": "The app",
-        "caption": "A full run on the Sea Ray SLX 280, sped up: 7.4M triangles in, 26,938 out.",
+        "caption": "A full run on a boat model, sped up: 7.4M triangles in, 26,938 out.",
         "src": "/media/cad-simplifier/run.mp4",
         "poster": "/media/cad-simplifier/run-poster.webp"
       },
       {
         "label": "On Android",
-        "caption": "A quick test app I built, with the simplified SLX 280 running live.",
+        "caption": "A quick test app I built, with the simplified boat running live.",
         "src": "/media/cad-simplifier/android.mp4",
-        "poster": "/media/cad-simplifier/android-poster.webp",
-        "fit": "contain"
+        "poster": "/media/cad-simplifier/android-poster.webp"
       }
     ],
     "problem": {
@@ -440,7 +439,7 @@
           "approach": "I wrote a small C++ tool on CGAL’s 3D Alpha Wrapping that shrink-wraps the model in a clean, watertight surface. Alpha and offset scale with the model’s size, and a second, coarser pass tightens it further.",
           "result": "7,374,479 → 1,260,118 → 410,694 triangles from the wraps, then 26,938 after Blender decimation.",
           "visual": {
-            "caption": "The SLX 280 after the pipeline, at 26,938 triangles.",
+            "caption": "The boat after the pipeline, at 26,938 triangles.",
             "src": "/media/cad-simplifier/result.mp4",
             "poster": "/media/cad-simplifier/result-poster.webp"
           }
