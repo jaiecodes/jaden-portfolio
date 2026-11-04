@@ -859,8 +859,9 @@
           "result": "Sloppy triangles still register three corners and reliably cast the Earth rock.",
           "visual": {
             "caption": "Illustration of the fix: the same rounded triangle, before and after tuning corner detection.",
-            "src": "/media/ajo/gesture-corners.svg",
-            "fit": "contain"
+            "src": "/media/ajo/gesture-corners.mp4",
+            "fit": "contain",
+            "poster": "/media/ajo/gesture-corners-poster.webp"
           }
         }
       ]
